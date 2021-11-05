@@ -33,8 +33,10 @@ import watchGetSubcategorySaga from './watchGetSubcategorySaga';
 import watchLikeUnlikePostSaga from './watchLikeUnlikePostSaga';
 import watchOpenConversationSaga from './watchOpenConversationSaga';
 import watchProviderSaga from './watchProviderSaga';
+import watchQuizResultSaga from './watchQuizResultSaga';
 import watchRegisterSaga from './watchRegisterSaga';
 import watchSendFormSaga from './watchSendFormSaga';
+import watchSetQuizSaga from './watchSetQuizSaga';
 import watchSimpleTypesSaga from './watchSimpleTypesSaga';
 import watchStoreAdditionalInfoSaga from './watchStoreAdditionalInfoSaga';
 import watchStoreBirthdayInfoSaga from './watchStoreBirthdayInfoSaga';
@@ -51,6 +53,8 @@ export default function* rootSaga() {
         fork(watchVerificationSaga),
         fork(watchProviderSaga),
         fork(watchGetQuizSaga),
+        fork(watchSetQuizSaga),
+        fork(watchQuizResultSaga),
         fork(watchGetJobsSaga),
         fork(watchGetFavoriteJobSaga),
         fork(watchGetFavoriteJobsSaga),

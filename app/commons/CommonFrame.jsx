@@ -1,7 +1,7 @@
 import React from 'react'
-import { ScrollView } from 'react-native'
+import { ScrollView } from 'react-native-gesture-handler'
 import colors from '../utils/colors'
-import { responsiveWidth } from '../utils/layout'
+import layout, { responsiveWidth } from '../utils/layout'
 import Constants from 'expo-constants'
 
 export default function CommonFrame({
@@ -9,8 +9,9 @@ export default function CommonFrame({
 }) {
     return (
         <ScrollView
+            nestedScrollEnabled={true} 
             style={{
-                height: "100%",
+                height: layout.height,
                 backgroundColor: colors.white,
                 // paddingTop: Constants.statusBarHeight,
                 paddingHorizontal: responsiveWidth(17.5),

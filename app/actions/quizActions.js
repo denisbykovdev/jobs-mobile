@@ -66,11 +66,11 @@ export const setQuizStart = () => ({
 })
 
 export const setQuizSuccess = (
-    sub_categories
+    status
 ) => ({
     type: SET_QUIZ_SUCCES,
     payload: {
-        sub_categories
+        status
     }
 })
 

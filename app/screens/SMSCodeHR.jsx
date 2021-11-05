@@ -14,7 +14,7 @@ import AvoidingView from '../commons/AvoidingView';
 import CommonFrame from '../commons/CommonFrame';
 import LogoHorizontal from '../icons/LogoHorizontal';
 import Login from '../icons/Login';
-import { responsiveWidth } from '../utils/layout';
+import layout, { responsiveWidth } from '../utils/layout';
 import colors from '../utils/colors';
 import fonts from '../utils/fonts';
 import weights from '../utils/weights';
@@ -71,6 +71,7 @@ const SMSCodeHR = () => {
     return (
         <AvoidingView>
             <CommonFrame>
+                {/* <> */}
                 <View style={styles.container}>
                     <LogoHorizontal />
                     <View
@@ -149,24 +150,38 @@ const SMSCodeHR = () => {
 
                         <Image source={icons.testDown} style={styles.imageBgDown} />
                     </View>
+                    <CommonButton
+                    onPress={() => submitCode()}
+                    buttonHeight={responsiveWidth(26.5)}
+                    title="ממשיכים"
+                    buttonStyle={{
+                        // position: 'absolute',
+                        bottom: -120
+                        // botton: 0
+                    }}
+                />
                 </View>
-                <CommonButton
+                {/* <CommonButton
                     onPress={() => submitCode()}
                     buttonHeight={responsiveWidth(26.5)}
                     title="ממשיכים"
                     buttonStyle={{
                         position: 'absolute',
-                        bottom: -120
+                        bottom: 0
+                        // bottom: -120
                     }}
-                />
+                /> */}
+                {/* </> */}
             </CommonFrame>
         </AvoidingView>
-    );
+    );``
 }
 
 const styles = StyleSheet.create({
     container: {
-        alignItems: "center"
+        alignItems: "center",
+        height: layout.height,
+        marginBottom: responsiveWidth(40),
     },
     title: {
         color: colors.darkSlateBlue,

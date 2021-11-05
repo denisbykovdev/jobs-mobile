@@ -17,7 +17,7 @@ export default function* setQuizSaga(action) {
             requestHeader
         ))
         yield put(setQuizSuccess(
-            data.sub_categories
+            data.status
         ))
     } catch (error) {
         yield put(setQuizFailure(

@@ -4,7 +4,8 @@ const quizInitial = {
     current_page: null,
     last_page: null,
     data: null,
-    sub_categories: null
+    sub_categories: null,
+    status: null
 }
 
 export const quizReducer = (
@@ -35,13 +36,14 @@ export const quizReducer = (
         case SET_QUIZ_START:
             return {
                 ...state,
-                posting: true
+                posting: true,
+                status: null
             }
         case SET_QUIZ_SUCCES:
             return {
                 ...state,
                 posting: false,
-                sub_categories: action.payload.sub_categories
+                status: action.payload.status
             }
         case SET_QUIZ_FAILURE:
             return {

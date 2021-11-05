@@ -16,7 +16,7 @@ export default function AvoidingView({ children, avoidingStyle }) {
             style={[
                 avoidingStyle,
                 {
-                    flex: 1,
+                    flexGrow: 1,
                     color: colors.white
                 }
             ]}

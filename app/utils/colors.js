@@ -20,5 +20,6 @@ export default {
     silver: '#babec7',
     coolGreyTwo: '#a7abba',
     dusk: '#435677',
-    white: '#fff'
+    white: '#fff',
+    BLACK_20: 'rgba(31, 30, 29, 0.2)'
 }

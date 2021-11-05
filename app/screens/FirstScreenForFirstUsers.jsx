@@ -11,8 +11,11 @@ import fonts from '../utils/fonts';
 import weights from '../utils/weights';
 import { responsiveWidth } from '../utils/layout';
 import CommonButton from '../commons/CommonButton';
+import useStatusBar from '../hooks/useStatusBar';
 
 const FirstScreenForFirstUsers = () => {
+    useStatusBar('light-content', colors.white)
+
     const route = useRoute()
 
     const navigation = useNavigation()

@@ -1,6 +1,6 @@
 import { Image, ScrollView, Dimensions, Text, StyleSheet, View, ActivityIndicator, TouchableOpacity } from "react-native";
 import { icons, images } from "../configs/imagesAndIconsUrl";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import { useDispatch, useSelector } from 'react-redux';
 import { watchGetQuiz, watchSetQuiz } from '../actions/quizActions';
@@ -8,73 +8,85 @@ import LogoChosenMiniVertical from "../icons/LogoChosenMiniVertical";
 import ArrowBack from "../icons/ArrowBack";
 import { useNavigation } from "@react-navigation/native";
 import CommonFrame from "../commons/CommonFrame";
-import { responsiveWidth } from "../utils/layout";
+import layout, { responsiveWidth } from "../utils/layout";
 import colors from '../utils/colors'
 import fonts from '../utils/fonts'
 import weights from "../utils/weights";
 import ChosenTick from "../icons/ChosenTick";
 import CommonButton from "../commons/CommonButton";
+import useStatusBar from "../hooks/useStatusBar";
+import Progress from "../icons/Progress";
 
 const Quiz = () => {
-    const [questionText, setQuestionText] = useState();
-    const [quizAnswer, setQuizAnswer] = useState(1);
-    const [lastPage, setLastPage] = useState(3);
-    const [answers, setAnswers] = useState([]);
-    const [answer, setAnswer] = useState(1);
-    const [percent, setPercent] = useState(10);
+    const scrollRef = useRef()
+    useStatusBar('dark-content', colors.white)
 
-    const quiz = useSelector(state => state.quiz)
+    const [progress, setProgress] = useState(0)
+    const [answer, setAnswer] = useState(null)
 
     const idSelector = useSelector(state => state.auth.user?.id);
+    const userId = idSelector
+
+    const quizSelector = useSelector(state => state.quiz)
+
+    const answersSelector = quizSelector !== null && quizSelector.data && JSON.parse(quizSelector.data[0].answer)
+
+    const questionSelector = quizSelector !== null && quizSelector.data && quizSelector.data[0].question && quizSelector.data[0].question
+
+    const answersArray = answersSelector !== null && Object.values(answersSelector).map(answer => Object.values(answer)[0].text)
 
     const navigation = useNavigation()
 
     const dispatch = useDispatch()
-    // console.log("answers",answers)
-    //setAnswers(JSON.parse(quizSelector.data[0].answer));
-    const getQuiz = () => {
-        dispatch(watchGetQuiz(
-            quizAnswer
-        ))
-        if (quiz.data && quiz.data[0] !== null) {
-            setQuizAnswer(quiz.current_page);
-            setQuestionText(quiz.data[0].question);
-            setLastPage(quiz.last_page);
-            //setAnswers(JSON.parse(quiz.data[0].answer));
-            setAnswers(JSON.parse(quiz.data[0].answer));
-            console.log("answers", answers)
-            setPercent(Math.round(100 / lastPage * quizAnswer) + percent);
-        }
-    }
 
     useEffect(() => {
-        getQuiz();
-    }, [quizAnswer])
-
-
-    const chosenAnswer = async () => {
-        dispatch(watchSetQuiz(
-            idSelector !== null && idSelector
-        ));
-
-        if (quizAnswer < lastPage) {
-            setQuizAnswer(quizAnswer + 1);
-        } else {
-            navigation.navigate("ResultOfQuiz");
-        }
-    }
-
-    if (quiz.data && quiz.data[0].answer.length === 0) {
-        return (
-            <View>
-                <ActivityIndicator size="large" />
-            </View>
+        dispatch(
+            watchGetQuiz(
+                1
+            )
         )
+    }, [])
+
+    useEffect(() => {
+        const count = quizSelector.current_page + 1
+        const u = (count > 2) ? (100 / 60 * count) : 0
+        setProgress(u)
+
+        // console.log(
+        //     progress, u, count
+        // )
+
+    }, [quizSelector])
+
+    const submitAnswer = () => {
+        if (answer !== null) {
+            dispatch(watchSetQuiz(
+                userId,
+                3,
+                answer
+            ))
+
+            if (quizSelector.current_page === quizSelector.last_page) {
+                navigation.navigate("ResultOfQuiz")
+            } else {
+                dispatch(
+                    watchGetQuiz(
+                        quizSelector !== null && quizSelector.current_page + 1
+                    )
+                )
+            }
+        }
+
+        scrollRef.current?.scrollTo({
+            y: 0,
+            animated: true,
+          });
     }
 
     return (
         <ScrollView
             showsVerticalScrollIndicator={false}
+            ref={scrollRef}
         >
             <View style={styles.mainContainer}>
                 <View style={styles.titleContainer}>
@@ -90,6 +102,7 @@ const Quiz = () => {
                                 () => navigation.navigate(
                                     "User",
                                     { isBlog: true }
+                                    // "ResultOfQuiz"
                                 )
                             }
                         >
@@ -98,7 +111,7 @@ const Quiz = () => {
                     </View>
 
                     <View style={styles.questionNumber}>
-                        <Text style={styles.questionNumberText}>{`0${Number(quizAnswer)}`}</Text>
+                        <Text style={styles.questionNumberText}>{`${quizSelector.current_page}`}</Text>
                     </View>
 
                     <View>
@@ -109,7 +122,7 @@ const Quiz = () => {
 
                         <Text
                             style={styles.questionText}
-                        >{questionText}</Text>
+                        >{questionSelector !== null && questionSelector}</Text>
 
                         <Image
                             source={icons.testDown}
@@ -119,21 +132,18 @@ const Quiz = () => {
 
                 </View>
 
-                {console.log("quiz", quiz)}
-
-                {quiz.data &&
-                    <View style={styles.questionsContainer}>
-                        {
-                            JSON.parse(quiz.data[0].answer)[0]
-                            &&
+                <View style={styles.questionsContainer}>
+                    {
+                        answersArray && answersArray.map((string, i) => (
                             <TouchableOpacity
+                                key={i}
                                 style={styles.answerContainer}
-                                onPress={() => setAnswer(1)}
+                                onPress={() => setAnswer(string)}
                             >
                                 <LinearGradient
                                     style={styles.answerInnerContainer}
                                     colors={
-                                        answer === 1
+                                        answer === string
                                             ? ['#3CD0BD', '#219BA5']
                                             : ["white", "white"]
                                     }
@@ -142,12 +152,12 @@ const Quiz = () => {
                                         style={[
                                             styles.checkBox,
                                             {
-                                                backgroundColor: answer === 1 ? "#172C60"
+                                                backgroundColor: answer === string ? "#172C60"
                                                     : "white"
                                             }
                                         ]}
                                     >
-                                        {answer === 1
+                                        {answer === string
                                             &&
                                             <ChosenTick />
                                         }
@@ -157,129 +167,61 @@ const Quiz = () => {
                                         <Text
                                             style={[
                                                 {
-                                                    color: answer === 1
+                                                    color: answer === string
                                                         ? "white"
                                                         : "black"
                                                 },
                                                 styles.answerText
                                             ]}
-                                        >{JSON.parse(quiz.data[0].answer)[0].answer_one.text}</Text>
+                                        >{string}</Text>
                                     </View>
                                 </LinearGradient>
                             </TouchableOpacity>
-                        }
-
-                        {console.log("sdfd", quiz.data[0])}
-
-                        {
-                            JSON.parse(quiz.data[0].answer)[1]
-                            &&
-                            <TouchableOpacity
-                                style={styles.answerContainer}
-                                onPress={() => setAnswer(2)}
-                            >
-                                <LinearGradient
-                                    style={styles.answerInnerContainer}
-                                    colors={answer === 2 ? ['#3CD0BD', '#219BA5'] : ["white", "white"]}
-                                >
-                                    <View
-                                        style={[styles.checkBox, { backgroundColor: answer === 2 ? "#172C60" : "white" }]}>
-                                        {
-                                            answer === 2
-                                            &&
-                                            <ChosenTick />
-                                        }
-                                    </View>
-                                    <View style={styles.answerTextContainer}>
-                                        <Text
-                                            style={[
-                                                {
-                                                    color: answer === 2
-                                                        ? "white"
-                                                        : "black"
-                                                },
-                                                styles.answerText
-                                            ]}
-                                        >{JSON.parse(quiz.data[0].answer)[1].answer_two.text}</Text>
-                                    </View>
-                                </LinearGradient>
-                            </TouchableOpacity>}
-
-                        {JSON.parse(quiz.data[0].answer)[2] &&
-                            <TouchableOpacity style={styles.answerContainer} onPress={() => setAnswer(3)}>
-                                <LinearGradient style={styles.answerInnerContainer}
-                                    colors={answer === 3 ? ['#3CD0BD', '#219BA5'] : ["white", "white"]}>
-                                    <View
-                                        style={[styles.checkBox, { backgroundColor: answer === 3 ? "#172C60" : "white" }]}>
-                                        {answer === 3 &&
-                                            <Image
-                                                source={icons.checkIcon}
-                                                style={styles.checkBox_image}
-                                            />
-                                        }
-                                    </View>
-                                    <View style={styles.answerTextContainer}>
-                                        <Text
-                                            style={[
-                                                {
-                                                    color: answer === 3
-                                                        ? "white"
-                                                        : "black"
-                                                },
-                                                styles.answerText
-                                            ]}
-                                        >{JSON.parse(quiz.data[0].answer)[2].answer_three.text}</Text>
-                                    </View>
-                                </LinearGradient>
-                            </TouchableOpacity>}
-                        {JSON.parse(quiz.data[0].answer)[3] &&
-                            <TouchableOpacity style={styles.answerContainer} onPress={() => setAnswer(4)}>
-                                <LinearGradient style={styles.answerInnerContainer}
-                                    colors={answer === 4 ? ['#3CD0BD', '#219BA5'] : ["white", "white"]}>
-                                    <View
-                                        style={[styles.checkBox, { backgroundColor: answer === 4 ? "#172C60" : "white" }]}>
-                                        {answer === 4 &&
-                                            <Image
-                                                source={icons.checkIcon}
-                                                style={styles.checkBox_image}
-                                            />
-                                        }
-                                    </View>
-                                    <View style={styles.answerTextContainer}>
-                                        <Text
-                                            style={[
-                                                {
-                                                    color: answer === 4
-                                                        ? "white"
-                                                        : "black"
-                                                },
-                                                styles.answerText
-                                            ]}
-                                        >{JSON.parse(quiz.data[0].answer)[3].answer_four.text}</Text>
-                                    </View>
-                                </LinearGradient>
-                            </TouchableOpacity>}
-                    </View>
-                }
-                <View style={{ position: "relative", marginVertical: 42.5 }}>
-                    <View style={{ position: "absolute", height: 50 }}>
-                        <Image source={images.line} style={[styles.openStandardLoaderFill, { width: Dimensions.get('window').width }]} />
-                    </View>
-                    <View style={{ width: `${100 - (100 / lastPage * quizAnswer)}%`, overflow: "hidden", position: "absolute", height: 50 }}>
-                        <Image source={images.line} style={[styles.openStandardLoaderEmpty, { width: Dimensions.get('window').width }]} />
-                    </View>
-                    <View style={{ position: "absolute", height: 50, marginTop: 10, }}>
-                        <Image source={images.line} style={[styles.openStandardLoaderEmpty, { width: Dimensions.get('window').width, tintColor: "hsla(182, 58%, 76%, 0.2)" }]} />
-                    </View>
-                    <View style={{ position: "absolute", height: 50, marginTop: "10%", width: Dimensions.get('window').width }}>
-                        <Text style={{ textAlign: "center", color: "#9399a6", fontWeight: "bold", fontSize: 20 }}>%{percent}</Text>
-                    </View>
+                        ))
+                    }
                 </View>
-                <View style={{ paddingHorizontal: 34 }}>
 
+                <View
+                    style={{
+                        height: responsiveWidth(34),
+                        width: layout.width,
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        position: 'relative',
+                        zIndex: 1,
+                        paddingHorizontal: responsiveWidth(0.8),
+                        backgroundColor: '#EBEBEB'
+                    }}
+                >
+                    <Progress />
+                    <View
+                        style={{
+                            backgroundColor: colors.tealishTwo,
+                            position: 'absolute',
+                            width: progress,
+                            height: responsiveWidth(34),
+                            right: responsiveWidth(0.8),
+                            zIndex: -1
+                        }}
+                    ></View>
+                    <Text
+                        style={{
+                            position: 'absolute',
+                            top: responsiveWidth(20),
+                            fontSize: fonts.xlarge,
+                            fontWeight: weights.bold,
+                            color: colors.coolGrey
+                        }}
+                    >
+                        %{Math.round(progress)}
+                    </Text>
+                </View>
+
+                <View style={{ paddingHorizontal: responsiveWidth(17.5) }}>
                     <CommonButton
                         title="לשאלה הבאה"
-                        onPress={() => chosenAnswer()}
+                        onPress={() => submitAnswer()}
                         buttonHeight={responsiveWidth(26.5)}
                         buttonStyle={{
                             marginTop: responsiveWidth(23)
@@ -294,7 +236,10 @@ const Quiz = () => {
 const styles = StyleSheet.create({
     mainContainer: {
         width: "100%",
-        paddingBottom: responsiveWidth(20)
+        paddingBottom: responsiveWidth(20),
+        backgroundColor: colors.white,
+        // flex: 1,
+        // height: layout.height
     },
     titleContainer: {
         alignItems: "center",
@@ -330,10 +275,10 @@ const styles = StyleSheet.create({
     questionText: {
         paddingHorizontal: responsiveWidth(23.5),
         paddingVertical: responsiveWidth(22.5),
-        color: "#172c60",
-        paddingTop: "10%",
-        fontSize: 21,
-        fontWeight: "bold",
+        color: colors.darkSlateBlue,
+        paddingTop: responsiveWidth(20),
+        fontSize: fonts.small,
+        fontWeight: weights.bold,
         textAlign: "center"
     },
     imageBgUp: {
@@ -353,16 +298,25 @@ const styles = StyleSheet.create({
         paddingHorizontal: responsiveWidth(17.5)
     },
     answerContainer: {
-        marginBottom: responsiveWidth(8)
+        marginBottom: responsiveWidth(8),
+        shadowColor: colors.BLACK_20,
+        shadowOffset: {
+            width: 0,
+            height: 0
+        },
+        shadowRadius: 4.5,
+        shadowOpacity: 1,
+
+        elevation: 2
     },
     answerInnerContainer: {
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center",
-        borderColor: colors.tealishTwo,
+        padding: responsiveWidth(10),
+        borderColor: colors.whiteThree,
         borderRadius: 4,
-        borderWidth: responsiveWidth(0.1),
-        padding: responsiveWidth(10)
+        borderWidth: responsiveWidth(0.3)
     },
     checkBox: {
         width: responsiveWidth(15),
@@ -375,37 +329,13 @@ const styles = StyleSheet.create({
         marginRight: responsiveWidth(10)
     },
     answerText: {
-        textAlign: 'right'
+        textAlign: 'right',
+        color: colors.darkSlateBlue,
+        fontSize: fonts.small
     },
     answerTextContainer: {
         marginRight: '10%',
         width: '80%'
-    },
-
-
-
-    openStandardLoaderFill: {
-        width: 400,
-        resizeMode: 'cover',
-        height: 50,
-        tintColor: "#3cd0bd",
-    },
-    openStandardLoaderEmpty: {
-        width: 400,
-        resizeMode: 'cover',
-        height: 50,
-        tintColor: "#cccccc",
-        zIndex: 999
-    },
-
-    applyAnswer: {
-        alignItems: "center",
-        marginTop: 80,
-        borderColor: "#ffffff",
-        backgroundColor: "#30B8B2",
-        borderRadius: 2,
-        borderWidth: 0.5,
-        paddingVertical: "4%",
     }
 });
 
