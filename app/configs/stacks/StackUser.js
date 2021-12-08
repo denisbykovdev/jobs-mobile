@@ -40,30 +40,43 @@ import FaqForJobs from "../../screens/FaqForJobs";
 import Reviews from "../../screens/Reviews";
 import NewReview from "../../screens/NewReview";
 import PageForApproveReview from "../../screens/PageForApproveReview";
+import BlogPost from '../../screens/BlogPost';
+import { responsiveWidth } from '../../utils/layout';
+import colors from '../../utils/colors';
 
 const StackUser = createStackNavigator ();
 
 const BottomTab = createMaterialBottomTabNavigator();
 
-const TopTab = createMaterialTopTabNavigator();
+// const TopTab = createMaterialTopTabNavigator();
 
-const MyProfileTab = createMaterialTopTabNavigator();
-
-
+// const MyProfileTab = createMaterialTopTabNavigator();
 
 export function BottomStack ({navigation, route}) {
-
     return (
-        <BottomTab.Navigator labeled = {false} barStyle={{ backgroundColor: '#fff' }} initialRouteName={route.params !== undefined ? route.params.Screen : "MainScreenOfUsers"}>
-            <BottomTab.Screen name = "MainScreenOfUsers"
-                component = {MainScreenOfUsers}
+        <BottomTab.Navigator 
+            labeled = {false} 
+            barStyle={{ 
+                backgroundColor: colors.white, 
+                height: responsiveWidth(55.5),
+                justifyContent: 'center'
+            }} 
+            initialRouteName={
+                route.params !== undefined 
+                ? route.params.Screen 
+                : "MainScreenOfUsers"}
+        >
+            <BottomTab.Screen 
+                name="MainScreenOfUsers"
+                component={MainScreenOfUsers}
                 options={{
                      tabBarIcon: ({focused, color }) => (
                          <Image source = {icons.home} style = {{width: 31,height: 25, tintColor: focused ? "#435677" : "#babec7"}} />
                      ),
                 }}
             />
-            <BottomTab.Screen name = "Favorites"
+            <BottomTab.Screen 
+                name = "Favorites"
                 component = {Favorites}
                 options={{
                      tabBarIcon: ({focused, color }) => (
@@ -71,7 +84,8 @@ export function BottomStack ({navigation, route}) {
                      ),
                 }}
             />
-            <BottomTab.Screen name = "SearchWithFilter"
+            <BottomTab.Screen 
+                name = "SearchWithFilter"
                 component = {SearchWithFilter}
                 options={{
                      tabBarIcon: ({focused, color }) => (
@@ -79,7 +93,8 @@ export function BottomStack ({navigation, route}) {
                      ),
                 }}
             />
-            <BottomTab.Screen name = "Notifications"
+            <BottomTab.Screen 
+                name = "Notifications"
                 component = {Notifications}
                 options={{
                      tabBarIcon: ({focused, color }) => (
@@ -87,7 +102,8 @@ export function BottomStack ({navigation, route}) {
                      ),
                 }}
             />
-            <BottomTab.Screen name = "MyProfileMyDetails"
+            <BottomTab.Screen 
+                name = "MyProfileMyDetails"
                 component = {MyProfileMyDetails}
                 options={{
                      tabBarIcon: ({focused, color }) => (
@@ -102,19 +118,47 @@ export function BottomStack ({navigation, route}) {
 
 
 function UserStack ({route}) {
-
     return (
-        <StackUser.Navigator initialRouteName = {route.params.isBlog ? "BottomStack" : "Blog" }>
-            <StackUser.Screen name = "BottomStack" component = {BottomStack} options={{ headerShown: false }}/>
-            <StackUser.Screen name = "Blog" component = {Blog} options={{ headerShown: false }}/>
-            <StackUser.Screen name = "FirstScreenForFirstUsers" component = {FirstScreenForFirstUsers} options={{ headerShown: false }}/>
+        <StackUser.Navigator 
+            initialRouteName = {
+                route.params.isBlog 
+                ? 
+                "BottomStack" 
+                : 
+                "Blog" 
+            }
+        >
+            
+            <StackUser.Screen 
+                name = "BottomStack" 
+                component = {BottomStack} 
+                options={{ headerShown: false }}
+            />
+            <StackUser.Screen 
+                name = "Blog" 
+                component = {Blog} 
+                options={{ headerShown: false }}
+            />
+            <StackUser.Screen
+                name="BlogPost"
+                component={BlogPost}
+                options={{ headerShown: false }}
+            />
+
+            <StackUser.Screen 
+                name = "HeaderMenu" 
+                component = {HeaderMenu} 
+                options={{ headerShown: false }}
+            />
+
+            {/* <StackUser.Screen name = "FirstScreenForFirstUsers" component = {FirstScreenForFirstUsers} options={{ headerShown: false }}/> */}
             <StackUser.Screen name = "MyProfileNoReq" component = {MyProfileNoReq} options={{ headerShown: false }}/>
             <StackUser.Screen name = "JobsOpportunity" component = {JobsOpportunity} options={{ headerShown: false }}/>
             <StackUser.Screen name = "SearchResult" component = {SearchResult} options={{ headerShown: false }}/>
             <StackUser.Screen name = "UserTabController" component = {UserTabController} options={{ headerShown: false }}/>
             <StackUser.Screen name = "SearchWithFilterMidrashot" component = {SearchWithFilterMidrashot} options={{ headerShown: false }}/>
             <StackUser.Screen name = "AllMessages" component = {AllMessages} options={{ headerShown: false }}/>
-            <StackUser.Screen name = "HeaderMenu" component = {HeaderMenu} options={{ headerShown: false }}/>
+            
             <StackUser.Screen name = "ContactUs" component = {ContactUs} options={{ headerShown: false }}/>
             <StackUser.Screen name = "Category" component = {Category} options={{ headerShown: false }}/>
             <StackUser.Screen name = "Organization" component = {Organization} options={{ headerShown: false }}/>

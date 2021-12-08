@@ -7,6 +7,8 @@ export default function ArrowUp(props) {
         <Svg
             width={responsiveWidth(8)}
             height={responsiveWidth(11.5)}
+            // width={'100%'}
+            // height={'100%'}
             viewBox="0 0 15.938 24.438" {...props}
         >
             <LinearGradient

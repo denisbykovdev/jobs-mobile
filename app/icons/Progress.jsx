@@ -5,8 +5,8 @@ import layout, { responsiveWidth } from "../utils/layout";
 export default function Progress(props) {
   return (
     <Svg 
-      width={layout.width} 
-      // width="100%"
+      // width={layout.width} 
+      width="100%"
       height={responsiveWidth(35)} 
       viewBox="0 0 403.041 71.5" {...props}
     >

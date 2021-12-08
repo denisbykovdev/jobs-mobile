@@ -6,6 +6,7 @@ import Stars from 'react-native-stars';
 import axios from "axios";
 import { useDispatch, useSelector } from 'react-redux';
 import { watchGetFavoriteJob } from '../actions/jobsActions';
+import CommonFrame from "../commons/CommonFrame";
 
 const SendRequest = ({item, fromMyProfile,navigationTo,fetchData}) => {
 
@@ -72,6 +73,7 @@ const SendRequest = ({item, fromMyProfile,navigationTo,fetchData}) => {
 //     }
 
     return (
+        // <CommonFrame>
         <View style={shadowStyle}>
             <TouchableOpacity onPress={()=>navigationTo("JobsOpportunity",item.id)} style={{zIndex:-1}}>
                 <View style={[styles.mainContainer]}>
@@ -151,7 +153,7 @@ const SendRequest = ({item, fromMyProfile,navigationTo,fetchData}) => {
                 </TouchableOpacity>
             </View>
         </View>
-
+        // </CommonFrame>
     )
 }
 
@@ -164,7 +166,7 @@ const shadowStyle = {
 
 const styles = StyleSheet.create({
     mainContainer: {
-        paddingHorizontal: 32,
+        // paddingHorizontal: 32,
         justifyContent: "center",
         marginBottom: 24,
     },

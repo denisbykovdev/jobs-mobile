@@ -12,7 +12,7 @@ export default function SearchIconInField({
         <Svg
             width={width}
             height={height}
-            viewBox="12.146 9.354 19.375 19" {...props}
+            viewBox="12.146 9.354 19.375 19"
         >
             <Path
                 fill={iconColor}

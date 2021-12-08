@@ -15,7 +15,7 @@ import React, {useEffect, useState} from "react";
 import Header from "../components/Header";
 import {jobOpp} from "../configs/FakeData";
 import Footer from "../components/Footer";
-import YoutubePlayer from "react-native-youtube-iframe/index";
+import YoutubePlayer from "react-native-youtube-iframe";
 import Slideshow from "react-native-image-slider-show";
 import Stars from "react-native-stars";
 import {getUserToken, JobUrl} from "../configs/ApiCallHelper";

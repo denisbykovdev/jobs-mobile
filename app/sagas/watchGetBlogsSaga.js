@@ -10,16 +10,28 @@ export default function* watchGetBlogsSaga() {
 }
 
 function* getBlogsSaga(action) {
-    const url = getBlogsAll();
-    if (action.payload.category_id && action.payload.searchString) {
-        url = `${getBlogs(
-            action.payload.category_id,
-            action.payload.searchString
-        )}`
-    }    
+    // let url = getBlogsAll();
+    // if (action.payload.category_id && action.payload.searchString) {
+    //     url = `${getBlogs(
+    //         action.payload.category_id,
+    //         action.payload.searchString
+    //     )}`
+    // }    
+    // console.log(
+    //     `--- getBlogsSaga/url:`, action.payload.category_id , action.payload.searchString === undefined
+    // )
     try {
+        let url = action.payload.searchString !== undefined 
+            ? `${getBlogs(action.payload.category_id,  action.payload.searchString)}` 
+            : `${getBlogsAll}`
+
         yield put(getBlogsStart())
-        const { data } = yield call(() => axios.get(url, authHeader(action.payload.token)))
+        const { data } = yield call(() => axios.get(
+            url, 
+            action.payload.searchString !== undefined && authHeader(
+                action.payload.token
+            )
+        ))
         yield put(getBlogsSuccess(
             data.data
         ))

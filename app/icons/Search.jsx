@@ -9,7 +9,7 @@ export default function Search({
         <Svg
             width={responsiveWidth(12.5)}
             height={responsiveWidth(12.5)}
-            viewBox="0 -0.219 25.938 26.156" {...props}
+            viewBox="0 -0.219 25.938 26.156"
         >
             <Path
                 fill={iconColor}

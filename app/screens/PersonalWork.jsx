@@ -45,12 +45,12 @@ const PersonalWork = ({ navigation }) => {
     const tokenSelector = useSelector(state => state.auth?.token)
     const areasSelector = useSelector(state => state.categories?.areas)
 
-    // const areasArray = areasSelector !== null && areasSelector !== undefined && areasSelector.map(item => item.name)
+    const areasArray = areasSelector !== null && areasSelector !== undefined && areasSelector.map(item => item.name)
 
-    const areasArray = [
-        'test1',
-        'test2'
-    ]
+    // const areasArray = [
+    //     'test1',
+    //     'test2'
+    // ]
 
     useEffect(() => {
         dispatch(
@@ -94,8 +94,8 @@ const PersonalWork = ({ navigation }) => {
                 values.last_name,
                 values.phone,
                 values.organization_name,
-                // areasSelector.filter(area => area.name === values.areas),
-                values.areas,
+                areasSelector.filter(area => area.name === values.areas),
+                // values.areas,
                 values.email,
                 values.about,
                 values.avatar
@@ -229,6 +229,9 @@ const PersonalWork = ({ navigation }) => {
                             <FormButton 
                                 title="כניסה ומעבר לתקנים שלי"
                                 buttonHeight={responsiveWidth(26.5)}
+                                buttonStyle={{
+                                    zIndex: -1
+                                }}
                             />
                         </View>
                     </FormContainer>

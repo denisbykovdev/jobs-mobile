@@ -49,7 +49,7 @@ const Quiz = () => {
 
     useEffect(() => {
         const count = quizSelector.current_page + 1
-        const u = (count > 2) ? (100 / 60 * count) : 0
+        const u = (count > 2) ? (100 / quizSelector.last_page * count) : 0
         setProgress(u)
 
         // console.log(
@@ -184,14 +184,16 @@ const Quiz = () => {
                 <View
                     style={{
                         height: responsiveWidth(34),
-                        width: layout.width,
+                        // width: layout.width,
+                        width: '100%',
                         flexDirection: 'row',
                         alignItems: 'center',
                         justifyContent: 'center',
                         position: 'relative',
                         zIndex: 1,
-                        paddingHorizontal: responsiveWidth(0.8),
-                        backgroundColor: '#EBEBEB'
+                        // paddingHorizontal: responsiveWidth(0.8),
+                        backgroundColor: '#EBEBEB',
+                        overflow: "hidden"
                     }}
                 >
                     <Progress />
@@ -199,9 +201,10 @@ const Quiz = () => {
                         style={{
                             backgroundColor: colors.tealishTwo,
                             position: 'absolute',
-                            width: progress,
+                            width: responsiveWidth(progress),
                             height: responsiveWidth(34),
-                            right: responsiveWidth(0.8),
+                            // right: responsiveWidth(0.8),
+                            // rigth: 0,
                             zIndex: -1
                         }}
                     ></View>

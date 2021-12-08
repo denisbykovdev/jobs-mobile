@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { Children, useEffect, useRef, useState } from "react";
 import { useFormikContext } from "formik";
 import {
     Animated,
@@ -19,12 +19,16 @@ import ArrowUp from "../icons/ArrowUp";
 export default function FormSelect({
     name,
     array,
+    // arrayOfObjects,
     placeholder,
     interSepter,
     selectContainerStyle,
     multi = false,
     width = '100%',
     height = responsiveWidth(20),
+    leftArrow = false,
+    submitting = false,
+    children,
     ...otherProps
 }) {
     const [isOpen, setOpen] = useState(false);
@@ -32,7 +36,8 @@ export default function FormSelect({
     const {
         setFieldValue,
         setFieldTouched,
-        values
+        values,
+        submitForm
     } = useFormikContext();
 
     const animatedIconRotation = useRef(new Animated.Value(0)).current;
@@ -56,6 +61,7 @@ export default function FormSelect({
             setFieldValue(name, e);
             interSepter && interSepter(name, e)
             setOpen(false)
+            submitting && submitForm()
         }
     }
 
@@ -105,6 +111,8 @@ export default function FormSelect({
                         borderBottomColor: !isOpen && colors.border,
                         borderBottomStartRadius: !isOpen && 5,
                         borderBottomEndRadius: !isOpen && 5,
+
+                        flexDirection: !leftArrow ? 'row' : 'row-reverse'
                     }
                 ]}
                 onPress={() => openSelectHandler()}
@@ -134,10 +142,36 @@ export default function FormSelect({
                         }
                     ]}
                 >
-                    <ArrowDown
-                        style={{ transform: [{ rotate: '180deg' }] }}
-                        iconColor={isOpen ? colors.whiteTwo : colors.darkGreyBlue}
-                    />
+                    {
+                        children
+                        ?
+                        children
+                        :
+                        <ArrowDown
+                            style={{ 
+                                transform: [{ 
+                                    rotate: '180deg' 
+                                }] 
+                            }}
+                            iconColor={
+                                isOpen 
+                                ? colors.whiteTwo 
+                                : colors.darkGreyBlue
+                            }
+                        />
+                    }
+                    {/* <ArrowDown
+                            style={{ 
+                                transform: [{ 
+                                    rotate: '180deg' 
+                                }] 
+                            }}
+                            iconColor={
+                                isOpen 
+                                ? colors.whiteTwo 
+                                : colors.darkGreyBlue
+                            }
+                    /> */}
                 </Animated.View>
 
             </TouchableOpacity>
@@ -236,7 +270,7 @@ const styles = StyleSheet.create({
         borderRightWidth: responsiveWidth(1),
 
         paddingHorizontal: responsiveWidth(9),
-        flexDirection: 'row',
+        // flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
     },

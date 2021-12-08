@@ -18,6 +18,6 @@ export default function useSecure(key) {
     }, [])
 
     return {
-        secure: null
+        secure
     }
 }

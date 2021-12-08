@@ -29,13 +29,15 @@ const ChooseTheTypeUsers = () => {
 
     const { secure: secureUser } = useSecure(`user`)
 
-    const [chosenUser, setChosenUser] = useState(3)
-
     const navigation = useNavigation()
 
     const simpleTypesSelector = useSelector(state => state.auth.simpleTypes)
 
-    // const tokenSelector = useSelector(state => state.auth.token);
+    const tokenSelector = useSelector(state => state.auth?.token);
+
+    const userSelector = useSelector(state => state.auth?.user)
+
+    const [chosenUser, setChosenUser] = useState(0)
 
     const users = simpleTypesSelector;
 
@@ -46,47 +48,64 @@ const ChooseTheTypeUsers = () => {
     }, [])
 
     useEffect(() => {
-        console.log(
-            `--- ChooseTheTypeUsers/effect/secure:`, secureToken, secureUser
-        )
-        dispatch(
-            verificationSuccess(
-                secureToken,
-                secureUser
-            )
-        )
+        if(secureToken
+            && secureUser) {
+                console.log(
+                    `--- ChooseTheTypeUsers/effect/secure:`,
+                    secureToken,
+                    secureUser
+                )
+
+                dispatch(
+                    verificationSuccess(
+                        secureToken,
+                        secureUser
+                    )
+                )
+
+                setChosenUser(secureUser.role_id.id)
+            }
     }, [secureToken, secureUser])
 
     const userHandler = () => {
-        secureToken && !secureUser.is_hr 
-        ? navigation.navigate(`User`, { isBlog: true })
-        : navigation.navigate(`SignUpAndSignIn`, { chosenUser })
+        // secureToken && !secureUser.is_hr 
+        tokenSelector
+            && !userSelector?.is_hr
+            ? navigation.navigate(
+                `User`,
+                {
+                    isBlog: !userSelector?.is_midrashot && !userSelector?.is_before_school
+                }
+            )
+            : navigation.navigate(`SignUpAndSignIn`, { chosenUser })
     }
 
     const hrHandler = () => {
-        secureToken && secureUser.is_hr 
-        ? navigation.navigate(`Hr`)
-        : navigation.navigate("SignUpHR")
+        // secureToken && secureUser.is_hr 
+        tokenSelector
+            && userSelector?.is_hr
+            ? navigation.navigate(`Hr`)
+            : navigation.navigate("SignUpHR")
     }
 
     return (
-        <ScrollView 
+        <ScrollView
             style={styles.container}
             showsVerticalScrollIndicator={false}
         >
-            <ImageBackground 
-                source={images.userTypeBg} 
+            <ImageBackground
+                source={images.userTypeBg}
                 style={styles.image}
             >
-                <View 
+                <View
                     style={[
-                        styles.imageContainer, 
-                        { marginTop: responsiveWidth(20)}
+                        styles.imageContainer,
+                        { marginTop: responsiveWidth(20) }
                     ]}
                 >
                     <LogoHorizontalWhite />
                 </View>
-                
+
                 <View>
                     <IconLineWrapper
                         iconLineStyle={{
@@ -104,81 +123,97 @@ const ChooseTheTypeUsers = () => {
             </ImageBackground>
             {/* .slice(0).reverse() */}
             <View style={styles.usersChosenContainer}>
-                {users !== null && users.map((item, index) => {
-
-                    return (
-                        <LinearGradient 
-                            key={index}
-                            colors={
-                                chosenUser === item.id 
-                                ? ['#3CD0BD', '#219BA5'] 
-                                : ["white", "white"]
-                            }
-                            style={styles.chooseUserBlock}
-                        >
-                            <TouchableOpacity 
-                                onPress={() => setChosenUser(item.id)}
+                {
+                    users !== null
+                    && users.map((item, index) => {
+                        return (
+                            <LinearGradient
+                                key={index}
+                                colors={
+                                    // userSelector.role_id.id 
+                                    //     === item.id 
+                                    //     ||
+                                    chosenUser === item.id
+                                        ? ['#3CD0BD', '#219BA5']
+                                        : ["white", "white"]
+                                }
+                                style={styles.chooseUserBlock}
                             >
-                                <View style={styles.mainUserBlock}>
-                                    <View
-                                        style={[
-                                            styles.iconBlock, 
-                                            { 
-                                                backgroundColor: chosenUser === item.id 
-                                                ? "#83E0D9" 
-                                                : "#F4F8F9" 
-                                            }
-                                        ]}
-                                    >
-                                        <Image 
-                                            source={{ 
-                                                uri: chosenUser === item.id 
-                                                ? JobUrl + item.icon_active 
-                                                : JobUrl + item.icon 
-                                            }} 
-                                            style={{ 
-                                                resizeMode: 'contain', 
-                                                width: 51, 
-                                                height: 63 
-                                            }} 
-                                        />
-                                    </View>
-                                    <View
-                                        style={
-                                            chosenUser === item.id 
-                                            ? styles.chosenUser 
-                                            : styles.passiveChosenUser
-                                        }
-                                    >
-                                        {
-                                            chosenUser === item.id 
-                                            &&
-                                            <View 
-                                                style={styles.whiteCircle} 
+                                <TouchableOpacity
+                                    onPress={
+                                        userSelector === null 
+                                        || userSelector !== null 
+                                        && userSelector.role_id.id 
+                                        === item.id 
+                                        ? () => setChosenUser(item.id) 
+                                        : () => {}
+                                    }
+                                >
+                                    <View style={styles.mainUserBlock}>
+                                        <View
+                                            style={[
+                                                styles.iconBlock,
+                                                {
+                                                    backgroundColor: chosenUser === item.id
+                                                        ? "#83E0D9"
+                                                        : "#F4F8F9"
+                                                }
+                                            ]}
+                                        >
+                                            <Image
+                                                source={{
+                                                    uri: chosenUser === item.id
+                                                        ? JobUrl + item.icon_active
+                                                        : JobUrl + item.icon
+                                                }}
+                                                style={{
+                                                    resizeMode: 'contain',
+                                                    width: 51,
+                                                    height: 63
+                                                }}
                                             />
-                                        }
+                                        </View>
+                                        <View
+                                            style={
+                                                chosenUser === item.id
+                                                    ? styles.chosenUser
+                                                    : styles.passiveChosenUser
+                                            }
+                                        >
+                                            {
+                                                chosenUser === item.id
+                                                &&
+                                                <View
+                                                    style={styles.whiteCircle}
+                                                />
+                                            }
+                                        </View>
                                     </View>
-                                </View>
                                     <Text
                                         style={[
-                                            styles.userBlockText, 
-                                            { 
-                                                color: chosenUser === item.id 
-                                                ? colors.white 
-                                                : colors.darkSlateBlue 
+                                            styles.userBlockText,
+                                            {
+                                                color: chosenUser === item.id
+                                                    ? colors.white
+                                                    : colors.darkSlateBlue
                                             }
                                         ]}
                                     >{item.name}</Text>
-                            </TouchableOpacity>
-                        </LinearGradient>
-                    )
-                }
-                )}
+                                </TouchableOpacity>
+                            </LinearGradient>
+                        )
+                    }
+                    )}
             </View>
-            <TouchableOpacity 
-                onPress={() => hrHandler()}
+            <TouchableOpacity
+                onPress={
+                    userSelector === null ||
+                    userSelector?.is_hr 
+                    ? () => hrHandler()
+                    : () => {}
+                }
             >
-                <Text 
+                <Text
                     style={styles.greenTitle}
                 >מעבר לאזור הרכזות</Text>
             </TouchableOpacity>

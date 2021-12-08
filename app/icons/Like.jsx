@@ -9,7 +9,7 @@ export default function Like({
         <Svg
             width={responsiveWidth(11.5)}
             height={responsiveWidth(10.5)}
-            viewBox="0 0 24.708 23.042" {...props}
+            viewBox="0 0 24.708 23.042"
         >
             <Path
                 fill={iconColor}

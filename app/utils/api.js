@@ -1089,7 +1089,7 @@ export const sendForm = `${api}/contactus`
 // }
 
 // module 10 - blogs 
-export const getBlogsAll = () => `${api}/blogs`
+export const getBlogsAll = `${api}/blogs`
 
 export const getBlogs = (category_id, searchString) => `${api}/blogs/?${category_id}=1&search=${searchString}`
 // GET 
@@ -1133,7 +1133,7 @@ export const getPost = (post_id) => `${api}/posts/${post_id}`
 //         "image": "/storage/blogs/1611070307.png"
 //     }
 // }
-export const likeUnlikePost = (post_id) => `${api}/posts/{post_id}/favorite`
+export const likeUnlikePost = (post_id) => `${api}/posts/${post_id}/favorite`
 // GET
 // const Request = {
 //     post_id: Number,

@@ -19,7 +19,7 @@ function* getAreasSaga(action) {
             )
         ))
         yield put(getAreasSuccess(
-            data.data
+            data
         ))
     } catch (error) {
         yield put(getAreasFailure(error))

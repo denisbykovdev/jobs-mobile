@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react"
 import { StyleSheet, TextInput, View } from "react-native"
 import Search from "../icons/Search"
+import SearchIconInField from "../icons/SearchIconInField"
 import colors from "../utils/colors"
 import fonts from "../utils/fonts"
 import { responsiveWidth } from "../utils/layout"
@@ -43,11 +44,11 @@ export default function useSearch({
                     justifyContent: "flex-end",
                     flexDirection: "row",
                     alignItems: 'center',
-                    borderColor: colors.darkWhite,
-                    borderWidth: responsiveWidth(2),
-                    borderRadius: 20,
-                    height: responsiveWidth(31),
-                    paddingHorizontal: responsiveWidth(8),
+                    borderColor: colors.border,
+                    borderWidth: responsiveWidth(1),
+                    borderRadius: 10,
+                    height: responsiveWidth(20),
+                    paddingHorizontal: responsiveWidth(5),
                     marginBottom: responsiveWidth(8),
                     marginTop: responsiveWidth(22)
                 }}
@@ -59,9 +60,9 @@ export default function useSearch({
                         width: searchInputWidth || responsiveWidth(239),
                         writingDirection: 'rtl',
                     }]}
-                    placeholder="... חיפוש"
+                    placeholder="?איזו כתבה לחפש לך"
                 />
-                <Search />
+                <SearchIconInField />
             </View>
 
         )
@@ -78,7 +79,7 @@ const styles = StyleSheet.create({
         alignSelf: 'flex-end',
         fontSize: fonts.xsmall,
         fontWeight: weights.thin,
-        color: colors.darkBlueGray,
+        color: colors.darkGreyBlueTwo,
         textAlign: 'right',
         height: "100%",
         width: "100%",

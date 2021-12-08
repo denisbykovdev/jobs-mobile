@@ -41,7 +41,7 @@ const HeaderMenu = ({navigation}) => {
 
                     <View style={styles.bottomBox}>
 
-                        <TouchableOpacity style={styles.bottomBoxItems} onPress={ () => navigation.navigate("MainScreenOfUsers")}>
+                        <TouchableOpacity style={styles.bottomBoxItems} onPress={ () => navigation.navigate("BottomStack")}>
                             <Image source={icons.HomeG} style={{width: 18, height: 16, marginLeft: 18}}/>
                             <Text style={styles.bottomBoxItemsText}>ראשי</Text>
                         </TouchableOpacity>

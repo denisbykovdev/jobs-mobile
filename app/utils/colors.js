@@ -21,5 +21,6 @@ export default {
     coolGreyTwo: '#a7abba',
     dusk: '#435677',
     white: '#fff',
-    BLACK_20: 'rgba(31, 30, 29, 0.2)'
+    BLACK_20: 'rgba(31, 30, 29, 0.2)',
+    imageFilter: 'rgba(60, 70, 95, 0.1)'
 }
