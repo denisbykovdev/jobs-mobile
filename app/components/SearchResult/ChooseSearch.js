@@ -1,7 +1,7 @@
 import {ScrollView, TouchableOpacity, StyleSheet, Image, Text, View, ImageBackground, TextInput} from "react-native";
 import React, {useState} from "react";
 import Header from "../../components/Header";
-import SendRequest from "../../components/SendRequest";
+import JobCard from "../../components/JobCard";
 import {mainScreenBlocks} from "../../configs/FakeData";
 import {icons, images} from "../../configs/imagesAndIconsUrl";
 

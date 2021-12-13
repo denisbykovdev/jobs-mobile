@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-around',
         borderStyle: 'solid',
-        borderWidth: responsiveWidth(2),
+        borderWidth: responsiveWidth(1),
         flexDirection: 'row',
         justifyContent: 'center',
         padding: responsiveWidth(5)

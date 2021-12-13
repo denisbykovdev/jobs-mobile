@@ -16,7 +16,7 @@ import { responsiveWidth } from "../utils/layout";
 const Header = ({
     whiteHeader, 
     visibleBackArrow,
-    // navigation
+    headerStyle
 }) => {
     // const [visibleBackArrow, setVisibleBackArrow] = useState(false)
     
@@ -36,7 +36,7 @@ const Header = ({
 
     return (
             <View 
-                style={{
+                style={[{
                     alignItems: "center",
                     flexDirection: "row",
                     justifyContent: "center",
@@ -45,7 +45,9 @@ const Header = ({
                     backgroundColor: !whiteHeader
                         ? colors.whiteTwo
                         : 'transparent'
-                }}
+                    },
+                    headerStyle
+                ]}
             >
 
                 <TouchableOpacity 

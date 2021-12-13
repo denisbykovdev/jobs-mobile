@@ -1,24 +1,32 @@
-import { StyleSheet, FlatList, ActivityIndicator, View, ScrollView } from "react-native";
+import { StyleSheet, FlatList, ActivityIndicator, View, ScrollView, Text, TouchableOpacity } from "react-native";
 import React, { useState, useEffect } from "react";
 import Header from "../components/Header";
-import SendRequest from "../components/SendRequest";
-import { JobUrl } from "../configs/ApiCallHelper";
-import axios from "axios";
-import ChooseSearch from "../components/SearchResult/ChooseSearch";
+import JobCard from "../components/JobCard";
 import { useDispatch, useSelector } from 'react-redux';
-import { watchGetFilteredJobs, watchGetJobs } from '../actions/jobsActions';
+import { getFavoriteJobStart, watchGetFavoriteJob, watchGetJobs } from '../actions/jobsActions';
 import useSecure from "../hooks/useSecure";
 import CommonFrame from "../commons/CommonFrame";
 import colors from '../utils/colors';
-import layout, { responsiveWidth } from "../utils/layout";
+import { responsiveWidth } from "../utils/layout";
 import FormContainer from "../commons/FormContainer";
 import FormSelect from "../commons/FormSelect";
 import SortBy from "../icons/SortBy";
 import Filters from "../icons/Filters";
 import useStatusBar from "../hooks/useStatusBar";
+import { useNavigation, useRoute } from "@react-navigation/native";
+import { watchGetFavoriteJobs } from "../actions/profileActions";
+import TabController from "../components/ListOfOpenOpportunities/TabController";
 
-const MainScreenOfUsers = ({ navigation }) => {
+const MainScreenOfUsers = () => {
     useStatusBar('dark-content', colors.white)
+
+    const route = useRoute()
+
+    // console.log(
+    //     `--- Main/route:`, route
+    // )
+
+    const navigation = useNavigation()
 
     const [page, setPage] = useState(1)
 
@@ -28,7 +36,9 @@ const MainScreenOfUsers = ({ navigation }) => {
 
     const jobsSelector = useSelector(state => state.jobs.jobs)
 
-    const loadingSelector = useSelector(state => state.jobs.posting)
+    const favoritesSelector = useSelector(state => state.profile?.favoriteJobs)
+
+    // const loadingSelector = useSelector(state => state.jobs.posting)
 
     const [isFakeLoading, setFakeLoading] = useState(false)
 
@@ -42,8 +52,22 @@ const MainScreenOfUsers = ({ navigation }) => {
         ))
     }
 
+    const getFavorites = () => {
+        dispatch(
+            watchGetFavoriteJobs(
+                secureToken
+            )
+        )
+    }
+
     useEffect(() => {
-        secureToken !== null && getJobs()
+        if(secureToken !== null) {
+            if(route.name !== 'Favorites'){
+                getJobs()
+            }else{
+                getFavorites()
+            }
+        }
     }, [secureToken])
 
     const FilterChoose = (choose) => {
@@ -55,53 +79,6 @@ const MainScreenOfUsers = ({ navigation }) => {
                 page,
                 chooseDateOrStars
             )
-        )
-    }
-
-    const FilterChooseRight = async () => {
-        if (navigation.state.params.isMidrashot) {
-            navigation.navigate("SearchWithFilterMidrashot", { isMidrashot: navigation.state.params.isMidrashot })
-        } else {
-            navigation.navigate("SearchWithFilter", { isMidrashot: navigation.state.params.isMidrashot })
-        }
-
-    }
-
-    const navigationTo = (text, id) => {
-        console.log(text)
-        if (text === "JobsOpportunity") {
-            navigation.navigate("JobsOpportunity", { idJob: id })
-        } else if (text === "SearchWithFilter") {
-            navigation.navigate("SearchWithFilter", { idJob: id, isMidrashot: isMidrashot })
-        }
-    }
-
-    const getMoreJobs = () => {
-        console.log(
-            `--- MainScreen/getMoreJobs`
-        )
-        if (loadingSelector === true) {
-            setPage(page + 1);
-        }
-    };
-
-    const renderFooter = () => {
-        return (
-            <>
-                {
-                    loadingSelector
-                    &&
-                    <ActivityIndicator
-                        size="large"
-                        color={colors.silver}
-                        style={{
-                            marginVertical: responsiveWidth(40),
-                            alignSelf: 'center'
-                        }}
-                    />
-                }   
-                
-            </>
         )
     }
 
@@ -118,26 +95,13 @@ const MainScreenOfUsers = ({ navigation }) => {
         )
     }
 
-    const submitFilter = (values) => {
-        console.log(
-            `--- MainScreen/submitFilter/values:`, values
-        )
-        dispatch(
-            watchGetFilteredJobs(
-                secureToken
-            )
-        )
-    }
-
-    // setFakeLoading(true)
-
     const scrollEnd = (event) => {
         setFakeLoading(true)
 
-        console.log(
-             `--- MainScreen/ScrollView/scrollEnd:`, 
-             event.nativeEvent.contentOffset.y
-        )
+        // console.log(
+        //     `--- MainScreen/ScrollView/scrollEnd:`,
+        //     event.nativeEvent.contentOffset.y
+        // )
 
         setPage(page + 1)
 
@@ -147,127 +111,131 @@ const MainScreenOfUsers = ({ navigation }) => {
             chooseDateOrStars
         ))
 
-        loadingSelector === false && setFakeLoading(false)
+        // loadingSelector === false && setFakeLoading(false)
 
-        // setTimeout(
-        //     () => {
-        //         setFakeLoading(false)
-        //     },
-        //     1000
-        // )
+        setTimeout(
+            () => {
+                setFakeLoading(false)
+            },
+            1500
+        )
     }
 
     return (
         <CommonFrame
             onScrollEndDrag={scrollEnd}
             withArrow
+            commonFrameStyle={{
+                position: 'relative'
+            }}
         >
-            <Header
-            />
-            {/* <ChooseSearch
-                FilterChoose={FilterChoose}
-                FilterChooseRight={FilterChooseRight}
-            /> */}
-            <View
-                style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    marginVertical: responsiveWidth(12)
-                }}
-            >
-                <FormContainer
-                    initialValues={{
-                        dateOrStars: ''
+            <Header />
+            {
+                route.name !== 'Favorites'
+                ?
+                <View
+                    style={{
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                        marginVertical: responsiveWidth(12)
                     }}
-                    onSubmit={submitDateOrStars}
                 >
-                    <FormSelect
-                        name="dateOrStars"
-                        array={[
-                            "date",
-                            "stars"
-                        ]}
-                        placeholder="מיון"
-                        submitting
-                        leftArrow 
-                        width={responsiveWidth(77.5)}
+                    <FormContainer
+                        initialValues={{
+                            dateOrStars: ''
+                        }}
+                        onSubmit={submitDateOrStars}
                     >
-                        <SortBy />
-                    </FormSelect>
-                </FormContainer>
-                <FormContainer
-                    initialValues={{
-                        filter: ''
-                    }}
-                    onSubmit={submitFilter}
-                >
-                    <FormSelect
-                        name="filter"
-                        array={[
-                            'a-z',
-                            'z-a',
-                            'new'
-                        ]}
-                        placeholder="סינון"
-                        submitting
-                        leftArrow 
-                        width={responsiveWidth(77.5)}
+                        <FormSelect
+                            name="dateOrStars"
+                            array={[
+                                "date",
+                                "stars"
+                            ]}
+                            placeholder="מיון"
+                            submitting
+                            leftArrow
+                            width={responsiveWidth(77.5)}
+                        >
+                            <SortBy />
+                        </FormSelect>
+                    </FormContainer>
+
+                    <TouchableOpacity
+                        onPress={
+                            () => navigation.navigate(
+                                'SearchWithFilter'
+                            )
+                        }
+                        style={{
+                            borderColor: colors.border,
+                            borderWidth: responsiveWidth(1),
+                            borderRadius: 5,
+                            width: responsiveWidth(77.5),
+                            paddingHorizontal: responsiveWidth(9),
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                            justifyContent: 'space-between'
+                        }}
                     >
                         <Filters />
-                    </FormSelect>
-                </FormContainer>
-            </View>
-            {/* <FlatList
-                data={jobsSelector !== null && jobsSelector}
-                keyExtractor={item =>
-                    item.id.toString()
-                }
-                onEndReached={getMoreJobs}
-                onEndReachedThreshold={0.1}
-                renderItem={({ item }) => (
-                    <SendRequest
-                        item={item}
-                        navigationTo={navigationTo}
-                        fetchData={getJobs}
-                    />
-                )}
-                ListFooterComponent={renderFooter}
-            /> */}
-            {/* <ScrollView
-                onScrollEndDrag={() => console.log(`--- MainScreen/ScrollView/endDrag`)}
-                onScroll={scrollCatcher}
-                style={{flex:1}}
-                showsHorizontalScrollIndicator={false}
-                scrollEventThrottle={200}
-            > */}
-                {
-                    jobsSelector !== null 
-                    && jobsSelector.map((
-                        job, 
-                        index
-                        ) => (
-                            <SendRequest 
-                                key={index}
-                                item={job}
-                                fetchData={getJobs}
-                            />
-                        ))
-                }
-            {/* </ScrollView> */}
+                        <Text>
+                            סינון
+                        </Text>
+                    </TouchableOpacity>
+                </View>
+                :
+                <TabController chosenTab={3} />
+            }
 
             {
-                    isFakeLoading === true 
-                    &&
-                    <ActivityIndicator
-                        size="large"
-                        color={colors.silver}
-                        style={{
-                            marginVertical: responsiveWidth(40),
-                            paddingBottom: responsiveWidth(40),
-                            alignSelf: 'center'
-                        }}
-                    />
-            } 
+                route.name !== 'Favorites'
+                    ?
+                    (
+                        jobsSelector !== null
+                        &&
+                        jobsSelector.map((
+                            job,
+                            index
+                        ) => (
+                            <JobCard
+                                key={index}
+                                item={job}
+                            />
+                        ))
+                    )
+                    :
+                    (
+                        favoritesSelector !== undefined &&
+                        favoritesSelector !== null &&
+                        favoritesSelector.map((
+                            job,
+                            index
+                        ) => (
+                            <JobCard
+                                key={index}
+                                item={job}
+                                favorite={true}
+                            />
+                        ))
+                    )
+
+            }
+
+            {
+                isFakeLoading === true
+                // loadingSelector
+                &&
+                <ActivityIndicator
+                    size="large"
+                    color={colors.silver}
+                    style={{
+                        marginVertical: responsiveWidth(20),
+                        // paddingBottom: responsiveWidth(20),
+                        alignSelf: 'center'
+                    }}
+                />
+            }
         </CommonFrame>
     )
 }

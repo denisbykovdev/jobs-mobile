@@ -23,12 +23,15 @@ import CheckBoxBtn from "../components/SearchResult/CheckBoxBtn";
 import DropDownMultiSelectSearch from "../components/DropDownMultiSelectSearch";
 import DropDownSelectSearch from "../components/DropDownSelectSearch";
 import { useDispatch, useSelector } from 'react-redux';
-import { watchGetFilteredJobs } from '../actions/jobsActions';
+import { getJobsSuccess, watchGetFilteredJobs, watchGetJobs } from '../actions/jobsActions';
 import { watchGetSubcategoryByCategory, watchGetCategory } from '../actions/categoriesActions';
+import CommonFrame from "../commons/CommonFrame";
+import layout, { responsiveWidth } from "../utils/layout";
 
 const SearchResult = ({ navigation }) => {
 
     const [checkBox, setCheckBox] = useState(false);
+
     const [dataItem, setDataItem] = useState([]);
     const [places, setPlaces] = useState([])
     const [dataCategories, setDataCategories] = useState([])
@@ -41,86 +44,24 @@ const SearchResult = ({ navigation }) => {
     const dispatch = useDispatch()
     const token = useSelector(state => state.auth.token);
 
+    const filteredJobsSelector = useSelector(state => state.jobs.filteredJobs)
 
-    useEffect(() => {
-        const fetchData = async() => {
-            dispatch(watchGetFilteredJobs(token)); 
-        }
-        
-        // const fetchData = async () => {
-        //     const url = `${JobUrl}/api/jobs/filter/getData`;
-        //     // const token = await getUserToken();
-        //     const token = await AsyncStorage.getItem('token');
-        //     axios.get(url,
-        //         {
-        //             headers: {
-        //                 Authorization: `Bearer ${JSON.parse(token)}`
-        //             },
-        //         }).then(response => {
-        //             console.log("response11", response.data);
-        //             setDataItem(response.data && response.data)
-        //             setPlaces(response.data && response.data.places)
-
-        //             //                const values = dataItem && dataItem.places && Object.values(dataItem.places)
-        //             // const places = [values];
-        //             //                console.log(values)
-
-        //         }).catch(error => console.log("useEffect111", error));
-        // }
-        getSubCategories(3);
-        fetchData().then()
-    }, [])
+    // console.log(`________________`, filteredJobsSelector)
+    
 
     const categoriesSelector = useSelector(state => state.categories.subcategoryByCategory)
     const getCategories = async(category_id) => {
         dispatch(watchGetCategory(token, category_id)); 
     }
-    // const chooseCategoriesold = async (id) => {
-    //     const url = `${JobUrl}/api/libraries/category/${id}`
-    //     // const token = await getUserToken();
-    //     const token = await AsyncStorage.getItem('token');
-    //     axios.get(url,
-    //         {
-    //             headers: {
-    //                 "Content": "application/json",
-    //                 "Authorization": `Bearer ${token}`,
-    //                 token,
-    //             }
-    //         }).then(response => {
-    //             // console.log("chooseCategories", response);
-    //             setDataCategories(response.data && response.data)
-    //             // setDataItem(response.data && response.data)
-    //         }).catch(error => console.log("useEffect111", error));
-    // }
 
     const subCategoriesSelector = useSelector(state => state.categories.subcategoryByCategory)
     const getSubCategories = async(category_id) => {
         dispatch(watchGetSubcategoryByCategory(token, category_id)); 
     }
 
-
-    // const getSubCategoriesold = async (id) => {
-    //     //        console.log(id)
-    //     const url = `${JobUrl}/api/libraries/category/3`
-    //     const token = await AsyncStorage.getItem('token');
-    //     axios.get(url,
-    //         {
-    //             headers: {
-    //                 "Content": "application/json",
-    //                 "Authorization": `Bearer ${token}`,
-    //                 token,
-    //             }
-    //         }).then(response => {
-    //             //             console.log("chooseCategories", response);
-    //             setDataSubCategories(response.data && response.data)
-    //             // setDataItem(response.data && response.data)
-    //         }).catch(error => console.log("subcategories", error));
-    // }
-
     const putChosen = (key, id) => {
         chosen[key] = id
         //        console.log("chosen", chosen)
-
     }
 
     const putCheckBox = () => {
@@ -133,44 +74,56 @@ const SearchResult = ({ navigation }) => {
     }
 
     const onBet = async () => {
-        console.log("onBet", chosen)
-        const url = `https://api.sherutbekalut.co.il/api/jobs/0/date?search=${searchItem}`
-        // const token = await getUserToken();
-        const token = await AsyncStorage.getItem('token');
-        axios.post(url,
-            {
-                //                    years: chosen.years ? chosen.years : '',
-                categories: chosen.categories.length > 0 ? chosen.categories : '',
-                subcategories: chosen.subcategories.length > 0 ? chosen.subcategories : '',
-                organizations: chosen.organizations.length > 0 ? chosen.organizations : '',
-                area: chosen.area ? chosen.area : '',
-                nucleus: chosen.nucleus ? chosen.nucleus : 'לא',
-                is_home: chosen.is_home ? chosen.is_home : '',
-                is_out: chosen.is_out ? chosen.is_out : '',
-                is_dormitory: chosen.is_dormitory ? chosen.is_dormitory : '',
-            },
-            {
-                headers: {
-                    "Content": "application/json",
-                    "Authorization": `Bearer ${token}`,
-                    token,
-                },
-            }).then(response => {
-                const data = response.data && response.data.data;
-                console.log("onBet response", data);
-                navigation.navigate("MyProfileQuizResults", { dataBet: data })
+        const searchUrl = `https://api.sherutbekalut.co.il/api/jobs/0/date?search=${searchItem}`
 
-            }).catch(error => console.log("onBet", error));
+        try {
+            const result = await axios.post(
+                searchUrl,
+                {
+                    years: chosen.years ? chosen.years : '',
+                    categories: chosen.categories.length > 0 ? chosen.categories : '',
+                    subcategories: chosen.subcategories.length > 0 ? chosen.subcategories : '',
+                    organizations: chosen.organizations.length > 0 ? chosen.organizations : '',
+                    area: chosen.area ? chosen.area : '',
+                    nucleus: chosen.nucleus ? chosen.nucleus : 'לא',
+                    is_home: chosen.is_home ? chosen.is_home : '',
+                    is_out: chosen.is_out ? chosen.is_out : '',
+                    is_dormitory: chosen.is_dormitory ? chosen.is_dormitory : '',
+                },
+                authHeader(
+                    token
+                )
+            )
+            if(result) {
+                console.log("--- SearchWithFilter/onBet/result:", result)
+                getJobsSuccess(result)
+                navigation.navigate("SearchResult")
+            }
+        } catch (error) {
+            console.log("--- SearchWithFilter/onBet", error)
+        }
     }
 
-
+    useEffect(() => {
+        dispatch(watchGetFilteredJobs(token))
+    }, [])
 
     return (
-        <View style={styles.flex}>
-            <ScrollView style={styles.flex}>
-                <View style={[styles.mainContainer]}>
-                    <ImageBackground source={images.myProfileBg} style={styles.image}>
-                        <Header whiteHeader={true} navigation={navigation} />
+        <CommonFrame
+            commonFrameStyle={{
+                paddingHorizontal: 0,
+                paddingVertical: 0,
+                paddingTop: 0
+            }}
+        >
+                <View style={styles.mainContainer}>
+                    <ImageBackground 
+                        source={images.myProfileBg} 
+                        style={styles.image}
+                    >
+                        <Header 
+                            whiteHeader 
+                        />
                         <View style={styles.bgMainContent}>
                             <Image source={icons.search2} style={{ width: 180, height: 55 }} />
                             <Text style={styles.bgTitle}>חיפוש בכל המדרשות</Text>
@@ -188,10 +141,10 @@ const SearchResult = ({ navigation }) => {
                             </View>
                         </View>
                     </ImageBackground>
-                    <View style={styles.mainBlock}>
+                    {/* <View style={styles.mainBlock}>
                         <DropDownSelectSearch
                             key={"years"}
-                            items={dataItem.years}
+                            items={filteredJobsSelector.years}
                             name={'לאיזו שנה?'}
                             func={putChosen}
                             icon={icons.calendar}
@@ -245,7 +198,7 @@ const SearchResult = ({ navigation }) => {
                         <View style={styles.jobFor}>
                             {
                                 places.map((item, index) => {
-                                    console.log(item);
+                                    // console.log(item);
                                     return (
                                         <CheckBoxBtn
                                             key={index}
@@ -257,18 +210,14 @@ const SearchResult = ({ navigation }) => {
                                 })
                             }
                         </View>
-
-
-
                         <TouchableOpacity style={styles.btn} onPress={() => onBet()}>
                             <Text style={styles.btnText}>
                                 קדימה, למצוא מדרשה בקלות!
                             </Text>
                         </TouchableOpacity>
-                    </View>
+                    </View> */}
                 </View>
-            </ScrollView>
-        </View>
+                </CommonFrame>
     )
 }
 
@@ -281,25 +230,18 @@ const shadowStyle = {
 }
 
 const styles = StyleSheet.create({
-    flex: {
-        flex: 1,
-        backgroundColor: "white"
-    },
-
-    mainContainer: {
-        justifyContent: "center",
-        marginBottom: 24,
-    },
-
+    // mainContainer: {},
     image: {
+        alignSelf: 'center',
         flex: 1,
-        height: 500,
-        zIndex: -100
+        height: responsiveWidth(200),
+        width: layout.width,
+        paddingHorizontal: responsiveWidth(17.5),
+        paddingVertical: responsiveWidth(20)
     },
-
     bgMainContent: {
         alignItems: "center",
-        marginTop: 70
+        // marginTop: 70
     },
 
     bgTitle: {

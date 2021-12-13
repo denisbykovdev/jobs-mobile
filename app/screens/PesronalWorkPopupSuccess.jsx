@@ -7,7 +7,8 @@ import { BlurView } from 'expo-blur';
 
 const PersonalWorkPopupSuccess = ({ navigation, setModal, modal }) => {
     const hrSubmitHandler = () => {
-        navigation.navigate("ListOfOpenOpportunities")
+        // navigation.navigate("ListOfOpenOpportunities")
+        navigation.navigate("ChooseTheTypeUsers")
         setModal(false)
     }
     return (

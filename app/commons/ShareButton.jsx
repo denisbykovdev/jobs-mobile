@@ -9,7 +9,8 @@ export default function ShareButton({
     url,
     message,
     dialodTitle,
-    title
+    title,
+    without
 }) {
     const share = async() => {
 
@@ -32,14 +33,24 @@ export default function ShareButton({
 
             await Share.share(content)
         }
+
+        if(!dialodTitle && !title) {
+            const content = {
+                message: 'share message',
+                url: 'share url',
+                title: 'share title'
+            }
+
+            await Share.share(content)
+        }
     }
 
     return (
         <TouchableOpacity
             onPress={share}
             style={{
-                marginVertical: responsiveWidth(12),
-                marginHorizontal: responsiveWidth(6),
+                marginVertical: without ? 0 : responsiveWidth(12),
+                marginHorizontal: without ? 0 : responsiveWidth(6),
                 width: responsiveWidth(23.5),
                 height: responsiveWidth(23.5),
                 borderRadius: responsiveWidth(50),

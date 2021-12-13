@@ -1,9 +1,10 @@
 import * as React from "react";
 import Svg, { Path } from "react-native-svg";
 import { responsiveWidth } from "../utils/layout";
+import colors from '../utils/colors'
 
 export default function Like({
-    iconColor = "#2FB8B1"
+    iconColor = colors.tealishTwo
 }) {
     return (
         <Svg

@@ -2,7 +2,7 @@ import {ScrollView, TouchableOpacity, StyleSheet, Image, Text, AsyncStorage,Flat
 import React, {useState, useEffect} from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import SendRequest from "../components/SendRequest";
+import JobCard from "../components/JobCard";
 import TabController from "../components/ListOfOpenOpportunities/TabController";
 import {mainScreenBlocks} from "../configs/FakeData";
 import {icons} from "../configs/imagesAndIconsUrl";
@@ -124,7 +124,7 @@ const Favorites = ({navigation}) => {
                 onEndReached={() => fetchMoreUsers()}
                 onEndReachedThreshold={0.5}
                 renderItem={({item}) => (
-                    <SendRequest
+                    <JobCard
                         item={item}
                         navigationTo={navigationTo}
                         fetchData = {getFavoriteJobs}

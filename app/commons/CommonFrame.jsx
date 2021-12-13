@@ -8,8 +8,9 @@ import ScrollToTopButton from './ScrollToTopButton'
 export default function CommonFrame({
     withArrow = false,
     children,
-    onScroll,
-    onScrollEndDrag
+    onScrollEndDrag,
+    commonFrameStyle
+
 }) {
     const scrollRef = useRef()
 
@@ -17,17 +18,17 @@ export default function CommonFrame({
         <ScrollView
             ref={scrollRef}
             nestedScrollEnabled={true}
-            style={{
-                // height: layout.height,
-                backgroundColor: colors.white,
-                paddingTop: Constants.statusBarHeight,
-                paddingHorizontal: responsiveWidth(17.5),
-                paddingVertical: responsiveWidth(20)
-            }}
+            style={[
+                {
+                    backgroundColor: colors.white,
+                    paddingTop: Constants.statusBarHeight,
+                    paddingHorizontal: responsiveWidth(17.5),
+                    paddingVertical: responsiveWidth(20)
+                },
+                commonFrameStyle
+            ]}
             showsVerticalScrollIndicator={false}
-            onScroll={onScroll}
             onMomentumScrollEnd={onScrollEndDrag}
-            // onScrollEndDrag={onScrollEndDrag}
         >
             {children}
             {

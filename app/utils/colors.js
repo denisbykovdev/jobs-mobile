@@ -22,5 +22,9 @@ export default {
     dusk: '#435677',
     white: '#fff',
     BLACK_20: 'rgba(31, 30, 29, 0.2)',
-    imageFilter: 'rgba(60, 70, 95, 0.1)'
+    imageFilter: 'rgba(60, 70, 95, 0.1)',
+    veryLightBlue: '#e8eaef',
+    silverTwo: `rgba(201, 204, 211, 0.2)`,
+    cloudyBlue: 'rgb(176, 187, 217)',
+    brownGrey: 'rgb(150, 150, 150)'
 }

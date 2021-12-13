@@ -21,7 +21,7 @@ function* viewJobSaga(action) {
             )
         ))
         yield put(viewJobSuccess(
-            data
+            data.data
         ))
     } catch (error) {
         yield put(viewJobFailure(error))

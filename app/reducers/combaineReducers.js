@@ -23,7 +23,8 @@ export default combineReducers({
     // auth: persistReducer(persistConfig, authReducer),
     auth: authReducer,
     quiz: quizReducer,
-    jobs: persistReducer(persistConfig, jobsReducer),
+    // jobs: persistReducer(persistConfig, jobsReducer),
+    jobs: jobsReducer,
     hr: hrReducer,
     faq: faqReducer,
     profile: profileReducer,
@@ -31,5 +32,5 @@ export default combineReducers({
     blogs: blogsReducer,
     reviews: reviewsReducer,
     chats: chatsReducer,
-    notifications: notificationsReducer
+    notifications: persistReducer(persistConfig, notificationsReducer)
 })

@@ -10,7 +10,6 @@ export default function Favourites({
             width={responsiveWidth(13)}
             height={responsiveWidth(13)}
             viewBox="0.813 -0.25 28.834 26.167"
-            {...props}
         >
             <Path
                 fillRule="evenodd"
@@ -21,7 +20,7 @@ export default function Favourites({
             <Path
                 fillRule="evenodd"
                 clipRule="evenodd"
-                fill="#BBBFC6"
+                fill={iconColor}
                 d="M22.669.321c-2.584-.706-4.98-.229-7.202 1.27-.917.618-1.537 1.473-2.163 2.309l1.999 1.897c.321-.362.642-.732.969-1.096 2.004-2.227 5.621-2.42 7.838-.42 2.659 2.4 2.788 6.346.29 8.915-2.358 2.426-4.729 4.841-7.077 7.276-.271.282-.535.572-.804.856a26.477 26.477 0 001.953 2.052c.434-.452.87-.902 1.305-1.354l6.633-6.881c1.751-1.817 2.659-3.986 2.604-6.511-.085-3.926-2.661-7.307-6.345-8.313z"
             />
         </Svg>

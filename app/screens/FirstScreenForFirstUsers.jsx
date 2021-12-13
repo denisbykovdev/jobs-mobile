@@ -74,7 +74,7 @@ const FirstScreenForFirstUsers = () => {
                         />
                         <CommonButton
                             title="בפעם אחרת"
-                            onPress={() => navigation.navigate("User", { isBlog: true })}
+                            onPress={() => navigation.navigate("User", route.params)}
                             buttonHeight={responsiveWidth(26.5)}
                             buttonColor={colors.whiteTwo}
                             titleColor={colors.darkSlateBlue}

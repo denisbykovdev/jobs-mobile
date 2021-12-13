@@ -12,7 +12,7 @@ import {
 import React, {useState} from "react";
 import {icons, images} from "../configs/imagesAndIconsUrl";
 import Header from "../components/Header";
-import Footer from "../components/Footer";
+// import Footer from "../components/Footer";
 import {LinearGradient} from "expo-linear-gradient";
 
 
@@ -95,7 +95,7 @@ const Notifications = ({navigation}) => {
 
 
             </ScrollView>
-            <Footer chosenFooter={4} navigation={navigation}/>
+            {/* <Footer chosenFooter={4} navigation={navigation}/> */}
         </View>
     )
 }

@@ -34,7 +34,7 @@ const DropDownSelectSearch = (props) => {
                 <TouchableOpacity onPress={() => setIsOpen(!isOpen)}>
                     <ImageBackground source={isOpen ? images.greenBg : images.greenBgWithCurl}
                         style={{ width: 332, height: 72 }}>
-                        <View style={styles.toggleRowContext}>
+                        {/* <View style={styles.toggleRowContext}>
                             <View style={styles.iconCircle}>
                                 <Image source={props.icon} style={{ width: 25, height: 25 }} />
                             </View>
@@ -46,7 +46,7 @@ const DropDownSelectSearch = (props) => {
                                         source={isOpen ? icons.arrowTopWhite : icons.arrowBottom} />
                                 </View>
                             </View>
-                        </View>
+                        </View> */}
                     </ImageBackground>
                 </TouchableOpacity>
             </View>

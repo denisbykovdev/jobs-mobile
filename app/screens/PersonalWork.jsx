@@ -86,6 +86,9 @@ const PersonalWork = ({ navigation }) => {
     };
 
     const submitHrProfile = async (values) => {
+        console.log(
+            `--- PersonalWork/submitProfile/values`, values
+        )
         dispatch(
             watchStoreHrAccount(
                 secureToken && secureToken || tokenSelector !== null &&tokenSelector,
@@ -94,8 +97,8 @@ const PersonalWork = ({ navigation }) => {
                 values.last_name,
                 values.phone,
                 values.organization_name,
-                areasSelector.filter(area => area.name === values.areas),
-                // values.areas,
+                // areasSelector.filter(area => area.name === values.areas),
+                values.areas,
                 values.email,
                 values.about,
                 values.avatar
@@ -188,6 +191,7 @@ const PersonalWork = ({ navigation }) => {
                                 }}
                                 name="phone"
                                 placeholder="054-54545454" 
+                                type="number-pad"
                             />
                             <FormField
                                 fieldContainerStyle={{
@@ -215,6 +219,7 @@ const PersonalWork = ({ navigation }) => {
                                 fieldStyle={{
                                     padding: responsiveWidth(2.5)
                                 }}
+                                type="email-address"
                             />
                             <FormField
                                 fieldContainerStyle={{

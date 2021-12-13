@@ -268,9 +268,7 @@ const styles = StyleSheet.create({
         borderLeftWidth: responsiveWidth(1),
         borderRightColor: colors.border,
         borderRightWidth: responsiveWidth(1),
-
         paddingHorizontal: responsiveWidth(9),
-        // flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
     },

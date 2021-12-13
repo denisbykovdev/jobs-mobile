@@ -19,6 +19,7 @@ export default function FormField({
     area = false,
     interSepter,
     fieldContainerStyle,
+    type = 'default',
     ...otherProps
 }) {
     const {
@@ -60,6 +61,7 @@ export default function FormField({
                     ]}
                     placeholder={placeholder}
                     multiline={area}
+                    keyboardType={type}
                     {...otherProps}
                 />
 

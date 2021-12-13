@@ -5,7 +5,7 @@ const jobsInitial = {
     favouriteJob: '',
     filteredJobs: null,
     job: null,
-    applyJob: ''
+    applyJob: null
 }
 
 export const jobsReducer = (
@@ -22,7 +22,9 @@ export const jobsReducer = (
             return {
                 ...state,
                 posting: false,
-                jobs: action.payload.jobs
+                jobs: state.jobs !== null
+                    ? [ ...state.jobs, ...action.payload.jobs ]
+                    : [ ...action.payload.jobs ]
             };
         case GET_JOBS_FAILURE:
             return {
@@ -88,7 +90,9 @@ export const jobsReducer = (
         case APPLY_JOB_START:
             return {
                 ...state,
-                posting: true
+                posting: true,
+                error: null,
+                applyJob: null
             };
         case APPLY_JOB_SUCCESS:
             return {

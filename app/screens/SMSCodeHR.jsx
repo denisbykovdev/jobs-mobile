@@ -41,6 +41,8 @@ const SMSCodeHR = () => {
     const codeSelector = useSelector(state => state.auth?.code)
     const tokenSelector = useSelector(state => state.auth?.token)
     const isHrSelector = useSelector(state => state.auth.user?.is_hr)
+    const isMidrashotSelector = useSelector(state => state.auth?.user?.is_midrashot)
+    const isBeforeSchoolSelector = useSelector(state => state.auth?.user?.is_before_school)
 
     const CELL_COUNT = 4;
 
@@ -61,10 +63,27 @@ const SMSCodeHR = () => {
     }
 
     useEffect(() => {
-        if(tokenSelector && tokenSelector !== null && isHrSelector !== null && isHrSelector) {
+        if(
+            tokenSelector 
+            && tokenSelector !== null 
+            && isHrSelector !== null 
+            && isHrSelector
+        ) {
             navigation.navigate("Hr") 
-        }else if(tokenSelector && tokenSelector !== null && isHrSelector !== null && !isHrSelector){
-            navigation.navigate("FirstScreen", { isBlog: true })
+        }else if(
+            tokenSelector 
+            && tokenSelector !== null 
+            && isHrSelector !== null 
+            && !isHrSelector
+        ){
+            navigation.navigate(
+                "FirstScreen", 
+                {
+                    isBlog: isMidrashotSelector === true || isBeforeSchoolSelector === true
+                        ? false
+                        : true
+                }
+            )
         }
     }, [tokenSelector])
 

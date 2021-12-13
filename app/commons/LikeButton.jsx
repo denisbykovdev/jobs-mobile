@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Text, TouchableOpacity } from 'react-native';
 import { responsiveWidth } from '../utils/layout';
 import colors from '../utils/colors';
@@ -8,21 +8,37 @@ import Like from '../icons/Like';
 
 export default function LikeButton({
     onPress,
-    likes
+    likes,
+    without,
+    oneTime
 }) {
+    const [isLiked, setLiked] = useState(false)
+    
+    const [isClicked, setClicked] = useState(false)
+
+    const like = () => {
+        if(
+            oneTime && !isClicked
+        ){
+            onPress();
+            setLiked(!isLiked);
+            oneTime && setClicked(true)
+        }
+    }
+
     return (
         <TouchableOpacity
-            onPress={onPress}
+            onPress={() => like()}
             style={{
-                marginVertical: responsiveWidth(12),
-                marginHorizontal: responsiveWidth(6),
+                marginVertical: without ? 0 : responsiveWidth(12),
+                marginHorizontal: without ? 0 : responsiveWidth(6),
                 width: responsiveWidth(23.5),
                 height: responsiveWidth(23.5),
                 borderRadius: responsiveWidth(50),
-                borderColor: colors.whiteTwo,
+                borderColor: isLiked ? colors.tealishTwo : colors.whiteTwo,
                 borderWidth: responsiveWidth(1),
                 marginBottom: responsiveWidth(6),
-                backgroundColor: colors.whiteTwo,
+                backgroundColor: isLiked ? colors.tealishTwo : colors.whiteTwo,
                 shadowColor: colors.BLACK_20,
                 shadowOffset: {
                     width: 0,
@@ -36,7 +52,9 @@ export default function LikeButton({
                 alignSelf: 'center'
             }}
         >
-            <Like />
+            <Like 
+                iconColor={isLiked ? colors.silver : colors.tealishTwo}
+            />
             <Text
                 style={{
                     color: colors.whiteTwo,

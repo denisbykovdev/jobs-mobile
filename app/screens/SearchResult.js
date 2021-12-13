@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import React, {useState,useEffect} from "react";
 import Header from "../components/Header";
-import SendRequest from "../components/SendRequest";
+import JobCard from "../components/JobCard";
 import {mainScreenBlocks} from "../configs/FakeData";
 import {icons, images} from "../configs/imagesAndIconsUrl";
 import ChooseSearch from "../components/SearchResult/ChooseSearch";
@@ -116,7 +116,7 @@ const SearchResult = ({navigation}, props) => {
                     <ScrollView>
                         {dataBet.map((item, index) => {
                             return (
-                                <SendRequest
+                                <JobCard
                                     key={index}
                                     item={item}
                                     navigationTo={navigationTo}

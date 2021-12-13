@@ -19,6 +19,7 @@ import Progress from "../icons/Progress";
 
 const Quiz = () => {
     const scrollRef = useRef()
+
     useStatusBar('dark-content', colors.white)
 
     const [progress, setProgress] = useState(0)
@@ -33,7 +34,22 @@ const Quiz = () => {
 
     const questionSelector = quizSelector !== null && quizSelector.data && quizSelector.data[0].question && quizSelector.data[0].question
 
+    const questionIdSelector = quizSelector !== null && quizSelector.data && JSON.parse(quizSelector.data[0].id)
+
     const answersArray = answersSelector !== null && Object.values(answersSelector).map(answer => Object.values(answer)[0].text)
+
+    const answers = answersSelector !== null && Object.values(answersSelector).flatMap((answer, i) => Object.entries(answer)) 
+
+    const loadingSelector = (state => state.quiz.posting)
+
+    const answersRebuilded = []
+
+    for(let key in answers){
+         answersRebuilded.push({
+            id: answers[key][0].split("_").pop() === 'one' && 1 || answers[key][0].split("_").pop() === 'two' && 2 || answers[key][0].split("_").pop() === 'three' && 3 || answers[key][0].split("_").pop() === 'four' && 4,
+            value: answers[key][1].text
+        })
+    }
 
     const navigation = useNavigation()
 
@@ -49,12 +65,15 @@ const Quiz = () => {
 
     useEffect(() => {
         const count = quizSelector.current_page + 1
-        const u = (count > 2) ? (100 / quizSelector.last_page * count) : 0
+        const u = (count > 2) ? (100 / quizSelector.last_page * (count - 2)) : 0
         setProgress(u)
 
-        // console.log(
-        //     progress, u, count
-        // )
+        console.log(
+            `--- Quiz/count progress:`,
+            count,
+            progress, 
+            u, 
+        )
 
     }, [quizSelector])
 
@@ -62,7 +81,7 @@ const Quiz = () => {
         if (answer !== null) {
             dispatch(watchSetQuiz(
                 userId,
-                3,
+                questionIdSelector,
                 answer
             ))
 
@@ -134,16 +153,16 @@ const Quiz = () => {
 
                 <View style={styles.questionsContainer}>
                     {
-                        answersArray && answersArray.map((string, i) => (
+                        answersRebuilded && answersRebuilded.map((string, i) => (
                             <TouchableOpacity
                                 key={i}
                                 style={styles.answerContainer}
-                                onPress={() => setAnswer(string)}
+                                onPress={() => setAnswer(string.id)}
                             >
                                 <LinearGradient
                                     style={styles.answerInnerContainer}
                                     colors={
-                                        answer === string
+                                        answer === string.id
                                             ? ['#3CD0BD', '#219BA5']
                                             : ["white", "white"]
                                     }
@@ -152,12 +171,12 @@ const Quiz = () => {
                                         style={[
                                             styles.checkBox,
                                             {
-                                                backgroundColor: answer === string ? "#172C60"
+                                                backgroundColor: answer === string.id ? "#172C60"
                                                     : "white"
                                             }
                                         ]}
                                     >
-                                        {answer === string
+                                        {answer === string.id
                                             &&
                                             <ChosenTick />
                                         }
@@ -167,13 +186,13 @@ const Quiz = () => {
                                         <Text
                                             style={[
                                                 {
-                                                    color: answer === string
+                                                    color: answer === string.id
                                                         ? "white"
                                                         : "black"
                                                 },
                                                 styles.answerText
                                             ]}
-                                        >{string}</Text>
+                                        >{string.value}</Text>
                                     </View>
                                 </LinearGradient>
                             </TouchableOpacity>
@@ -184,14 +203,13 @@ const Quiz = () => {
                 <View
                     style={{
                         height: responsiveWidth(34),
-                        // width: layout.width,
-                        width: '100%',
+                        width: layout.width,
+                        alignSelf: "center",
                         flexDirection: 'row',
                         alignItems: 'center',
                         justifyContent: 'center',
                         position: 'relative',
                         zIndex: 1,
-                        // paddingHorizontal: responsiveWidth(0.8),
                         backgroundColor: '#EBEBEB',
                         overflow: "hidden"
                     }}
@@ -201,10 +219,10 @@ const Quiz = () => {
                         style={{
                             backgroundColor: colors.tealishTwo,
                             position: 'absolute',
-                            width: responsiveWidth(progress),
+                            flexDirection: 'row',
+                            width: `${progress}%`,
                             height: responsiveWidth(34),
-                            // right: responsiveWidth(0.8),
-                            // rigth: 0,
+                            right: responsiveWidth(1.5),
                             zIndex: -1
                         }}
                     ></View>

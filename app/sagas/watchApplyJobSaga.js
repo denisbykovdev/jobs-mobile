@@ -16,6 +16,7 @@ function* applyJobSaga(action) {
             `${applyJob(
                 action.payload.jobId
             )}`,
+            {},
             authHeader(
                 action.payload.token
             )
