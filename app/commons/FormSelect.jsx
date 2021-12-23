@@ -19,16 +19,20 @@ import ArrowUp from "../icons/ArrowUp";
 export default function FormSelect({
     name,
     array,
-    // arrayOfObjects,
+    // arrayOfObjects = null,
     placeholder,
     interSepter,
     selectContainerStyle,
+    selectButtonStyle,
+    selectItemStyle,
+    selectListStyle,
     multi = false,
     width = '100%',
     height = responsiveWidth(20),
     leftArrow = false,
     submitting = false,
     children,
+    whiteTitle = false,
     ...otherProps
 }) {
     const [isOpen, setOpen] = useState(false);
@@ -42,7 +46,11 @@ export default function FormSelect({
 
     const animatedIconRotation = useRef(new Animated.Value(0)).current;
 
-    const [multiSelected, setToMultiSelected] = useState(values[name] ? [...values[name]] : [])
+    const [multiSelected, setToMultiSelected] = useState(
+            values[name] 
+            ? [...values[name]] 
+            : []
+    )
 
     const interIcon = animatedIconRotation.interpolate({
         inputRange: [0, 1],
@@ -64,6 +72,19 @@ export default function FormSelect({
             submitting && submitForm()
         }
     }
+
+    // const onChangeArrayOfObjects = (selected) => {
+    //     setFieldTouched(name)
+
+    //     if(multi) {
+    //         if(
+    //             // multiSelected.find((item) => item.name === selected)
+    //             Object.values(multiSelected).includes(`${selected}`)
+    //         ){
+                
+    //         }
+    //     }
+    // }
 
     useEffect(() => {
         if (multi && multiSelected.length > 0) setFieldValue(name, multiSelected)
@@ -91,6 +112,10 @@ export default function FormSelect({
         }
     }, [isOpen])
 
+    // console.log(
+    //     `--- FormSelect/array:`, array
+    // )
+
     return (
         <View
             style={[
@@ -102,6 +127,7 @@ export default function FormSelect({
         >
             <TouchableOpacity
                 style={[
+                    
                     styles.selectButton,
                     {
                         height,
@@ -113,7 +139,8 @@ export default function FormSelect({
                         borderBottomEndRadius: !isOpen && 5,
 
                         flexDirection: !leftArrow ? 'row' : 'row-reverse'
-                    }
+                    },
+                    selectButtonStyle
                 ]}
                 onPress={() => openSelectHandler()}
             >
@@ -122,9 +149,11 @@ export default function FormSelect({
                     style={[
                         styles.selectButtonText,
                         {
-                            color: isOpen
+                            color: isOpen && !whiteTitle
                                 ? colors.whiteTwo
-                                : colors.darkSlateBlue
+                                : !isOpen && !whiteTitle
+                                ? colors.darkSlateBlue
+                                : colors.whiteTwo
                         }
                     ]}>
                     {
@@ -133,6 +162,7 @@ export default function FormSelect({
                             ? values[name]
                             : placeholder
                     }
+                    {/* {placeholder} */}
                 </Text>
 
                 <Animated.View
@@ -185,15 +215,80 @@ export default function FormSelect({
                                 top: height,
                                 width,
                                 zIndex: 1
-                            }
+                            },
+                            selectListStyle
                         ]}
                     >
                         {
-                            array && array.map((e, i) => (
+                            // arrayOfObjects !== null
+                            // ?
+                            // arrayOfObjects && arrayOfObjects.map((element, i) => (
+                            //     <TouchableOpacity
+                            //         key={i}
+                            //         onPress={
+                            //             () => `onChangeHandler`(element)
+                            //         }
+                            //         style={[
+                            //             styles.selectItem,
+                            //             selectItemStyle
+                            //         ]}
+                            //         {...otherProps}
+                            //     >
+                            //         <TouchableOpacity
+                            //             onPress={
+                            //                 () => onChangeHandler(element)
+                            //             }
+                            //             style={[
+                            //                 {
+                            //                     backgroundColor: colors.whiteTwo,
+                            //                     borderColor: colors.border,
+                            //                     borderWidth: responsiveWidth(1),
+                            //                     width: responsiveWidth(12),
+                            //                     height: responsiveWidth(12),
+                            //                     borderRadius: responsiveWidth(6),
+                            //                     alignItems: 'center',
+                            //                     justifyContent: 'center',
+                            //                     position: 'absolute',
+                            //                     left: responsiveWidth(5)
+                            //                 }
+                            //             ]}
+                            //         >
+                            //             {
+                            //                 values[name] === element
+                            //                 && <View
+                            //                     style={{
+                            //                         backgroundColor: colors.whiteTwo,
+                            //                         borderColor: colors.darkSlateBlue,
+                            //                         borderWidth: responsiveWidth(3.5),
+                            //                         width: responsiveWidth(12),
+                            //                         height: responsiveWidth(12),
+                            //                         borderRadius: responsiveWidth(6)
+                            //                     }}
+                            //                 >
+                            //                 </View>
+                            //                 || multi
+                            //                 && multiSelected.includes(element)
+                            //                 && <ChosenTick />
+                            //             }
+                            //         </TouchableOpacity>
+
+                            //         <Text
+                            //             style={[
+                            //                 styles.selectItemText
+                            //             ]}
+                            //         >
+                            //             {element}
+                            //         </Text>
+
+
+                            //     </TouchableOpacity>
+                            // ))
+                            // :
+                            array && array.map((element, i) => (
                                 <TouchableOpacity
                                     key={i}
                                     onPress={
-                                        () => onChangeHandler(e)
+                                        () => onChangeHandler(element)
                                     }
                                     style={[
                                         styles.selectItem
@@ -202,7 +297,7 @@ export default function FormSelect({
                                 >
                                     <TouchableOpacity
                                         onPress={
-                                            () => onChangeHandler(e)
+                                            () => onChangeHandler(element)
                                         }
                                         style={[
                                             {
@@ -220,7 +315,7 @@ export default function FormSelect({
                                         ]}
                                     >
                                         {
-                                            values[name] === e
+                                            values[name] === element
                                             && <View
                                                 style={{
                                                     backgroundColor: colors.whiteTwo,
@@ -233,7 +328,7 @@ export default function FormSelect({
                                             >
                                             </View>
                                             || multi
-                                            && multiSelected.includes(e)
+                                            && multiSelected.includes(element)
                                             && <ChosenTick />
                                         }
                                     </TouchableOpacity>
@@ -243,7 +338,7 @@ export default function FormSelect({
                                             styles.selectItemText
                                         ]}
                                     >
-                                        {e}
+                                        {element}
                                     </Text>
 
 

@@ -11,8 +11,11 @@ export default function* quizResultSaga(action) {
             `${quizResult(action.payload.userId)}`,
             requestHeader
         ))
+        console.log(
+            `--- quizResultSaga/data:`, data
+        )
         yield put(quizResultSuccess(
-            data.sub_categories
+            data
         ))
     } catch (error) {
         yield put(quizResultFailure(

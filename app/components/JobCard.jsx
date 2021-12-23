@@ -23,7 +23,8 @@ import Delete from "../icons/Delete";
 
 const JobCard = ({
     item,
-    favorite = false
+    favorite = false,
+    getBackJobViewHeight
 }) => {
     const [isOpenToolTip, setOpenToolTip] = useState(false)
 
@@ -51,18 +52,27 @@ const JobCard = ({
 
     return (
         <View
+            onLayout={(event) => {getBackJobViewHeight(event.nativeEvent.layout.height)}}
             style={[
-                shadowStyle
+                shadowStyle,
+                {
+                    // width: '100%'
+                    // backgroundColor: colors.whiteTwo,
+                    // overflow: 'visible',
+                    // position: 'relative',
+                    // zIndex: -1
+                    // height: responsiveWidth(200)
+                }
             ]}
         >
             <View
-                style={{ zIndex: -1 }}
+                // style={{ zIndex: -1 }}
             >
                 <View
-                    style={styles.mainContainer}
+                    style={[styles.mainContainer]}
                 >
                     <ImageBackground
-                        source={images.tellMore}
+                        source={(images.tellMore)}
                         style={styles.imageBackground}
                     >
                         <Text
@@ -87,7 +97,7 @@ const JobCard = ({
                         }
                     </ImageBackground>
 
-                    <View style={styles.reviewsContainer}>
+                    <View style={[styles.reviewsContainer]}>
                         <View style={styles.reviewsInner}>
                             <View style={styles.iconsColumn}>
                                 {
@@ -244,6 +254,8 @@ const styles = StyleSheet.create({
         flex: 1,
         resizeMode: "cover",
         height: responsiveWidth(59.5),
+        // height: '100%',
+        width: '100%',
         justifyContent: 'center',
         alignItems: 'center',
         paddingBottom: responsiveWidth(10)

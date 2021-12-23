@@ -79,7 +79,7 @@ const SMSCodeHR = () => {
             navigation.navigate(
                 "FirstScreen", 
                 {
-                    isBlog: isMidrashotSelector === true || isBeforeSchoolSelector === true
+                    isBlog: isMidrashotSelector === false &&     isBeforeSchoolSelector === false
                         ? false
                         : true
                 }

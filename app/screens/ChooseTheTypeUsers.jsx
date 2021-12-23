@@ -56,14 +56,14 @@ const ChooseTheTypeUsers = () => {
                     secureUser
                 )
 
-                // dispatch(
-                //     verificationSuccess(
-                //         secureToken,
-                //         secureUser
-                //     )
-                // )
+                dispatch(
+                    verificationSuccess(
+                        secureToken,
+                        secureUser
+                    )
+                )
 
-                // setChosenUser(secureUser.role_id.id)
+                setChosenUser(secureUser.role_id.id)
             }
     }, [secureToken, secureUser])
 

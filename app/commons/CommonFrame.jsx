@@ -23,12 +23,15 @@ export default function CommonFrame({
                     backgroundColor: colors.white,
                     paddingTop: Constants.statusBarHeight,
                     paddingHorizontal: responsiveWidth(17.5),
-                    paddingVertical: responsiveWidth(20)
+                    paddingVertical: responsiveWidth(20),
+                    height: layout.height,
+                    overflow: 'visible'
                 },
                 commonFrameStyle
             ]}
             showsVerticalScrollIndicator={false}
             onMomentumScrollEnd={onScrollEndDrag}
+            // onScrollEndDrag={onScrollEndDrag}
         >
             {children}
             {

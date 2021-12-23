@@ -1,11 +1,12 @@
-import { APPLY_JOB_FAILURE, APPLY_JOB_START, APPLY_JOB_SUCCESS, GET_FILTERED_JOBS_FAILURE, GET_FILTERED_JOBS_START, GET_FILTERED_JOBS_SUCCESS, GET_FOVORITE_JOB_FAILURE, GET_FOVORITE_JOB_START, GET_FOVORITE_JOB_SUCCESS, GET_JOBS_FAILURE, GET_JOBS_START, GET_JOBS_SUCCESS, VIEW_JOB_FAILURE, VIEW_JOB_START, VIEW_JOB_SUCCESS } from "../types/jobsTypes";
+import { APPLY_JOB_FAILURE, APPLY_JOB_START, APPLY_JOB_SUCCESS, GET_FILTERED_JOBS_FAILURE, GET_FILTERED_JOBS_START, GET_FILTERED_JOBS_SUCCESS, GET_FOVORITE_JOB_FAILURE, GET_FOVORITE_JOB_START, GET_FOVORITE_JOB_SUCCESS, GET_JOBS_FAILURE, GET_JOBS_START, GET_JOBS_SUCCESS, GET_SERACH_JOBS_SUCCESS, VIEW_JOB_FAILURE, VIEW_JOB_START, VIEW_JOB_SUCCESS } from "../types/jobsTypes";
 
 const jobsInitial = {
     jobs: null,
     favouriteJob: '',
     filteredJobs: null,
     job: null,
-    applyJob: null
+    applyJob: null,
+    searchJobs: null
 }
 
 export const jobsReducer = (
@@ -26,6 +27,12 @@ export const jobsReducer = (
                     ? [ ...state.jobs, ...action.payload.jobs ]
                     : [ ...action.payload.jobs ]
             };
+        case GET_SERACH_JOBS_SUCCESS:
+            return {
+                ...state,
+                posting: false,
+                searchJobs: action.payload.jobs
+            }
         case GET_JOBS_FAILURE:
             return {
                 ...state,

@@ -5,8 +5,8 @@ import { responsiveWidth } from "../utils/layout";
 export default function Calendar(props) {
     return (
         <Svg
-            width={responsiveWidth(15)}
-            height={responsiveWidth(13.5)}
+            width={responsiveWidth(11)}
+            height={responsiveWidth(11.5)}
             viewBox="2.469 -1.021 20.834 20.5"
             {...props}
         >

@@ -3,23 +3,25 @@ import { ImageBackground, StyleSheet, ScrollView, Text, Image, View } from 'reac
 import { icons, images } from "../configs/imagesAndIconsUrl";
 import AnimatedProgressWheel from 'react-native-progress-wheel';
 import layout, { responsiveWidth, responsiveHeight } from '../utils/layout';
+import { LogoChosenBigVertical } from '../icons/LogoChosenBigVertical';
+import Constants from 'expo-constants'
 
-const SplashScreen = ({ navigation, timer }) => {
-
-
+const SplashScreen = ({ timer }) => {
     return (
-
         <ImageBackground
             resizeMode={"contain"}
             resizeMethod={"resize"}
-            source={images.splashBg} style={styles.bgImage}>
+            source={images.splashBg} 
+            style={styles.bgImage}
+        >
             <View style={styles.logoPart}>
-                <ImageBackground
+                {/* <ImageBackground
                     resizeMode={"contain"}
                     // resizeMethod={"resize"}
                     source={icons.Logo}
                     style={styles.logo}
-                />
+                /> */}
+                <LogoChosenBigVertical />
             </View>
             <View style={styles.loaderPart}>
                 <Text style={styles.bigTitle}>מיד נתחיל</Text>
@@ -46,11 +48,11 @@ const SplashScreen = ({ navigation, timer }) => {
 
 const styles = StyleSheet.create({
     bgImage: {
-        height: responsiveHeight(430),
+        height: layout.height,
         // flex:1,
-        width: responsiveWidth(200),
-        position: "absolute",
-        bottom: -responsiveHeight(80),
+        width: layout.width,
+        // position: "absolute",
+        bottom: '-25%',
     },
 
     logoPart: {
@@ -58,6 +60,8 @@ const styles = StyleSheet.create({
         // top: -190,
         paddingHorizontal: "20%",
         // paddingTop:"30%"
+        alignItems: 'center',
+        justifyContent: 'center'
     },
 
     logo: {

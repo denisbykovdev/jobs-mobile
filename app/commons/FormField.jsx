@@ -86,7 +86,8 @@ const styles = StyleSheet.create({
         borderStyle: "solid",
         borderWidth: responsiveWidth(1),
         padding: responsiveWidth(5),
-        paddingStart: responsiveWidth(5)
+        paddingStart: responsiveWidth(15),
+        // paddingEnd: responsiveWidth(105)
     },
     input: {
         height: "100%",

@@ -7,7 +7,7 @@ export default function IconSearch(props) {
         <Svg
             width={responsiveWidth(21.5)}
             height={responsiveWidth(22)}
-            viewBox="0 0 44.375 44.625"
+            viewBox="0 0 45 58"
             {...props}
         >
             <LinearGradient

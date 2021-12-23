@@ -16,6 +16,7 @@ import useStatusBar from "../hooks/useStatusBar";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { watchGetFavoriteJobs } from "../actions/profileActions";
 import TabController from "../components/ListOfOpenOpportunities/TabController";
+import Constants from 'expo-constants'
 
 const MainScreenOfUsers = () => {
     useStatusBar('dark-content', colors.white)
@@ -41,6 +42,8 @@ const MainScreenOfUsers = () => {
     // const loadingSelector = useSelector(state => state.jobs.posting)
 
     const [isFakeLoading, setFakeLoading] = useState(false)
+
+    const [jobViewHeight, setJobViewHeight] = useState(0)
 
     const dispatch = useDispatch()
 
@@ -68,6 +71,10 @@ const MainScreenOfUsers = () => {
                 getFavorites()
             }
         }
+
+        console.log(
+            `--- MainScreen/effect:render`,
+        )
     }, [secureToken])
 
     const FilterChoose = (choose) => {
@@ -98,14 +105,19 @@ const MainScreenOfUsers = () => {
     const scrollEnd = (event) => {
         setFakeLoading(true)
 
-        // console.log(
-        //     `--- MainScreen/ScrollView/scrollEnd:`,
-        //     event.nativeEvent.contentOffset.y
-        // )
+        let heigthHigher = Constants.statusBarHeight + responsiveWidth(20) + responsiveWidth(24) + responsiveWidth(40) + (responsiveWidth(10) * (jobsSelector.length)) + responsiveWidth(20)
 
+        console.log(
+            `--- MainScreen/ScrollView/scrollEnd:`,
+            event.nativeEvent.contentOffset.y + heigthHigher, 
+            // jobViewHeight,
+            // jobsSelector.length, 
+            jobViewHeight * (jobsSelector.length)
+        )
+        
         setPage(page + 1)
 
-        dispatch(watchGetJobs(
+        event.nativeEvent.contentOffset.y + heigthHigher > jobViewHeight * jobsSelector.length && dispatch(watchGetJobs(
             secureToken,
             page + 1,
             chooseDateOrStars
@@ -120,6 +132,8 @@ const MainScreenOfUsers = () => {
             1500
         )
     }
+
+    const getBackJobViewHeight = (height) => setJobViewHeight(height) 
 
     return (
         <CommonFrame
@@ -188,6 +202,13 @@ const MainScreenOfUsers = () => {
                 <TabController chosenTab={3} />
             }
 
+            <View
+                style={{
+                    position: 'relative',
+                    zIndex: -1
+                }}
+            >
+
             {
                 route.name !== 'Favorites'
                     ?
@@ -201,6 +222,7 @@ const MainScreenOfUsers = () => {
                             <JobCard
                                 key={index}
                                 item={job}
+                                getBackJobViewHeight={getBackJobViewHeight}
                             />
                         ))
                     )
@@ -216,12 +238,16 @@ const MainScreenOfUsers = () => {
                                 key={index}
                                 item={job}
                                 favorite={true}
+                                getBackJobViewHeight={getBackJobViewHeight}
                             />
                         ))
                     )
 
-            }
+            } 
 
+            </View>
+
+            <View>
             {
                 isFakeLoading === true
                 // loadingSelector
@@ -236,6 +262,7 @@ const MainScreenOfUsers = () => {
                     }}
                 />
             }
+            </View>
         </CommonFrame>
     )
 }

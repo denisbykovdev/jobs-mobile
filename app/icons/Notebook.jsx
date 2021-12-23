@@ -6,7 +6,7 @@ export default function Notebook(props) {
     return (
         <Svg
             width={responsiveWidth(10)}
-            height={responsiveWidth(12)}
+            height={responsiveWidth(11)}
             viewBox="3.313 0.438 16.969 19.042"
             {...props}
         >

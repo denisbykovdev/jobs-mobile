@@ -42,7 +42,15 @@ const TabController = (props) => {
 
                 <TouchableOpacity
                     style={[styles.tabBlock, chosenTab === 2 && styles.tabActiveBorder]}
-                    onPress={() => setChosenTab(2), () => navigation.navigate('Quiz')}
+                    onPress={
+                        () => setChosenTab(2), 
+                        () => navigation.navigate(
+                            'ResultOfQuiz',
+                            {
+                                userTabController: true
+                            }
+                        )
+                    }
                 >
                     <View
                         style={[styles.tabCircles, { backgroundColor: chosenTab === 2 ? "#172c60" : "#39caba" }]}

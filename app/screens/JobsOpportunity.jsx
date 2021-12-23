@@ -5,16 +5,12 @@ import {
     View,
     ImageBackground,
     TouchableOpacity,
-    TextInput,
-    Linking
+    ScrollView
 } from "react-native";
 import { icons, images } from "../configs/imagesAndIconsUrl";
 import React, { useEffect, useRef, useState } from "react";
 import Header from "../components/Header";
-import YoutubePlayer from "react-native-youtube-iframe";
-import Slideshow from "react-native-image-slider-show";
 import Stars from "react-native-stars";
-import { getUserToken, JobUrl } from "../configs/ApiCallHelper";
 import { useDispatch, useSelector } from 'react-redux';
 import { watchViewJob, watchApplyJob, watchGetFavoriteJob } from '../actions/jobsActions';
 import CommonFrame from "../commons/CommonFrame";
@@ -36,7 +32,6 @@ import Status from "../icons/Status";
 import LikeButton from "../commons/LikeButton";
 import ShareButton from "../commons/ShareButton";
 import FormContainer from "../commons/FormContainer";
-import { Field } from "formik";
 import FormField from "../commons/FormField";
 import FormButton from "../commons/FormButton"
 import { watchAddQuestion } from "../actions/faqActions";
@@ -83,18 +78,18 @@ const JobsOpportunity = () => {
     )
 
     useEffect(() => {
-        dispatch(watchViewJob(
+        tokenSelector && dispatch(watchViewJob(
             tokenSelector,
             jobId
         ));
-    }, [])
+    }, [tokenSelector])
 
-    useEffect(() => {
+    // useEffect(() => {
 
-        console.log(
-            `--- JobsOpportunity/effect/jobSelector`, jobSelector
-        )
-    }, [jobSelector])
+    //     console.log(
+    //         `--- JobsOpportunity/effect/jobSelector`, jobSelector
+    //     )
+    // }, [jobSelector])
 
     const applyJob = async () => {
         dispatch(watchApplyJob(
@@ -105,7 +100,9 @@ const JobsOpportunity = () => {
 
     useEffect(() => {
         console.log(
-            `--- JobOpportunityPopUp/effect/apply:`, typeof applyJobSelector
+            `--- JobsOpportunity/effect/typeof apply:`, 
+            typeof applyJobSelector, 
+            applyJobSelector
         )
         applyJobSelector !== null
         &&
@@ -129,8 +126,8 @@ const JobsOpportunity = () => {
     }
 
     return (
-        <CommonFrame
-        >
+        <CommonFrame>
+        {/* <ScrollView> */}
             <Header />
             <View style={styles.jobsOpportunityContainer}>
 
@@ -270,7 +267,7 @@ const JobsOpportunity = () => {
                             loop
                             ref={carouselRef}
                             layout='default'
-                            data={jobSelector?.images}
+                            data={jobSelector ? jobSelector.images : []}
                             sliderWidth={layout.width - responsiveWidth(35)}
                             itemWidth={layout.width - responsiveWidth(35)}
                             itemHeight={responsiveWidth(93)}
@@ -526,7 +523,8 @@ const JobsOpportunity = () => {
                     </View>
                 </View>
             </View>
-        </CommonFrame>
+       {/* </ScrollView>  */}
+       </CommonFrame>
     )
 }
 

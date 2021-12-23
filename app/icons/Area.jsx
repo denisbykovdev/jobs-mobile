@@ -2,11 +2,11 @@ import * as React from "react";
 import Svg, { G, Path } from "react-native-svg";
 import { responsiveWidth } from "../utils/layout";
 
-function Area(props) {
+export default function Area(props) {
     return (
         <Svg
-            width={responsiveWidth(11.5)}
-            height={responsiveWidth(11.5)}
+            width={responsiveWidth(11)}
+            height={responsiveWidth(11)}
             viewBox="15.167 9.164 23.792 23.752"
             {...props}
         >

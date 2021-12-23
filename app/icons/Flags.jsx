@@ -5,8 +5,8 @@ import { responsiveWidth } from "../utils/layout";
 export default function Flags(props) {
     return (
         <Svg
-            width={responsiveWidth(12)}
-            height={responsiveWidth(12)}
+            width={responsiveWidth(11)}
+            height={responsiveWidth(11)}
             viewBox="2.469 -4.313 24.813 24.75"
             {...props}
         >

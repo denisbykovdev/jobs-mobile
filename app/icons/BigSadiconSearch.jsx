@@ -22,7 +22,7 @@ export default function BigSadiconSearch(props) {
                 transform="rotate(29.241 -298.678 177.848)"
                 opacity={0.3}
                 fill="#FFF"
-                fontFamily="'OpenSans-Extrabold'"
+                // fontFamily="'OpenSans-Extrabold'"
                 fontSize={26.988}
             >
                 {"?"}

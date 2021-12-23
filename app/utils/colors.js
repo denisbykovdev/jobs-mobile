@@ -5,6 +5,8 @@ export default {
     darkSlateBlue50: 'rgba(23, 44, 96, 0.5)',
     whiteTwo: '#ffffff',
     tealishTwo: '#30b8b2',
+    tealishThree: '#219ba5',
+    tealishFour: '#3cd0bd',
     darkSlateBlue: '#172c60',
     tealGreen: '#268b93',
     pinkRed: '#f50068',
@@ -26,5 +28,6 @@ export default {
     veryLightBlue: '#e8eaef',
     silverTwo: `rgba(201, 204, 211, 0.2)`,
     cloudyBlue: 'rgb(176, 187, 217)',
-    brownGrey: 'rgb(150, 150, 150)'
+    brownGrey: 'rgb(150, 150, 150)',
+    darkSlateBlueTwo: 'rgb(37, 56, 102)'
 }

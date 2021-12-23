@@ -5,9 +5,9 @@ import { responsiveWidth } from "../utils/layout";
 export default function CheckboxActive(props) {
     return (
         <Svg
-            width={responsiveWidth(19.5)}
-            height={responsiveWidth(20)}
-            viewBox="0 0 39.75 40.5"
+            width={responsiveWidth(25)}
+            height={responsiveWidth(25)}
+            viewBox="3 5 50 50"
             {...props}
         >
             <LinearGradient

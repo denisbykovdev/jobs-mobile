@@ -5,8 +5,8 @@ import { responsiveWidth } from "../utils/layout";
 export default function House(props) {
     return (
         <Svg
-            width={responsiveWidth(10.5)}
-            height={responsiveWidth(8.5)}
+            width={responsiveWidth(11)}
+            height={responsiveWidth(9)}
             viewBox="0.833 2.313 22 17.813" {...props}
         >
             <G fillRule="evenodd" clipRule="evenodd" fill="#FFF">

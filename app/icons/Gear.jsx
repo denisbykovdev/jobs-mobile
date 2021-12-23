@@ -6,7 +6,7 @@ export default function Gear(props) {
     return (
         <Svg
             width={responsiveWidth(11)}
-            height={responsiveWidth(10.5)}
+            height={responsiveWidth(11)}
             viewBox="15.021 12.667 22.938 22.125"
             {...props}
         >
