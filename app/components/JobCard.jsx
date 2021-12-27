@@ -54,19 +54,11 @@ const JobCard = ({
         <View
             onLayout={(event) => {getBackJobViewHeight(event.nativeEvent.layout.height)}}
             style={[
-                shadowStyle,
-                {
-                    // width: '100%'
-                    // backgroundColor: colors.whiteTwo,
-                    // overflow: 'visible',
-                    // position: 'relative',
-                    // zIndex: -1
-                    // height: responsiveWidth(200)
-                }
+                // shadowStyle,
             ]}
         >
             <View
-                // style={{ zIndex: -1 }}
+                style={{ zIndex: -1 }}
             >
                 <View
                     style={[styles.mainContainer]}
@@ -97,7 +89,7 @@ const JobCard = ({
                         }
                     </ImageBackground>
 
-                    <View style={[styles.reviewsContainer]}>
+                    <View style={[styles.reviewsContainer, shadowStyle]}>
                         <View style={styles.reviewsInner}>
                             <View style={styles.iconsColumn}>
                                 {
@@ -251,10 +243,9 @@ const styles = StyleSheet.create({
         marginBottom: responsiveWidth(10)
     },
     imageBackground: {
-        flex: 1,
+        // flex: 1,
         resizeMode: "cover",
         height: responsiveWidth(59.5),
-        // height: '100%',
         width: '100%',
         justifyContent: 'center',
         alignItems: 'center',

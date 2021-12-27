@@ -1,12 +1,12 @@
 import React, {Component} from "react";
 import {Text, View, SafeAreaView, Image, StyleSheet, TouchableOpacity} from "react-native";
-
 import Carousel from "react-native-snap-carousel";
 import {LinearGradient} from "expo-linear-gradient";
 import {icons} from "../../configs/imagesAndIconsUrl";
 import {Pagination} from "react-native-snap-carousel";
 import { Dimensions } from 'react-native';
-
+import layout, { responsiveWidth } from "../../utils/layout";
+import colors from "../../utils/colors";
 
 class CustomCarousel extends Component {
 
@@ -51,46 +51,47 @@ class CustomCarousel extends Component {
     };
 
     get pagination () {
-        const { carouselItems, activeIndex,windowWidth } = this.state;
+        const { carouselItems, activeIndex, windowWidth } = this.state;
         const {setActiveIndex}=this.props
         setActiveIndex(activeIndex)
         return (
             <Pagination
-                sliderWidth={windowWidth}
-                itemWidth={50}
                 dotsLength={carouselItems.length}
                 activeDotIndex={activeIndex}
-                containerStyle={{width:65,height:10,}}
                 dotStyle={{
-                    width: 10,
-                    height: 10,
-                    borderRadius: 10/2,
-                    backgroundColor: 'rgba(255, 255, 255, 0.92)'
+                    width: responsiveWidth(4),
+                    height: responsiveWidth(4),
+                    borderRadius: responsiveWidth(10),
+                    backgroundColor: colors.whiteTwo
                 }}
                 inactiveDotStyle={{
-                    // Define styles for inactive dots here
+                    width: responsiveWidth(4),
+                    height: responsiveWidth(4),
+                    borderRadius: responsiveWidth(10),
+                    borderWidth: responsiveWidth(1),
+                    borderColor: colors.aquaMarine,
+                    backgroundColor: colors.tealishThree
                 }}
-                inactiveDotOpacity={0.4}
-                inactiveDotScale={0.6}
+                inactiveDotOpacity={1}
+                inactiveDotScale={1}
             />
         );
     }
 
-
     render() {
-
         return (
             <LinearGradient colors={['#3CD0BD', '#219BA5']}>
                 <SafeAreaView style={{flex: 1, paddingTop: 25}}>
                     <View style={{flex: 1,alignItems: "center"}}>
                         <Carousel
+                            itemWidth={layout.width}
+                            itemHeight={responsiveWidth(79.5)}
+                            sliderWidth={layout.width/2.75}
+                            sliderHeight={responsiveWidth(109.5)}
                             firstItem = {2}
                             layout={"default"}
                             ref={this.ref}
                             data={this.state.carouselItems}
-                            sliderWidth={this.state.windowWidth}
-                            sliderHeight={219}
-                            itemWidth={this.state.windowWidth/1.65}
                             renderItem={this.renderItem}
                             onSnapToItem={(index) => this.setState({activeIndex: index})}
                         />
@@ -106,7 +107,7 @@ class CustomCarousel extends Component {
 const styles = StyleSheet.create({
 
     carouselItem: {
-        zIndex: -25,
+        // zIndex: -25,
         justifyContent: "flex-start",
         alignItems: "center",
         backgroundColor: "#33d0c9",
@@ -116,8 +117,9 @@ const styles = StyleSheet.create({
         height: 159,
         width: 157,
         padding: 5,
-        marginLeft: 50,
-        marginRight: 20,
+        // marginLeft: 50,
+        // marginRight: 20,
+        marginTop: responsiveWidth(12)
     },
     circleButton: {
         width: 65,

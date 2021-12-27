@@ -25,7 +25,9 @@ export default function CommonFrame({
                     paddingHorizontal: responsiveWidth(17.5),
                     paddingVertical: responsiveWidth(20),
                     height: layout.height,
-                    overflow: 'visible'
+                    overflow: 'visible',
+                    zIndex: -3,
+                    position: 'relative'
                 },
                 commonFrameStyle
             ]}

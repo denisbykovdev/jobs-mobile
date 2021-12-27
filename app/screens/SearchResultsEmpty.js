@@ -60,7 +60,7 @@ const SearchResultsEmpty = () => {
 
 
             </ScrollView>
-            <Footer/>
+         
         </View>
     )
 }

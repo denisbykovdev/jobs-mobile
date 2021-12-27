@@ -100,6 +100,8 @@ const Quiz = () => {
             y: 0,
             animated: true,
           });
+
+        setAnswer(null)
     }
 
     return (
@@ -130,7 +132,15 @@ const Quiz = () => {
                     </View>
 
                     <View style={styles.questionNumber}>
-                        <Text style={styles.questionNumberText}>{`${quizSelector.current_page}`}</Text>
+                        <Text style={styles.questionNumberText}>
+                            {
+                                `${quizSelector.current_page}`.length === 1
+                                ?
+                                `0${quizSelector.current_page}`
+                                :
+                                `${quizSelector.current_page}`
+                            }
+                        </Text>
                     </View>
 
                     <View>
@@ -211,7 +221,7 @@ const Quiz = () => {
                         position: 'relative',
                         zIndex: 1,
                         backgroundColor: '#EBEBEB',
-                        overflow: "hidden"
+                        // overflow: "hidden"
                     }}
                 >
                     <Progress />
@@ -229,6 +239,7 @@ const Quiz = () => {
                     <Text
                         style={{
                             position: 'absolute',
+                            // marginBottom: responsiveWidth(5),
                             top: responsiveWidth(20),
                             fontSize: fonts.xlarge,
                             fontWeight: weights.bold,

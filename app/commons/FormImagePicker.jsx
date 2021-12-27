@@ -1,23 +1,29 @@
 import React, { useState } from "react"
 import { useFormikContext } from "formik";
-import { Platform, View } from "react-native";
+import { Image, Platform, TouchableOpacity, View } from "react-native";
 import * as ImagePicker from 'expo-image-picker'
-import CommonButton from "./CommonButton";
-import AddImage from "../icons/AddImage";
+import AddPhoto from "../icons/AddPhoto";
 import { responsiveWidth } from "../utils/layout";
-import colors from "../utils/colors";
-import useChecked from "../hooks/useChecked";
+import { useEffect } from "react";
+import Edit from "../icons/Edit";
+import colors from '../utils/colors'
 
-const FormImagePicker = ({ name, style }) => {
+const FormImagePicker = ({ 
+    name 
+}) => {
     const [image, setImage] = useState(null);
+
+    useEffect(() => {
+        console.log(
+            `--- FormImagePicker/image:`, image
+        )
+    }, [image])
 
     const {
         setFieldValue,
         setFieldTouched,
         values
     } = useFormikContext();
-
-    const { isChecked, setChecked } = useChecked()
 
     const pickImage = async () => {
         if (Platform.OS !== 'web') {
@@ -32,49 +38,59 @@ const FormImagePicker = ({ name, style }) => {
                     base64: true
                 });
 
-                // console.log(result.base64);
-
                 if (result) {
                     setImage(result.base64);
                     setFieldTouched(name)
                     setFieldValue(name, result.base64)
-                    isChecked && setChecked(false)
                 }
             }
-
-            // alert('Sorry, we need camera roll permissions to make this work!');
         }
 
     };
 
     return (
-        <CommonButton
-            borderRadius={20}
-            buttonHeight={responsiveWidth(33)}
-            borderColor={colors.darkSkyBlue}
-            style={[{
-                marginBottom: responsiveWidth(22),
-                padding: 0,
-                marginTop: responsiveWidth(10),
-                // marginBottom: responsiveWidth(26)
-            }, style]}
-            titleStyle={{
-                marginRight: 0
-            }}
-            title="הוסף לוגו"
-            titleColor={colors.darkSkyBlue}
-            onPress={pickImage}
-        >
-            <View
-                style={{
-                    position: 'absolute',
-                    right: responsiveWidth(10)
-                }}
+            <TouchableOpacity
+                onPress={pickImage}
             >
-                <AddImage />
-            </View>
-
-        </CommonButton>
+                {
+                    image !== null
+                    ?
+                    <View
+                        style={{
+                            width: responsiveWidth(63),
+                            height: responsiveWidth(63),
+                            borderRadius: responsiveWidth(7),
+                            overflow: 'hidden'
+                        }}
+                    >
+                        <Image 
+                            source={{ uri: `data:image/*;base64,${image}`}}
+                            style={{
+                                width: '100%',
+                                height: '100%',
+                            }}
+                        />
+                        <View
+                            style={{
+                                position: 'absolute',
+                                bottom: - responsiveWidth(3),
+                                right: - responsiveWidth(3),
+                                height: responsiveWidth(25),
+                                width: responsiveWidth(25),
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                borderRadius: responsiveWidth(50),
+                                backgroundColor: colors.darkSlateBlue50
+                            }}
+                        >
+                            <Edit iconColor={colors.whiteTwo} />
+                        </View>
+                    </View>
+                    
+                    :
+                    <AddPhoto />
+                }   
+            </TouchableOpacity>
     )
 }
 

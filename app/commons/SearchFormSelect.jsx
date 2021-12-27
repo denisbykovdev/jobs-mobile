@@ -282,14 +282,14 @@ const shadowStyle = {
 const styles = StyleSheet.create({
     selectButton: {
         borderTopColor: colors.border,
-        borderTopWidth: responsiveWidth(1),
-        borderBottomWidth: responsiveWidth(1),
+        // borderTopWidth: responsiveWidth(1),
+        // borderBottomWidth: responsiveWidth(1),
         borderTopStartRadius: 5,
         borderTopEndRadius: 5,
         borderLeftColor: colors.border,
-        borderLeftWidth: responsiveWidth(1),
+        // borderLeftWidth: responsiveWidth(1),
         borderRightColor: colors.border,
-        borderRightWidth: responsiveWidth(1),
+        // borderRightWidth: responsiveWidth(1),
         paddingHorizontal: responsiveWidth(9),
         alignItems: 'center',
         justifyContent: 'flex-end',

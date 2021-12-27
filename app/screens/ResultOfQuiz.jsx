@@ -24,6 +24,8 @@ import colors from "../utils/colors";
 import FormSelect from "../commons/FormSelect";
 import DropDownOpen from "../icons/DropDownOpen";
 import FormContainer from "../commons/FormContainer";
+import BIGICON from "../icons/BIGICON";
+import TabController from "../components/ListOfOpenOpportunities/TabController";
 
 const ResultOfQuiz = () => {
     // const [education, setEducation] = useState(false)
@@ -54,7 +56,13 @@ const ResultOfQuiz = () => {
 
     return (
         <CommonFrame>
-            <Header visibleMenuButton={false} />
+            <Header visibleMenuButton={route.params !== undefined && route.params.userTabController ? true : false} />
+
+            {
+                route.params !== undefined && route.params.userTabController
+                &&
+                <TabController chosenTab={2} />
+            }
 
             <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
                 <View>
@@ -65,7 +73,20 @@ const ResultOfQuiz = () => {
                 </View>
             </View>
 
-            <View style={styles.headerTitles}>
+            {
+                route.params !== undefined && route.params.userTabController
+                ?
+                <View
+                    style={{
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        marginBottom: responsiveWidth(21)
+                    }}
+                >
+                    <BIGICON />
+                </View>
+                :
+                <View style={styles.headerTitles}>
                 <IconLineWrapper>
                     <IconResults />
                 </IconLineWrapper>
@@ -75,13 +96,24 @@ const ResultOfQuiz = () => {
                 <Text style={styles.headerSubTitle}>נקדים ונאמר שממש התרשמנו ואנו בטוחים</Text>
 
                 <Text style={styles.headerSubTitle}>שמחכה לך תקן מעולה שמתאים בול בשבילך</Text>
-            </View>
+                </View>
+            }
+            
 
             <View
                 style={styles.main}
             >
-                <Text style={styles.mainTitle}>התחומים ותתי התחומים אשר</Text>
-                <Text style={styles.mainTitle}>נמצאו מתאימים עבורך:</Text>
+                {
+                    route.params?.userTabController === false
+                    &&
+                    <Text style={styles.mainTitle}>התחומים ותתי התחומים אשר</Text>
+                }
+                {
+                    route.params?.userTabController === false
+                    &&
+                    <Text style={styles.mainTitle}>נמצאו מתאימים עבורך:</Text>
+                }
+                
 
                 <FormContainer
                     initialValues={{
@@ -103,6 +135,7 @@ const ResultOfQuiz = () => {
                             borderRightColor: colors.darkSlateBlue,
                             borderBottomColor: colors.darkSlateBlue,
                         }}
+                        whiteTitle
                     >
                         <DropDownOpen />
                     </FormSelect>
@@ -120,6 +153,7 @@ const ResultOfQuiz = () => {
                             borderBottomColor: colors.darkSlateBlue,
                             opacity: 0.7
                         }}
+                        whiteTitle
                     >
                         <DropDownOpen />
                     </FormSelect>
@@ -137,6 +171,7 @@ const ResultOfQuiz = () => {
                             borderBottomColor: colors.darkSlateBlue,
                             opacity: 0.4
                         }}
+                        whiteTitle
                     >
                         <DropDownOpen />
                     </FormSelect>

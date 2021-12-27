@@ -1,9 +1,10 @@
 import * as React from "react";
 import Svg, { Path } from "react-native-svg";
 import { responsiveWidth } from "../utils/layout";
+import colors from '../utils/colors'
 
 export default function StatusWaiting({
-    iconColor = "#394A6E"
+    iconColor = colors.darkGreyBlueTwo71
 }) {
     return (
         <Svg

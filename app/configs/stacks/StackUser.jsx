@@ -114,8 +114,8 @@ export function BottomStack ({navigation, route}) {
                 }}
             />
             <BottomTab.Screen
-                name = "MyProfileMyDetails"
-                component = {MyProfileMyDetails}
+                name = "MyProfileNoReq"
+                component = {MyProfileNoReq}
                 options={{
                      tabBarIcon: ({focused, color }) => (
                         //  <Image source = {icons.profile} style = {{width: 21,height: 26, tintColor: focused ? "#172c60" : "#c5cad7"}} />
@@ -180,13 +180,17 @@ function UserStack ({ route }) {
                 options={{ headerShown: false }}
             />
 
-            {/* <StackUser.Screen name = "FirstScreenForFirstUsers" component = {FirstScreenForFirstUsers} options={{ headerShown: false }}/> */}
-
             <StackUser.Screen 
                 name = "MyProfileNoReq" 
                 component = {MyProfileNoReq} 
                 options={{ headerShown: false }}
             />
+
+            <StackUser.Screen 
+                name = "MyProfileMyDetails" 
+                component = {MyProfileMyDetails} 
+                options={{ headerShown: false }}
+            />      
             
             <StackUser.Screen 
                 name = "SearchResult" 
@@ -194,9 +198,29 @@ function UserStack ({ route }) {
                 options={{ headerShown: false }}
             />
 
-            {/* <StackUser.Screen name = "UserTabController" component = {UserTabController} options={{ headerShown: false }}/> */}
+            <StackUser.Screen 
+                name = "ResultOfQuiz" 
+                component = {ResultOfQuiz} 
+                options={{ headerShown: false }}
+            />
 
-            {/* <StackUser.Screen name = "SearchWithFilterMidrashot" component = {SearchWithFilterMidrashot} options={{ headerShown: false }}/> */}
+            <StackUser.Screen 
+                name = "SearchWithFilter" 
+                component = {SearchWithFilter} 
+                options={{ headerShown: false }}
+            />
+
+            <StackUser.Screen 
+                name = "Favorites" 
+                component = {MainScreenOfUsers} 
+                options={{ headerShown: false }}
+            />
+
+            <StackUser.Screen 
+                name = "Notifications" 
+                component = {Notifications} 
+                options={{ headerShown: false }}
+            />
 
             <StackUser.Screen 
                 name = "AllMessages" 

@@ -1,16 +1,16 @@
 import * as React from "react";
 import Svg, { Path } from "react-native-svg";
 import { responsiveWidth } from "../utils/layout";
+import colors from '../utils/colors'
 
 export default function StatusDenied({
-    iconColor = "#C4CAD5"
+    iconColor = colors.pinkRed
 }) {
     return (
         <Svg
             width={responsiveWidth(8)}
             height={responsiveWidth(8)}
             viewBox="17.984 -34.344 16.125 16.031"
-            {...props}
         >
             <Path
                 fillRule="evenodd"

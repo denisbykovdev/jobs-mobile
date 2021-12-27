@@ -43,6 +43,7 @@ import watchStoreBirthdayInfoSaga from './watchStoreBirthdayInfoSaga';
 import watchStoreDetailsSaga from './watchStoreDetailsSaga';
 import watchStoreHrAccountSaga from './watchStoreHrAccountSaga';
 import watchStoreReviewSaga from './watchStoreReviewSaga';
+import watchUpdateJobStatusSaga from './watchUpdateJobStatusSaga';
 import watchVerificationSaga from './watchVerificationSaga';
 import watchViewJobSaga from './watchViewJobSaga';
 
@@ -92,6 +93,7 @@ export default function* rootSaga() {
         fork(watchGetMessagesSaga),
         fork(watchOpenConversationSaga),
         fork(watchCreateMessageSaga),
+        fork(watchUpdateJobStatusSaga),
         //sockets:
         fork(chatsChannelSaga),
         fork(notificationsChannelSaga)

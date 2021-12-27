@@ -33,11 +33,13 @@ export const getListOpportunitiesFailure = (error) => ({
 
 export const watchUpdateJobStatus = (
     token,
+    jobId,
     statusId
 ) => ({
     type: WATCH_UPDATE_JOB_STATUS,
     payload: {
         token,
+        jobId,
         statusId
     }
 });

@@ -296,7 +296,7 @@ const SearchResult = () => {
 const styles = StyleSheet.create({
     backgroundImage: {
         alignSelf: 'center',
-        flex: 1,
+        // flex: 1,
         width: layout.width,
         paddingHorizontal: responsiveWidth(17.5),
         paddingVertical: responsiveWidth(20)

@@ -94,10 +94,14 @@ export const createNewSchoolStart = () => ({
     type: CREATE_NEW_SCHOOL_START
 })
 
-export const createNewSchoolSuccess = (createNewSchoolMessage) => ({
+export const createNewSchoolSuccess = (
+    // createNewSchoolMessage
+    user
+) => ({
     type: CREATE_NEW_SCHOOL_SUCCESS,
     payload: {
-        createNewSchoolMessage
+        // createNewSchoolMessage
+        user
     }
 })
 
@@ -127,10 +131,14 @@ export const storeAdditionalInfoStart = () => ({
     type: STORE_ADDITIONAL_INFO_START
 })
 
-export const storeAdditionalInfoSuccess = (storeAdditionalInfoMessage) => ({
+export const storeAdditionalInfoSuccess = (
+    // storeAdditionalInfoMessage
+    user
+) => ({
     type: STORE_ADDITIONAL_INFO_SUCCESS,
     payload: {
-        storeAdditionalInfoMessage
+        // storeAdditionalInfoMessage
+        user
     }
 })
 
@@ -163,11 +171,13 @@ export const storeBirthdayInfoStart = () => ({
 })
 
 export const storeBirthdayInfoSuccess = (
-    profile
+    // profile
+    user
 ) => ({
     type: STORE_BIRTHDAY_INFO_SUCCESS,
     payload: {
-        profile
+        // profile
+        user
     }
 })
 
@@ -198,11 +208,15 @@ export const createNewCityStart = () => ({
 })
 
 export const createNewCitySuccess = (
-    createNewCityMessage
+    // createNewCityMessage
+    // profileInfo
+    user
 ) => ({
     type: CREATE_NEW_CITY_SUCCESS,
     payload: {
-        createNewCityMessage
+        // createNewCityMessage
+        // profileInfo
+        user
     }
 })
 
@@ -232,10 +246,14 @@ export const storeDetailsStart = () => ({
     type: STORE_DETAILS_START
 })
 
-export const storeDetailsSuccess = (profile) => ({
+export const storeDetailsSuccess = (
+    // profile
+    user
+) => ({
     type: STORE_DETAILS_SUCCESS,
     payload: {
-        profile
+        // profile
+        user
     }
 })
 

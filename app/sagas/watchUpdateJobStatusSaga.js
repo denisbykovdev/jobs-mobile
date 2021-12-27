@@ -17,6 +17,7 @@ function* updateJobStatusSaga(action) {
                 action.payload.jobId,
                 action.payload.statusId
             )}`,
+            {},
             authHeader(
                 action.payload.token
             )

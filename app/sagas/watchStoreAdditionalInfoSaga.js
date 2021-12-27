@@ -24,7 +24,7 @@ function* storeAdditionalInfoSaga(action) {
             )
         ))
         yield put(storeAdditionalInfoSuccess(
-            data.message
+            data.data
         ))
     } catch (error) {
         yield put(storeAdditionalInfoFailure(error))

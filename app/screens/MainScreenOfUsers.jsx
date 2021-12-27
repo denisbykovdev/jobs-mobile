@@ -23,10 +23,6 @@ const MainScreenOfUsers = () => {
 
     const route = useRoute()
 
-    // console.log(
-    //     `--- Main/route:`, route
-    // )
-
     const navigation = useNavigation()
 
     const [page, setPage] = useState(1)
@@ -135,14 +131,19 @@ const MainScreenOfUsers = () => {
 
     const getBackJobViewHeight = (height) => setJobViewHeight(height) 
 
+    // console.log(
+    //     `--- Main/route:`, route, jobsSelector, favoritesSelector
+    // )
+
     return (
         <CommonFrame
             onScrollEndDrag={scrollEnd}
             withArrow
             commonFrameStyle={{
-                position: 'relative'
+                paddingHorizontal: 0
             }}
         >
+            <View style={{ paddingHorizontal: responsiveWidth(17.5) }}>
             <Header />
             {
                 route.name !== 'Favorites'
@@ -205,7 +206,8 @@ const MainScreenOfUsers = () => {
             <View
                 style={{
                     position: 'relative',
-                    zIndex: -1
+                    zIndex: -1,
+                    // paddingHorizontal: responsiveWidth(17.5)
                 }}
             >
 
@@ -262,6 +264,7 @@ const MainScreenOfUsers = () => {
                     }}
                 />
             }
+            </View>
             </View>
         </CommonFrame>
     )

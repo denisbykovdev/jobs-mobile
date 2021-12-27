@@ -4,6 +4,7 @@ import { createNewCityFailure, createNewCityStart, createNewCitySuccess } from "
 import { WATCH_CREATE_NEW_CITY } from "../types/profileTypes";
 import { createNewCity } from "../utils/api";
 import authHeader from "../utils/authHeader";
+import * as SecureStore from 'expo-secure-store';
 
 export default function* watchCreateNewCitySaga() {
     yield takeEvery(WATCH_CREATE_NEW_CITY, createNewCitySaga)
@@ -24,7 +25,11 @@ function* createNewCitySaga(action) {
             )
         ))
         yield put(createNewCitySuccess(
-            data.message
+            data.data
+        ))
+        yield call(() => SecureStore.setItemAsync(
+            `user`,
+            JSON.stringify(data.data)
         ))
     } catch (error) {
         yield put(createNewCityFailure(error))

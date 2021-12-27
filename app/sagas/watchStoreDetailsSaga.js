@@ -4,6 +4,7 @@ import { storeDetailsFaulure, storeDetailsStart, storeDetailsSuccess } from "../
 import { WATCH_STORE_DETAILS } from "../types/profileTypes";
 import { storeDetails } from "../utils/api";
 import authHeader from "../utils/authHeader";
+import * as SecureStore from 'expo-secure-store';
 
 export default function* watchStoreDetailsSaga() {
     yield takeEvery(WATCH_STORE_DETAILS, storeDetailsSaga)
@@ -25,6 +26,10 @@ function* storeDetailsSaga(action) {
         ))
         yield put(storeDetailsSuccess(
             data.data
+        ))
+        yield call(() => SecureStore.setItemAsync(
+            `user`,
+            JSON.stringify(data.data)
         ))
     } catch (error) {
         yield put(storeDetailsFaulure(error))

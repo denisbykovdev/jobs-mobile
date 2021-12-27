@@ -15,11 +15,11 @@ import weights from "../utils/weights";
 import ArrowDown from "../icons/ArrowDown"
 import ChosenTick from "../icons/ChosenTick";
 import ArrowUp from "../icons/ArrowUp";
+import { ScrollView } from "react-native";
 
 export default function FormSelect({
     name,
     array,
-    // arrayOfObjects = null,
     placeholder,
     interSepter,
     selectContainerStyle,
@@ -33,6 +33,11 @@ export default function FormSelect({
     submitting = false,
     children,
     whiteTitle = false,
+    withDownListButton = false,
+    downListButtonTitle,
+    downListButtonFunction,
+    selectButtonTitleStyle,
+    withOutCircle = false,
     ...otherProps
 }) {
     const [isOpen, setOpen] = useState(false);
@@ -73,19 +78,6 @@ export default function FormSelect({
         }
     }
 
-    // const onChangeArrayOfObjects = (selected) => {
-    //     setFieldTouched(name)
-
-    //     if(multi) {
-    //         if(
-    //             // multiSelected.find((item) => item.name === selected)
-    //             Object.values(multiSelected).includes(`${selected}`)
-    //         ){
-                
-    //         }
-    //     }
-    // }
-
     useEffect(() => {
         if (multi && multiSelected.length > 0) setFieldValue(name, multiSelected)
     }, [multiSelected])
@@ -112,9 +104,10 @@ export default function FormSelect({
         }
     }, [isOpen])
 
-    // console.log(
-    //     `--- FormSelect/array:`, array
-    // )
+    const downListButtonHandler = () => {
+        downListButtonFunction()
+        setOpen(false)
+    }
 
     return (
         <View
@@ -144,7 +137,6 @@ export default function FormSelect({
                 ]}
                 onPress={() => openSelectHandler()}
             >
-
                 <Text
                     style={[
                         styles.selectButtonText,
@@ -154,7 +146,8 @@ export default function FormSelect({
                                 : !isOpen && !whiteTitle
                                 ? colors.darkSlateBlue
                                 : colors.whiteTwo
-                        }
+                        },
+                        selectButtonTitleStyle
                     ]}>
                     {
                         values[name]
@@ -162,9 +155,7 @@ export default function FormSelect({
                             ? values[name]
                             : placeholder
                     }
-                    {/* {placeholder} */}
                 </Text>
-
                 <Animated.View
                     style={[
                         {
@@ -190,100 +181,32 @@ export default function FormSelect({
                             }
                         />
                     }
-                    {/* <ArrowDown
-                            style={{ 
-                                transform: [{ 
-                                    rotate: '180deg' 
-                                }] 
-                            }}
-                            iconColor={
-                                isOpen 
-                                ? colors.whiteTwo 
-                                : colors.darkGreyBlue
-                            }
-                    /> */}
                 </Animated.View>
 
             </TouchableOpacity>
             {
                 isOpen && (
-                    <View
+                <View
+                    style={{
+                        position: 'absolute',
+                        top: height,
+                        width,
+                        zIndex: 1
+                    }}
+                >
+                    <ScrollView
                         style={[
                             styles.selectList,
-                            {
-                                position: 'absolute',
-                                top: height,
-                                width,
-                                zIndex: 1
-                            },
+                            // {
+                            //     position: 'absolute',
+                            //     top: height,
+                            //     width,
+                            //     zIndex: 1
+                            // },
                             selectListStyle
                         ]}
                     >
-                        {
-                            // arrayOfObjects !== null
-                            // ?
-                            // arrayOfObjects && arrayOfObjects.map((element, i) => (
-                            //     <TouchableOpacity
-                            //         key={i}
-                            //         onPress={
-                            //             () => `onChangeHandler`(element)
-                            //         }
-                            //         style={[
-                            //             styles.selectItem,
-                            //             selectItemStyle
-                            //         ]}
-                            //         {...otherProps}
-                            //     >
-                            //         <TouchableOpacity
-                            //             onPress={
-                            //                 () => onChangeHandler(element)
-                            //             }
-                            //             style={[
-                            //                 {
-                            //                     backgroundColor: colors.whiteTwo,
-                            //                     borderColor: colors.border,
-                            //                     borderWidth: responsiveWidth(1),
-                            //                     width: responsiveWidth(12),
-                            //                     height: responsiveWidth(12),
-                            //                     borderRadius: responsiveWidth(6),
-                            //                     alignItems: 'center',
-                            //                     justifyContent: 'center',
-                            //                     position: 'absolute',
-                            //                     left: responsiveWidth(5)
-                            //                 }
-                            //             ]}
-                            //         >
-                            //             {
-                            //                 values[name] === element
-                            //                 && <View
-                            //                     style={{
-                            //                         backgroundColor: colors.whiteTwo,
-                            //                         borderColor: colors.darkSlateBlue,
-                            //                         borderWidth: responsiveWidth(3.5),
-                            //                         width: responsiveWidth(12),
-                            //                         height: responsiveWidth(12),
-                            //                         borderRadius: responsiveWidth(6)
-                            //                     }}
-                            //                 >
-                            //                 </View>
-                            //                 || multi
-                            //                 && multiSelected.includes(element)
-                            //                 && <ChosenTick />
-                            //             }
-                            //         </TouchableOpacity>
-
-                            //         <Text
-                            //             style={[
-                            //                 styles.selectItemText
-                            //             ]}
-                            //         >
-                            //             {element}
-                            //         </Text>
-
-
-                            //     </TouchableOpacity>
-                            // ))
-                            // :
+                       {
                             array && array.map((element, i) => (
                                 <TouchableOpacity
                                     key={i}
@@ -291,11 +214,15 @@ export default function FormSelect({
                                         () => onChangeHandler(element)
                                     }
                                     style={[
-                                        styles.selectItem
+                                        styles.selectItem,
+                                        selectItemStyle
                                     ]}
                                     {...otherProps}
                                 >
-                                    <TouchableOpacity
+                                    {
+                                        !withOutCircle
+                                        &&
+                                        <TouchableOpacity
                                         onPress={
                                             () => onChangeHandler(element)
                                         }
@@ -332,6 +259,8 @@ export default function FormSelect({
                                             && <ChosenTick />
                                         }
                                     </TouchableOpacity>
+                                    }
+                                    
 
                                     <Text
                                         style={[
@@ -345,7 +274,31 @@ export default function FormSelect({
                                 </TouchableOpacity>
                             ))
                         }
-                    </View>
+
+                        </ScrollView>
+
+                        {
+                            withDownListButton
+                            &&
+                            <TouchableOpacity
+                                    onPress={
+                                        downListButtonHandler
+                                    }
+                                    style={[
+                                        styles.downListButton
+                                    ]}
+                                    {...otherProps}
+                                >
+                                    <Text
+                                        style={[
+                                            styles.downListButtonTitle
+                                        ]}
+                                    >
+                                        {downListButtonTitle}
+                                    </Text>
+                            </TouchableOpacity>
+                        }
+                </View>  
                 )
             }
         </View>
@@ -366,6 +319,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: responsiveWidth(9),
         alignItems: 'center',
         justifyContent: 'space-between',
+        // width: '100%'
     },
     selectList: {
         borderBottomColor: colors.border,
@@ -376,6 +330,7 @@ const styles = StyleSheet.create({
         borderLeftWidth: responsiveWidth(1),
         borderRightColor: colors.border,
         borderRightWidth: responsiveWidth(1),
+        // width: '100%'
     },
     selectItem: {
         height: responsiveWidth(20),
@@ -383,16 +338,33 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'flex-end',
         paddingHorizontal: responsiveWidth(5),
-        backgroundColor: colors.whiteTwo
+        backgroundColor: colors.whiteTwo,
+        // width: '100%'
     },
     selectItemText: {
         fontSize: fonts.xsmall,
         fontWeight: weights.thin,
         color: colors.darkSlateBlue,
+        // width: '100%'
     },
     selectButtonText: {
         fontSize: fonts.xsmall,
         fontWeight: weights.thin,
+        color: colors.darkSlateBlue,
+        // width: '100%'
+    },
+    downListButton: {
+        height: responsiveWidth(20),
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+        paddingHorizontal: responsiveWidth(5),
+        backgroundColor: colors.veryLightPinkLighter,
+        // alignSelf: 'flex-end'
+    },
+    downListButtonTitle: {
+        fontSize: fonts.small,
+        fontWeight: weights.bold,
         color: colors.darkSlateBlue,
     }
 });

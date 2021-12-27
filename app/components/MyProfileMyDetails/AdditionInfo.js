@@ -1,257 +1,339 @@
 import {
     Image,
-    KeyboardAvoidingView,
-    ScrollView,
     StyleSheet,
     Text,
-    TextInput,
     TouchableOpacity,
-    View,
-    AsyncStorage,
-    SafeAreaView
+    View
 } from "react-native";
-
-import React, {Component, useState, useEffect} from "react";
+import React from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import {icons, images} from "../../configs/imagesAndIconsUrl";
-import {LinearGradient} from "expo-linear-gradient";
-import {getUserToken, JobUrl, Token} from "../../configs/ApiCallHelper";
-import { verificationSuccess } from '../../actions/authActions';
-import axios from "axios";
-
+import { watchCreateNewSchool, watchStoreAdditionalInfo } from "../../actions/profileActions";
+import { useState } from "react";
+import FormContainer from "../../commons/FormContainer";
+import FormField from "../../commons/FormField";
+import colors from "../../utils/colors";
+import EditButton from "../../icons/EditButton";
+import FormSelect from "../../commons/FormSelect";
+import { responsiveWidth } from "../../utils/layout";
+import fonts from "../../utils/fonts";
+import weights from "../../utils/weights";
+import FormButton from "../../commons/FormButton";
+import Email from "../../icons/Email";
+import Planshet from "../../icons/Planshet";
+import Status23_4 from "../../icons/Status23_4";
 
 const AdditionInfo = () => {
-    const userSelector = useSelector(state=>state.auth.user);
+    const userSelector = useSelector(state => state.auth.user)
+
+    const tokenSelector = useSelector(state => state.auth?.token)
+
+    const profileInfoSelector = useSelector(state => state.profile.profileInfo)
+
+    const [areFieldsOpen, setFieldsOpen] = useState(false)
+
+    const [isFieldOpen, setFieldOpen] = useState(false)
 
     const dispatch = useDispatch()
-    useEffect(() => {
-        dispatch(verificationSuccess())
-    }, [])
 
-    const getAdditionalInfo = async () => {
-        const url = `${JobUrl}/api/user`
-        const token = await AsyncStorage.getItem('token') ;
-        axios.get(url,
-            {
-                headers: {
-                    'Authorization': `Bearer ${JSON.parse(token)}`
-                },
-            }).then(response => {
-//                console.log("additionalInfo", response.data.data);
-            }).catch(error => console.log("additionalInfoError", error));
+    const submitAdditionalInfo = (values) => {
+        const type = profileInfoSelector.types.find(type => type.name === values.type)
+
+        const school = profileInfoSelector.schools.find(school => city.name === values.city_id && city.id)
+
+        if(values.newSchool.length > 0) {
+            dispatch(
+                watchCreateNewSchool(
+                    tokenSelector,
+                    values.newSchool,
+                    values.email,
+                    type.id
+                )
+            )
+        }else{
+            dispatch(
+                watchStoreAdditionalInfo(
+                    tokenSelector,
+                    values.email,
+                    school.id,
+                    type.id
+                )
+            )
+        }
+        
+        setFieldsOpen(false)
+        setFieldOpen(false)
     }
 
-    const postAdditionalInfo = async () => {
-        const url = `${JobUrl}/api/profile/additionalInfo/store`
-                // const token = await getUserToken()
-                const token = await AsyncStorage.getItem('token') ;
-                axios.post(url,
-                    {
-                        email : 'boyfromodessa@gmail.com',
-                        type_id : 5,
-                    },
-                    {
-                        headers: {
-                            'Authorization': `Bearer ${JSON.parse(token)}`,
-                        },
-                    }).then(response => {
-                     console.log("additionalInfo", response);
-                     setIsSuccessfully(!isSuccessfully);
+    return (
+        <View style={styles.userProfileContainer}>
+            <View style={styles.personalDataContainer}>
+                <FormContainer
+                    initialValues={{
+                        email: '',
+                        school: '',
+                        type: '',
+                        newSchoolName: ''
+                    }}
+                    onSubmit={submitAdditionalInfo}
+                >
 
-                }).catch(error => console.log("additionalInfoError", error));
-    }
-    useEffect(() => {
-            getAdditionalInfo().then()
-    }, [])
-    const [isSuccessfully, setIsSuccessfully] = useState(false)
-    const [isEditNumberTrue, setIsEditNumberTrue] = useState("0")
-    const [testInput1,setTestInput1 ] = useState("")
-    const [testInput2,setTestInput2 ] = useState("")
-    const [testInput3,setTestInput3 ] = useState("")
-
-
-    return (<>
-            <View>
-                <View style={styles.boxUpMain}>
-
-                    <View>
-
-                        <View style={styles.boxUp}>
-                            {isEditNumberTrue !== "1" &&
-                            <TouchableOpacity onPress={() => setIsEditNumberTrue("1")}>
-                                <LinearGradient colors={['#3CD0BD', '#219BA5']} style={styles.circle}>
-                                    <Image source={icons.editNumber}
-                                           style={{width: 17, height: 17}}/>
-                                </LinearGradient>
-                            </TouchableOpacity>
-                            }
-
-
-                            {isEditNumberTrue === "1" &&
-                            <TextInput
-                                multiline={false}
-                                placeholder={"מייל"}
-                                secureTextEntry={false}
-                                placeholderTextColor={"rgba(23, 44, 96, 0.5)"}
-                                style={styles.InputText}
-                                onEndEditing={() => setIsEditNumberTrue("0")}
-                                onChangeText={text => setTestInput1(text)}
-                                value={testInput1}
-                            />
-                            }
-                            <View style={styles.boxUpLeftText}>
-                                {isEditNumberTrue !== "1" && <Text style={styles.boxUpText}>{testInput1 || "מייל"}</Text>}
-                                <Image source={icons.myDetailsMessageIcon}
-                                       style={{width: 19, height: 12, marginLeft: 14}}/>
+                    <View style={styles.formShieldContainer}>
+                        {
+                            areFieldsOpen
+                            ?
+                            <View style={styles.formShield}>
+                                <FormField
+                                    name="email"
+                                    placeholder="מייל"
+                                    fieldStyle={{
+                                        borderColor: colors.whiteTwo
+                                    }}
+                                />
                             </View>
-                        </View>
-
-
-                        <View style={styles.boxUp}>
-                            {isEditNumberTrue !== "2" &&
-                            <TouchableOpacity onPress={() => setIsEditNumberTrue("2")}>
-                                <LinearGradient colors={['#3CD0BD', '#219BA5']} style={styles.circle}>
-                                    <Image source={icons.editNumber}
-                                           style={{width: 17, height: 17}}/>
-                                </LinearGradient>
-                            </TouchableOpacity>
-                            }
-
-                            {isEditNumberTrue === "2" &&
-                            <TextInput
-                                multiline={false}
-                                placeholder={`מוס`}
-                                secureTextEntry={false}
-                                placeholderTextColor={"rgba(23, 44, 96, 0.5)"}
-                                style={styles.InputText}
-                                onEndEditing={() => setIsEditNumberTrue("0")}
-                                onChangeText={text => setTestInput2(text)}
-                                value={testInput2}
-                            />
-                            }
-
-                            <View style={styles.boxUpLeftText}>
-                                {isEditNumberTrue !== "2" && <Text style={styles.boxUpText}>{testInput2 || "מוסד לימודים"}</Text>}
-                                <Image source={icons.myDetailsProfileIcon}
-                                       style={{width: 19, height: 21, marginLeft: 14}}/>
+                            : 
+                            <View style={styles.formShield}>
+                                <TouchableOpacity 
+                                    style={styles.formShieldButton}
+                                    onPress={
+                                        () => setFieldsOpen(!areFieldsOpen)
+                                    }
+                                >
+                                    <EditButton />
+                                </TouchableOpacity>
+                                <Text style={styles.formShieldTitle}>
+                                    {userSelector?.email || 'מייל'}
+                                </Text>
                             </View>
-                        </View>
-
-
-                        <View style={styles.boxUp}>
-
-                            {isEditNumberTrue !== "3" &&
-                            <TouchableOpacity onPress={() => setIsEditNumberTrue("3")}>
-                                <LinearGradient colors={['#3CD0BD', '#219BA5']} style={styles.circle}>
-                                    <Image source={icons.editNumber}
-                                           style={{width: 17, height: 17}}/>
-                                </LinearGradient>
-                            </TouchableOpacity>
-                            }
-
-                            {isEditNumberTrue === "3" &&
-                            <TextInput
-                                multiline={false}
-                                placeholder={`הסטטוס שלי`}
-                                secureTextEntry={false}
-                                placeholderTextColor={"rgba(23, 44, 96, 0.5)"}
-                                style={styles.InputText}
-                                onEndEditing={() => setIsEditNumberTrue("0")}
-                                onChangeText={text => setTestInput3(text)}
-                                value={testInput3}
-                            />
-                            }
-
-                            <View style={styles.boxUpLeftText}>
-                                {isEditNumberTrue !== "3" && <Text style={styles.boxUpText}>{testInput3 || "הסטטוס שלי"}</Text> }
-                                <Image source={icons.myDetailsShieldIcon}
-                                       style={{width: 20, height: 25, marginLeft: 14}}/>
-                            </View>
-                        </View>
-
-
-                    </View>
-                    <View style={{alignItems: "center", marginVertical: 15}}>
-                        <TouchableOpacity style={styles.bottomMain} onPress={() => postAdditionalInfo()}>
-                            <Text style={styles.bottomMainText}>שמירת הפרופיל שלי</Text>
-                        </TouchableOpacity>
-                        {isSuccessfully &&
-                        <Image source={images.SuccessfullyPreserved}
-                               style={{width: 264, marginTop: 70, height: 66, position: "absolute", zIndex: 1}}/>
                         }
 
+                        <Email />
                     </View>
 
-                </View>
+                    <View style={styles.formShieldContainer}>
+                        {
+                            areFieldsOpen
+                            ?
+                            <View style={styles.formShield}>
+                                <FormSelect 
+                                    name="school"
+                                    array={
+                                        profileInfoSelector && 
+                                        profileInfoSelector?.schools && profileInfoSelector.schools.map(school => school.name)
+                                    }
+                                    withDownListButton
+                                    downListButtonTitle="הוספת יישוב +"
+                                    placeholder={userSelector?.school || 'מוס'}
+                                    leftArrow
+                                    downListButtonFunction={
+                                        () => setFieldOpen(!isFieldOpen)
+                                    }
+                                    selectButtonStyle={{
+                                        borderBottomColor: colors.whiteTwo,
+                                        borderTopColor: colors.whiteTwo,
+                                        borderRightColor: colors.whiteTwo,
+                                        borderLeftColor: colors.whiteTwo,
+                                        backgroundColor: colors.whiteTwo
+                                    }}
+                                    selectButtonTitleStyle={{
+                                        color: colors.darkGreyBlue
+                                    }}
+                                    selectListStyle={{
+                                        borderBottomColor: colors.veryLightPinkLighter,
+                                        borderTopColor: colors.whiteTwo,
+                                        borderRightColor: colors.veryLightPinkLighter,
+                                        borderLeftColor: colors.veryLightPinkLighter,
+                                        maxHeight: responsiveWidth(60),
+                                        overflow: 'scroll'
+                                    }}
+                                    selectItemStyle={{
+                                        backgroundColor: colors.veryLightPinkLighter
+                                    }}
+                                    withOutCircle
+                                />
+                            </View>
+                            : 
+                            <View style={styles.formShield}>
+                                <TouchableOpacity 
+                                    style={styles.formShieldButton}
+                                    onPress={
+                                        () => setFieldsOpen(!areFieldsOpen)
+                                    }
+                                >
+                                    <EditButton />
+                                </TouchableOpacity>
+                                <Text style={styles.formShieldTitle}>
+                                    {userSelector?.school || 'מוס'}
+                                </Text>
+                            </View>
+                        }
 
-                <View style={{backgroundColor: "#fff", top: -2, zIndex: -1}}>
-                    <Image source={icons.MyProfileComponent}
-                           style={{width: "100%", height: 100}}/>
-                </View>
+                        <Planshet />
+                    </View>
+                    {
+                        isFieldOpen
+                        &&
+                      
+                        <View style={{ zIndex: -1, width: '100%' }}>
+                           
+                                <FormField 
+                                    name="newSchoolName"
+                                    placeholder="שם היישוב שלך"
+                                    fieldStyle={{
+                                        borderColor: colors.whiteTwo,
+                                        marginTop: responsiveWidth(4),
+                                        marginBottom: responsiveWidth(4)
+                                    }}
+                                />
+                            
+                        </View>
+                    }
+                    
+                    <View style={[styles.formShieldContainer, {  zIndex: -1 }]}>
+                        {
+                            areFieldsOpen
+                            ?
+                            <View style={styles.formShield}>
+                                <FormSelect 
+                                    name="type"
+                                    array={
+                                        profileInfoSelector && 
+                                        profileInfoSelector?.types && profileInfoSelector.types.map(type => type.name)
+                                    }
+                                    // withDownListButton
+                                    // downListButtonTitle="הוספת יישוב +"
+                                    placeholder={userSelector?.role_id.name || 'הסטטוס שלי'}
+                                    leftArrow
+                                    // downListButtonFunction={
+                                    //     () => setFieldOpen(!isFieldOpen)
+                                    // }
+                                    selectButtonStyle={{
+                                        borderBottomColor: colors.whiteTwo,
+                                        borderTopColor: colors.whiteTwo,
+                                        borderRightColor: colors.whiteTwo,
+                                        borderLeftColor: colors.whiteTwo,
+                                        backgroundColor: colors.whiteTwo,
+                                        // width: '100%'
+                                    }}
+                                    selectButtonTitleStyle={{
+                                        color: colors.darkGreyBlue,
+                                        // width: '100%'
+                                    }}
+                                    selectListStyle={{
+                                        borderBottomColor: colors.veryLightPinkLighter,
+                                        borderTopColor: colors.whiteTwo,
+                                        borderRightColor: colors.veryLightPinkLighter,
+                                        borderLeftColor: colors.veryLightPinkLighter,
+                                        maxHeight: responsiveWidth(60),
+                                        overflow: 'scroll',
+                                        // width: '100%'
+                                    }}
+                                    selectItemStyle={{
+                                        backgroundColor: colors.veryLightPinkLighter,
+                                        // width: '100%'
+                                    }}
+                                    withOutCircle
+                                />
+                            </View>
+                            : 
+                            <View style={styles.formShield}>
+                                <TouchableOpacity 
+                                    style={styles.formShieldButton}
+                                    onPress={
+                                        () => setFieldsOpen(!areFieldsOpen)
+                                    }
+                                >
+                                    <EditButton />
+                                </TouchableOpacity>
+                                <Text style={styles.formShieldTitle}>
+                                    {userSelector?.role_id?.name || 'הסטטוס שלי'}
+                                </Text>
+                            </View>
+                        }
+
+                        <Status23_4 />
+                    </View>
+
+                    
+                    {
+                        areFieldsOpen
+                        ?
+                        <FormButton 
+                            title="שמירת הפרטים האישיים שלי"
+                            buttonHeight={responsiveWidth(26.5)}
+                            buttonStyle={{
+                                marginTop: responsiveWidth(8),
+                                zIndex: -2
+                            }}
+                        />
+                        :
+                        <FormButton
+                            buttonColor={colors.lightPeriwinckle}
+                            title="שמירת הפרטים האישיים שלי"
+                            buttonHeight={responsiveWidth(26.5)}
+                            disabled={areFieldsOpen}
+                            buttonStyle={{
+                                marginTop: responsiveWidth(8),
+                                zIndex: -2
+                            }}
+                        />
+                    }
+                </FormContainer>
             </View>
-        </>
+            <Image 
+                source={icons.MyProfileComponent}
+                style={{
+                    width: "100%", 
+                    height: responsiveWidth(50),
+                    marginBottom: responsiveWidth(25),
+                    zIndex: -1
+                }}
+            />
+        </View>
     )
 }
 
-
 const styles = StyleSheet.create({
-    boxUpMain: {
-        backgroundColor: "#efefef",
-        paddingHorizontal: 30,
-        paddingTop: 30
+    personalDataContainer: {
+        backgroundColor: colors.veyLightPink,
+        paddingHorizontal: responsiveWidth(18),
+        paddingTop: responsiveWidth(18),
+        alignItems: 'center'
     },
-
-    boxUp: {
-        marginBottom: 15,
-        flexDirection: "row",
-        justifyContent: "space-between",
-        alignItems: "center",
-    },
-
-    boxUpLeftText: {
-        flexDirection: "row",
+    formImagePickerContainer: {
         alignItems: 'center',
+        justifyContent: 'center',
+        width: responsiveWidth(63),
+        height: responsiveWidth(63),
+        borderRadius: responsiveWidth(7)
     },
-
-    boxUpText: {
-        fontSize: 16,
-        color: "#253866"
+    formImagePickerWrapper: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: responsiveWidth(62),
+        height: responsiveWidth(62),
+        borderRadius: responsiveWidth(7),
+        backgroundColor: colors.whiteTwo,
     },
-
-    circle: {
-        alignItems: "center",
-        justifyContent: "center",
-        width: 47,
-        height: 47,
-        borderRadius: 47 / 2,
-        backgroundColor: '#172c60'
+    formShieldContainer: {
+        width: '100%',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        marginVertical: responsiveWidth(4)
     },
-
-    bottomMain: {
-        width: "100%",
-        paddingVertical: 19,
-        alignItems: "center",
-        backgroundColor: 'rgba(186, 190, 199, 0.5)',
+    formShield: {
+        width: '90%',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        // width: '100%'
     },
-
-    bottomMainText: {
-        fontSize: 18,
-        fontWeight: "700",
-        opacity: 1,
-        color: "rgba(255, 255, 255, 0.8)",
-    },
-
-
-    InputText: {
-        width: "90%",
-        height: 40,
-        textAlign: "right",
-        backgroundColor: "#fff",
-        paddingHorizontal: 10,
-        borderRadius: 5
-    },
-
-
+    formShieldTitle: {
+        color: colors.darkSlateBlueTwo,
+        fontSize: fonts.xsmall,
+        fontWeight: weights.thin
+    }
 })
 
 export default AdditionInfo

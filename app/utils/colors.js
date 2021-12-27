@@ -1,5 +1,5 @@
 export default {
-    blueyGrey: '#959eb6',
+    blueyGrey: 'rgb(149, 158, 182, 0.2)',
     whiteThree: '#f4f4f4',
     darkGreyBlue: '#39496d',
     darkSlateBlue50: 'rgba(23, 44, 96, 0.5)',
@@ -29,5 +29,9 @@ export default {
     silverTwo: `rgba(201, 204, 211, 0.2)`,
     cloudyBlue: 'rgb(176, 187, 217)',
     brownGrey: 'rgb(150, 150, 150)',
-    darkSlateBlueTwo: 'rgb(37, 56, 102)'
+    darkSlateBlueTwo: 'rgb(37, 56, 102)',
+    aquaMarine: 'rgb(51, 208, 201)',
+    veyLightPink: 'rgb(239, 239, 239)',
+    veryLightPinkLighter: 'rgb(247, 247, 247)',
+    lightPeriwinckle: 'rgb(212, 214, 219)'
 }

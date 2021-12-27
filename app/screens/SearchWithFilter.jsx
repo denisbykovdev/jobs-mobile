@@ -61,6 +61,8 @@ const SearchResult = () => {
     const submitSearch = async (values) => {
         const searchUrl = `https://api.sherutbekalut.co.il/api/jobs/0/date?search=${values.searchItem ? values.searchItem : ''}`
 
+        // navigation.navigate("SearchResult")
+
         console.log(
             `--- SearchWithFilter/submit/values:`, 
             // values,
@@ -576,7 +578,7 @@ const SearchResult = () => {
 const styles = StyleSheet.create({
     backgroundImage: {
         alignSelf: 'center',
-        flex: 1,
+        // flex: 1,
         width: layout.width,
         paddingHorizontal: responsiveWidth(17.5),
         paddingVertical: responsiveWidth(20)
