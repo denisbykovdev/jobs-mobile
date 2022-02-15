@@ -77,6 +77,9 @@ const MyProfileNoReq = () => {
                             listOfRequestsSelector.map((item, i) => (
                                 <View
                                     key={i}
+                                    style={{
+                                        marginVertical: responsiveWidth(4)
+                                    }}
                                 >
                                     <ImageBackground
                                         source={(images.tellMore)}

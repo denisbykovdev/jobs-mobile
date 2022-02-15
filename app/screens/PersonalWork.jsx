@@ -16,7 +16,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { watchGetAreas } from "../actions/categoriesActions";
 import useStatusBar from "../hooks/useStatusBar";
 import useSecure from "../hooks/useSecure";
-import { watchStoreHrAccount } from "../actions/hrActions";
+import { watchGetHrAccount, watchStoreHrAccount } from "../actions/hrActions";
 import colors from '../utils/colors';
 import { responsiveWidth } from "../utils/layout";
 import AddPhoto from "../icons/AddPhoto";
@@ -26,11 +26,18 @@ import fonts from '../utils/fonts'
 import FormField from "../commons/FormField";
 import FormSelect from "../commons/FormSelect";
 import FormButton from "../commons/FormButton";
+import { useNavigation, useRoute } from "@react-navigation/native";
+import { url } from "../utils/api";
+import TabControllerHr from "../components/ListOfOpenOpportunities/TabControllerHr";
+import Header from "../components/Header";
 
-const PersonalWork = ({ navigation }) => {
+const PersonalWork = () => {
     const formikRef = useRef()
 
     useStatusBar('dark-content', colors.white)
+
+    const route = useRoute()
+    const navigation = useNavigation()
 
     const { secure: secureToken } = useSecure(`token`)
     const { secure: secureUser } = useSecure(`user`)
@@ -44,6 +51,8 @@ const PersonalWork = ({ navigation }) => {
     const idSelector = useSelector(state => state.user?.id)
     const tokenSelector = useSelector(state => state.auth?.token)
     const areasSelector = useSelector(state => state.categories?.areas)
+    const accountSelector = useSelector(state => state.hr.account)
+    const gettingSelector = useSelector(state => state.hr.getting)
 
     const areasArray = areasSelector !== null && areasSelector !== undefined && areasSelector.map(item => item.name)
 
@@ -56,6 +65,12 @@ const PersonalWork = ({ navigation }) => {
         dispatch(
             watchGetAreas(
                 secureToken || tokenSelector
+            )
+        )
+
+        route.name === 'PersonalDetails' && dispatch(
+            watchGetHrAccount(
+                tokenSelector
             )
         )
     }, []);
@@ -111,9 +126,24 @@ const PersonalWork = ({ navigation }) => {
     return (
         <AvoidingView>
             <CommonFrame>
-                <View style={styles.mainContainer}>
-                    <LogoHorizontal />
-
+                <View 
+                    style={[
+                        styles.mainContainer,
+                        {
+                            alignItems: route.name === 'PersonalDetails' ? 'stretch' : 'center'
+                        }
+                    ]}
+                >
+                    {
+                        route.name === 'PersonalDetails'
+                        ? 
+                        <>
+                            <Header />
+                            <TabControllerHr chosenTab={1} />
+                        </>
+                        : <LogoHorizontal />
+                    }
+                    
                     <TouchableOpacity
                         onPress={() => openImagePickerAsync()}
                     >
@@ -133,6 +163,18 @@ const PersonalWork = ({ navigation }) => {
                                         style={styles.uploadedImage}
                                     />
                                     :
+                                    route.name === 'PersonalDetails' 
+                                    && accountSelector !== null
+                                    && accountSelector.avatar !== null
+                                    && accountSelector.avatar.length > 1
+                                    ? 
+                                    <Image
+                                        source={{
+                                            uri: `${url}/${accountSelector?.avatar}` 
+                                        }}
+                                        style={styles.uploadedImage}
+                                    />
+                                    :
                                     <AddPhoto />
                             }
                         </View>
@@ -142,14 +184,14 @@ const PersonalWork = ({ navigation }) => {
 
                     <FormContainer
                         initialValues={{
-                            last_name: '',
-                            first_name: '',
-                            phone: '',
-                            organization_name: '',
-                            areas: '',
-                            email: '',
-                            about: '',
-                            avatar: ''
+                            last_name: route.name === 'PersonalDetails' ? accountSelector?.last_name : '',
+                            first_name: route.name === 'PersonalDetails' ? accountSelector?.first_name : '',
+                            phone: route.name === 'PersonalDetails' ? accountSelector?.phone : '',
+                            organization_name: route.name === 'PersonalDetails' ? accountSelector?.organization_name : '',
+                            areas: route.name === 'PersonalDetails' ? accountSelector?.areas.map(area => area.name) : '',
+                            email: route.name === 'PersonalDetails' ? accountSelector?.email : '',
+                            about: route.name === 'PersonalDetails' ? accountSelector?.about : '',
+                            avatar: route.name === 'PersonalDetails' ? accountSelector?.avatar : ''
                         }}
                         innerRef={formikRef}
                         onSubmit={submitHrProfile}
@@ -269,7 +311,7 @@ const PersonalWork = ({ navigation }) => {
 const styles = StyleSheet.create({
     mainContainer: {
         marginBottom: responsiveWidth(40),
-        alignItems: 'center'
+        // alignItems: 'center'
     },
     infoText: {
         marginTop: responsiveWidth(21.5),

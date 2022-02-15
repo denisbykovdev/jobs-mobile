@@ -16,6 +16,12 @@ function* createMessageSaga(action) {
             `${createMessage(
                 action.payload.chat_id
             )}`,
+            {
+                message: action.payload.message,
+                date: action.payload.date,
+                is_me: action.payload.is_me,
+                chat_id: action.payload.chat_id
+            },
             authHeader(
                 action.payload.token
             )

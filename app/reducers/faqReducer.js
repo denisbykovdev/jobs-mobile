@@ -49,7 +49,8 @@ export const faqReducer = (
         case FIRST_ANSWER_START:
             return {
                 ...state,
-                posting: true
+                posting: true,
+                firstAnswerMessage: null
             }
         case FIRST_ANSWER_SUCCESS:
             return {

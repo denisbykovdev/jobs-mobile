@@ -104,13 +104,13 @@ const ResultOfQuiz = () => {
                 style={styles.main}
             >
                 {
-                    route.params?.userTabController === false
-                    &&
+                    route.params !== undefined && route.params.userTabController
+                    ||
                     <Text style={styles.mainTitle}>התחומים ותתי התחומים אשר</Text>
                 }
                 {
-                    route.params?.userTabController === false
-                    &&
+                    route.params !== undefined && route.params.userTabController
+                    ||
                     <Text style={styles.mainTitle}>נמצאו מתאימים עבורך:</Text>
                 }
                 
@@ -200,7 +200,7 @@ const styles = StyleSheet.create({
     headerTitles: {
         alignItems: "center",
         marginTop: - responsiveWidth(24),
-        marginBottom: responsiveWidth(55)
+        marginBottom: responsiveWidth(16)
     },
     headerTitle: {
         marginTop: responsiveWidth(24),

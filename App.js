@@ -2,7 +2,9 @@ import React, { useEffect, useRef, useState } from 'react';
 import { StyleSheet, Text, I18nManager, View } from 'react-native';
 import SplashScreen from "./app/screens/SplashScreen"
 import MainStack from "./app/configs/StackNavigation";
-import * as Splash from "expo-splash-screen";
+// import * as Splash from "expo-splash-screen";
+import { DefaultTheme } from '@react-navigation/native';
+// import colors from '../utils/colors';
 
 import AppLoading from 'expo-app-loading';
 import {
@@ -24,12 +26,21 @@ import {
 import { Provider } from 'react-redux';
 import { store, persistor } from './store';
 import { PersistGate } from 'redux-persist/integration/react';
+import colors from './app/utils/colors';
 
 I18nManager.allowRTL(false);
 I18nManager.forceRTL(false);
 
+const MyTheme = {
+    ...DefaultTheme,
+    colors: {
+      ...DefaultTheme.colors,
+      notification: colors.tealishTwo
+    },
+  };
+
 export default function App() {
-    Splash.hideAsync()
+    // Splash.hideAsync()
 
     // const timerRef = useRef(null);
 
@@ -77,7 +88,7 @@ export default function App() {
                 >
                     <View style={styles.container}>
                         {timer == 100 ?
-                            <MainStack /> :
+                            <MainStack theme={MyTheme} /> :
                             <SplashScreen
                                 timer={timer}
                             />

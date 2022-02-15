@@ -1,12 +1,10 @@
 import {Image, TouchableOpacity, ImageBackground, StyleSheet, Text, TextInput, View} from "react-native";
+import React from "react";
+import { images } from "../configs/imagesAndIconsUrl";
+import { useNavigation } from "@react-navigation/native";
 
-import React,{useState}from "react";
-import {images} from "../configs/imagesAndIconsUrl";
-
-const PopupSuccess = ({navigation}) => {
-
-    const [id, setId] = useState((navigation && navigation.state && navigation.state.params && navigation.state.params.idJob) || 2);
-
+const PopupSuccess = () => {
+    const navigation = useNavigation()
 
     return (
         <View style={{flex: 1}}>
@@ -28,9 +26,6 @@ const PopupSuccess = ({navigation}) => {
                                 </Text>
                             </TouchableOpacity>
                         </ImageBackground>
-
-
-
                     </View>
                 </View>
 

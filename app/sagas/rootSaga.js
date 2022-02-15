@@ -1,4 +1,5 @@
 import { all, fork } from 'redux-saga/effects';
+import { watchCreateOpportunity } from '../actions/opportunitiesActions';
 import chatsChannelSaga from './chatsChannelSaga';
 import notificationsChannelSaga from './notificationsChannelSaga';
 import watchAddQuestionSaga from './watchAddQuestionSaga';
@@ -7,6 +8,8 @@ import watchApplyJobSaga from './watchApplyJobSaga';
 import watchCreateMessageSaga from './watchCreateMessageSaga';
 import watchCreateNewCitySaga from './watchCreateNewCitySaga';
 import watchCreateNewSchoolSaga from './watchCreateNewSchoolSaga';
+import watchCreateOpportunityMidrashaSaga from './watchCreateOpportunityMidrashaSaga';
+import watchCreateOpportunitySaga from './watchCreateOpportunitySaga';
 import watchFirstAnswerSaga from './watchFirstAnswerSaga';
 import watchGetAllFaqSaga from './watchGetAllFaqSaga';
 import watchGetAreasSaga from './watchGetAreasSaga';
@@ -22,6 +25,7 @@ import watchGetHrAccountSaga from './watchGetHrAccountSaga';
 import watchGetInfoForProfileSaga from './watchGetInfoForProfileSaga';
 import watchGetJobsSaga from './watchGetJobsSaga';
 import watchGetListOfRequestsSaga from './watchGetListOfRequestsSaga';
+import watchGetListOpportunitiesSaga from './watchGetListOpportunitiesSaga';
 import watchGetMainCategoriesSaga from './watchGetMainCategoriesSaga';
 import watchGetMessagesSaga from './watchGetMessagesSaga';
 import watchGetPostSaga from './watchGetPostSaga';
@@ -94,6 +98,10 @@ export default function* rootSaga() {
         fork(watchOpenConversationSaga),
         fork(watchCreateMessageSaga),
         fork(watchUpdateJobStatusSaga),
+        fork(watchGetListOpportunitiesSaga),
+        fork(watchCreateOpportunitySaga),
+        fork(watchCreateOpportunityMidrashaSaga),
+        // fork(watchGetReviewsSaga),
         //sockets:
         fork(chatsChannelSaga),
         fork(notificationsChannelSaga)

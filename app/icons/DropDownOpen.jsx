@@ -4,12 +4,14 @@ import { responsiveWidth } from "../utils/layout";
 import colors from '../utils/colors'
 
 export default function DropDownOpen({
-    iconColor = colors.whiteTwo
+    iconColor = colors.whiteTwo,
+    iconWidth = responsiveWidth(15.5),
+    iconHeight = responsiveWidth(15.5)
 }) {
     return (
         <Svg
-            width={responsiveWidth(15.5)}
-            height={responsiveWidth(15.5)}
+            width={iconWidth}
+            height={iconHeight}
             viewBox="-3.531 -16.792 46.167 45.667"
         >
             <Path

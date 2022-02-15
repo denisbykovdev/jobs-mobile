@@ -12,7 +12,7 @@ export default function* watchGetListOpportunitiesSaga() {
 function* getListOpportunitiesSaga(action) {
     try {
         yield put(getListOpportunitiesStart());
-        const { data } = yield call(() => axios.post(
+        const { data } = yield call(() => axios.get(
             `${getListOpportunities(action.payload.jobsPage)}`,
             authHeader(
                 action.payload.token

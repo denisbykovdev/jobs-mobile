@@ -3,8 +3,9 @@ import colors from "../utils/colors";
 import layout, { responsiveWidth } from "../utils/layout";
 import { StyleSheet, ScrollView } from "react-native";
 import Modal from "react-native-modal";
-import AvoidingView from "../common/AvoidingView";
+// import AvoidingView from "../common/AvoidingView";
 import { useCallback } from "react";
+import AvoidingView from "../commons/AvoidingView";
 
 const useModal = () => {
     const [isVisible, setVisible] = useState(false);
@@ -22,7 +23,7 @@ const useModal = () => {
 
         <Modal
             isVisible={isVisible}
-            backdropColor={colors.popUpBg}
+            backdropColor={colors.whiteTwo}
             children
             onBackdropPress={() => modalClose()}
             deviceWidth={layout.width}
@@ -33,7 +34,7 @@ const useModal = () => {
             style={[
                 styles.modalContainer,
                 {
-                    alignItems: layout.width > 600 ? "center" : 'stretch'
+                    // alignItems: layout.width > 600 ? "center" : 'stretch'
                 },
                 modalContainerStyle
             ]}
@@ -46,7 +47,7 @@ const useModal = () => {
                     contentContainerStyle={[
                         styles.modalScrollContainer,
                         {
-                            width: type === 2 && fullWidth === false ? responsiveWidth(360) : '100%'
+                            width: '100%'
                         },
                         modalContentStyle
                     ]}
@@ -54,10 +55,7 @@ const useModal = () => {
                     nestedScrollEnabled
                 >
 
-                    {/* <View style={styles.modalContent}> */}
                     {children}
-                    {/* </View> */}
-
 
                 </ScrollView>
             </AvoidingView>
@@ -71,10 +69,10 @@ const useModal = () => {
 const styles = StyleSheet.create({
     modalContainer: {
         margin: 0,
-        paddingHorizontal: responsiveWidth(31)
+        // paddingHorizontal: responsiveWidth(17.5)
     },
     modalScrollContainer: {
-        paddingTop: responsiveWidth(91),
+        // paddingTop: responsiveWidth(124.5),
     }
 });
 

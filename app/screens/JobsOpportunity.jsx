@@ -35,6 +35,8 @@ import FormContainer from "../commons/FormContainer";
 import FormField from "../commons/FormField";
 import FormButton from "../commons/FormButton"
 import { watchAddQuestion } from "../actions/faqActions";
+import { watchOpenConversation } from "../actions/chatActions";
+import Tick from "../icons/Tick";
 
 const JobsOpportunity = () => {
     const carouselRef = useRef()
@@ -56,6 +58,8 @@ const JobsOpportunity = () => {
     const [selected, setSelected] = useState(0)
 
     const applyJobSelector = useSelector(state => state.jobs.applyJob)
+
+    const openConversationSelector = useSelector(state => state.chats?.openConversationMessages)
 
     const pagination = () => (
         <Pagination
@@ -118,6 +122,10 @@ const JobsOpportunity = () => {
                 jobId,
                 values.question
             )
+            // watchOpenConversation(
+            //     tokenSelector,
+            //     jobId
+            // )
         )
     }
 
@@ -398,7 +406,8 @@ const JobsOpportunity = () => {
                                 borderColor={colors.tealGreen}
                                 onPress={
                                     () => navigation.navigate(
-                                        'FaqForJobs',
+                                        // 'FaqForJobs',
+                                        'Reviews',
                                         {
                                             jobId
                                         }
@@ -407,13 +416,23 @@ const JobsOpportunity = () => {
                             />
 
                             <View style={styles.additionalInfoDetails}>
-                                <View style={styles.additionalInfoDetail}>
+                                <TouchableOpacity 
+                                    onPress={
+                                        () => navigation.navigate(
+                                            'FaqForJobs',
+                                            {
+                                                jobId
+                                            }
+                                        )
+                                    }
+                                    style={styles.additionalInfoDetail}
+                                >
                                     <View style={styles.additionalInfoDetailInner}>
                                         <Text style={styles.additionalInfoDetailTitle}>בנות שירות שואלות</Text>
                                         <Text style={styles.additionalInfoDetailQuestion}>שאלות ותשובות</Text>
                                     </View>
                                     <QuestionsFromWomen />
-                                </View>
+                                </TouchableOpacity>
                                 <View style={styles.additionalInfoDetail}>
                                     <View style={styles.additionalInfoDetailInner}>
                                         <Text style={styles.additionalInfoDetailTitle}>סטטוס</Text>
@@ -469,18 +488,34 @@ const JobsOpportunity = () => {
                                             ? () => addToFavorite(jobSelector?.id)
                                             : () => { }
                                     }
+                                    liked={jobSelector.is_favorite}
                                 />
                                 <ShareButton />
                             </View>
 
                             <CommonButton 
-                                title="שליחת בקשה להרשמה לסיירת"
+                                disabled={jobSelector?.is_requested === true }
+                                title={
+                                    jobSelector?.is_requested === false
+                                    ? "שליחת בקשה להרשמה לסיירת"
+                                    : "נשלחה הודעה"
+                                }
                                 buttonHeight={responsiveWidth(26.5)}
                                 buttonStyle={{
                                     marginVertical: responsiveWidth(6)
                                 }}
                                 onPress={applyJob}
-                            />
+                                buttonColor={
+                                    jobSelector?.is_requested === true 
+                                    && colors.silver
+                                }
+                            >
+                                {
+                                    jobSelector?.is_requested === true
+                                    &&
+                                    <Tick />
+                                }
+                            </CommonButton>
 
                             <View style={styles.additionalInfoFaqForm}>
                                 <FormContainer
@@ -572,9 +607,7 @@ const styles = StyleSheet.create({
     },
     titleContainer: {
         position: 'relative',
-        alignItems: 'center',
-        // justifyContent: 'center',
-        // flexDirection: 'column'
+        alignItems: 'center'
     },
     titleLogo: {
         position: 'absolute',

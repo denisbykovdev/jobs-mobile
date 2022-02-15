@@ -64,7 +64,8 @@ const styles = StyleSheet.create({
         paddingHorizontal: responsiveWidth(12),
         height: responsiveWidth(33),
         marginVertical: responsiveWidth(12),
-        borderRadius: responsiveWidth(2.5)
+        borderRadius: responsiveWidth(2.5),
+        zIndex: -5
     },
     buttonRadioPicker: {
         height: responsiveWidth(20),

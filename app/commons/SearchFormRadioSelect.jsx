@@ -40,7 +40,9 @@ export default function SearchFormRadioSelect({
                     !isActive ? colors.tealishFour : colors.whiteTwo, 
                     !isActive ? colors.tealishThree : colors.whiteTwo
                 ]}
-                style={[styles.radioButton, shadowStyle]}
+                style={[styles.radioButton, shadowStyle, {
+                    borderColor: !isActive ? colors.tealishFour : colors.whiteTwo,
+                }]}
             >
                 <TouchableOpacity
                     style={styles.radioCircle}
@@ -62,7 +64,9 @@ export default function SearchFormRadioSelect({
                     isActive ? colors.tealishFour : colors.whiteTwo, 
                     isActive ? colors.tealishThree : colors.whiteTwo
                 ]}
-                style={[styles.radioButton, shadowStyle]}
+                style={[styles.radioButton, shadowStyle, {
+                    borderColor: isActive ? colors.tealishFour : colors.whiteTwo,
+                }]}
             >
                 <TouchableOpacity
                     style={styles.radioCircle}
@@ -99,7 +103,8 @@ const styles = StyleSheet.create({
     radioSelectContainer: {
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
+        zIndex: -5
     },
     radioButton: {
         height: responsiveWidth(26.5),
@@ -109,8 +114,8 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         paddingHorizontal: responsiveWidth(8),
         borderRadius: responsiveWidth(3),
-        borderColor: colors.whiteTwo,
-        borderWidth: responsiveWidth(1),
+        // borderColor: colors.whiteTwo,
+        // borderWidth: responsiveWidth(1),
         backgroundColor: colors.whiteTwo
     },
     radioCircle: {

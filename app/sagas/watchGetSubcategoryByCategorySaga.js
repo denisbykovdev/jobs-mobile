@@ -21,7 +21,7 @@ function* getSubcategoryByCategorySaga(action) {
             )
         ))
         yield put(getSubcategoryByCategorySuccess(
-            data
+            [...data]
         ))
     } catch (error) {
         yield put(getSubcategoryByCategoryFailure(error))

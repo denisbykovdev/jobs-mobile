@@ -12,6 +12,7 @@ import { blogsReducer } from "./blogsReducer";
 import { reviewsReducer } from "./reviewsReducer";
 import { chatsReducer } from "./chatReducer";
 import { notificationsReducer } from "./notificationsReducer";
+import { opportunitiesReducer } from "./opportunitiesReducer";
 
 const persistConfig = {
     key: 'root',
@@ -20,17 +21,16 @@ const persistConfig = {
 };
 
 export default combineReducers({
-    // auth: persistReducer(persistConfig, authReducer),
     auth: authReducer,
-    quiz: quizReducer,
-    // jobs: persistReducer(persistConfig, jobsReducer),
+    quiz: persistReducer(persistConfig, quizReducer),
     jobs: jobsReducer,
     hr: hrReducer,
+    opportunities: opportunitiesReducer,
     faq: faqReducer,
     profile: profileReducer,
     categories: categoriesReducer,
     blogs: blogsReducer,
     reviews: reviewsReducer,
     chats: chatsReducer,
-    notifications: persistReducer(persistConfig, notificationsReducer)
+    notifications: notificationsReducer
 })

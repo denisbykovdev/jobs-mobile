@@ -89,12 +89,20 @@ export const openConversationFailure = (error) => ({
 
 export const watchCreateMessage = (
     token,
-    chat_id
+    chat_id,
+    message,
+    date,
+    is_me,
+    // chat_id
 ) => ({
     type: WATCH_CREATE_MESSAGE,
     payload: {
         token,
-        chat_id
+        chat_id,
+        message,
+        date,
+        is_me,
+        // chat_id
     }
 })
 

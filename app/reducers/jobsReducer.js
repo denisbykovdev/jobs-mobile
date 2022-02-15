@@ -79,7 +79,8 @@ export const jobsReducer = (
         case VIEW_JOB_START:
             return {
                 ...state,
-                getting: true
+                getting: true,
+                applyJob: null
             };
         case VIEW_JOB_SUCCESS:
             return {

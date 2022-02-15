@@ -19,7 +19,7 @@ function* getHrAccountSaga(action) {
             )
         ))
         yield put(getHrAccountSuccess(
-            data
+            data.data
         ))
     } catch (error) {
         yield put(getHrAccountFailure(

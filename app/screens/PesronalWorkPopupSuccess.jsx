@@ -7,8 +7,8 @@ import { BlurView } from 'expo-blur';
 
 const PersonalWorkPopupSuccess = ({ navigation, setModal, modal }) => {
     const hrSubmitHandler = () => {
-        // navigation.navigate("ListOfOpenOpportunities")
-        navigation.navigate("ChooseTheTypeUsers")
+        navigation.navigate("ListOfOpenOpportunities")
+        // navigation.navigate("ChooseTheTypeUsers")
         setModal(false)
     }
     return (
@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
     main: {
         alignItems: "center",
         justifyContent: "center",
-        // height: '100%',
+        height: '100%',
         // opacity: 0.5,
         // backgroundColor: colors.white,
         // zIndex: -1

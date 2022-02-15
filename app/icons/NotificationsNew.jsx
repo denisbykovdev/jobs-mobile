@@ -7,7 +7,8 @@ export default function NotificationsNew(props) {
         <Svg
             width={responsiveWidth(22.5)}
             height={responsiveWidth(22.5)}
-            viewBox="0 0 45.083 44.75"
+            // viewBox="0 0 45.083 44.75"
+            viewBox="-9 -7.792 45.083 44.75"
             {...props}
         >
             <Circle fill="#2B3E6E" cx={13.562} cy={14.645} r={22.292} />

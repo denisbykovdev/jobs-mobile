@@ -33,5 +33,10 @@ export default {
     aquaMarine: 'rgb(51, 208, 201)',
     veyLightPink: 'rgb(239, 239, 239)',
     veryLightPinkLighter: 'rgb(247, 247, 247)',
-    lightPeriwinckle: 'rgb(212, 214, 219)'
-}
+    lightPeriwinckle: 'rgb(212, 214, 219)',
+    darkGreyBlueLight: 'rgba(57, 73, 109, 0.3)',
+    aquaMarineTwo: 'rgb(82, 196, 191)',
+    duskBlueLight: 'rgba(46, 49, 146, 0.05)',
+    whiteTwo50: 'rgba(255, 255, 255, 0.5)',
+    darkGreyColor50: 'rgba(57, 73, 109, 0.5)'
+}   

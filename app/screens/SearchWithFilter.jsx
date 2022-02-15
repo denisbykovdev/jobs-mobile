@@ -41,6 +41,7 @@ import authHeader from "../utils/authHeader";
 import { Image } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import BigSadiconSearch from "../icons/BigSadiconSearch";
+import { watchGetSubcategory, watchGetSubcategoryByCategory } from "../actions/categoriesActions";
 
 const SearchResult = () => {
 
@@ -48,9 +49,9 @@ const SearchResult = () => {
 
     const navigation = useNavigation()
 
-    const token = useSelector(state => state.auth.token)
+    const tokenSelector = useSelector(state => state.auth?.token)
 
-    const isMidrashotSelector = useSelector(state => state.auth.user?.is_midrashot)
+    const isMidrashotSelector = useSelector(state => state.auth?.user?.is_midrashot)
 
     const quizSelector = useSelector(state => state.auth.user?.quiz)
 
@@ -58,14 +59,27 @@ const SearchResult = () => {
 
     const searchJobsSelector = useSelector(state => state.jobs.searchJobs)
 
+    const subCategoriesSelector = useSelector(state => state.categories?.subcategoryByCategory)
+
+    const interSepterCat = (name, e) => {
+        const category = filteredJobsSelector.categories.find(item => item.name === e)
+        
+        dispatch(
+            watchGetSubcategoryByCategory(
+                tokenSelector,
+                category.id
+            )
+        )
+    }
+
     const submitSearch = async (values) => {
-        const searchUrl = `https://api.sherutbekalut.co.il/api/jobs/0/date?search=${values.searchItem ? values.searchItem : ''}`
+        const searchUrl = `https://api.sherutbekalut.co.il/api/jobs/0/date?search=${values.searchString ? values.searchString : ''}`
 
         // navigation.navigate("SearchResult")
 
         console.log(
             `--- SearchWithFilter/submit/values:`, 
-            // values,
+            values,
             searchJobsSelector
         )
 
@@ -74,7 +88,7 @@ const SearchResult = () => {
                 searchUrl,
                 {
                     years: values.years ? values.years : '',
-                    categories: values.categories.length > 0 ? values.categories : '',
+                    categories: values.categories.length > 0 ? [values.categories] : '',
                     subcategories: values.subcategories.length > 0 ? values.subcategories : '',
                     areas: values.areas ? values.areas : '',
                     organizations: values.organizations.length > 0 ? values.organizations : '',
@@ -86,7 +100,7 @@ const SearchResult = () => {
                     places: values.places ? values.places : '',
                 },
                 authHeader(
-                    token
+                    tokenSelector
                 )
             )
             if (result) {
@@ -105,7 +119,7 @@ const SearchResult = () => {
     }
 
     useEffect(() => {
-        dispatch(watchGetFilteredJobs(token))
+        dispatch(watchGetFilteredJobs(tokenSelector))
     }, [])
 
     useEffect(
@@ -147,9 +161,9 @@ const SearchResult = () => {
                     onSubmit={submitSearch}
                 >
                     {
-                        searchJobsSelector !== null && searchJobsSelector.length < 1
+                        searchJobsSelector === null 
+                        || searchJobsSelector.length < 1
                         ?
-               
                         <View style={{marginBottom: responsiveWidth(32)}}>
                             <View style={{
                                 alignSelf: 'center',
@@ -276,7 +290,7 @@ const SearchResult = () => {
                             >
                                 <FormField
                                     name="searchString"
-                                    placeholder="?מה לחפש לך"
+                                    placeholder="מה לחפש לך?"
                                     fieldContainerStyle={{
                                         // marginVertical: responsiveWidth(12)
                                     }}
@@ -358,7 +372,7 @@ const SearchResult = () => {
                                     <SearchFormSelect
                                         multi
                                         name="years"
-                                        placeholder="?לאיזו שנה"
+                                        placeholder="לאיזו שנה?"
                                         array={
                                             filteredJobsSelector
                                             && filteredJobsSelector?.years
@@ -373,7 +387,7 @@ const SearchResult = () => {
                                         <Calendar />
                                     </SearchFormSelect>
                                     <SearchFormSelect
-                                        multi
+                                        // multi
                                         name="categories"
                                         placeholder="תחום"
                                         array={
@@ -389,6 +403,7 @@ const SearchResult = () => {
                                                 marginTop: responsiveWidth(12)
                                             }
                                         ]}
+                                        interSepter={interSepterCat}
                                     >
                                         <Gear />
                                     </SearchFormSelect>
@@ -396,7 +411,11 @@ const SearchResult = () => {
                                         multi
                                         name="subcategories"
                                         placeholder="תת תחום"
-                                        array={[]}
+                                        array={
+                                            subCategoriesSelector
+                                            && subCategoriesSelector !== null
+                                            && subCategoriesSelector.map(sub => sub.name)
+                                        }
                                         selectContainerStyle={{
                                             zIndex: -2,
                                             marginTop: responsiveWidth(12)
@@ -423,6 +442,7 @@ const SearchResult = () => {
                                         <Area />
                                     </SearchFormSelect>
                                     <SearchFormSelect
+                                        multi
                                         name="organizations"
                                         placeholder="עמותה"
                                         array={
@@ -462,7 +482,7 @@ const SearchResult = () => {
                                 <>
                                     <SearchFormSelect
                                         name="years"
-                                        placeholder="?לאיזו שנה"
+                                        placeholder="לאיזו שנה?"
                                         array={
                                             filteredJobsSelector
                                             && filteredJobsSelector?.years
@@ -504,7 +524,7 @@ const SearchResult = () => {
                                     </SearchFormSelect>
                                     <SearchFormSelect
                                         name="job_for"
-                                        placeholder="?למי מתאים"
+                                        placeholder="למי מתאים?"
                                         array={
                                             filteredJobsSelector
                                             && filteredJobsSelector?.job_for
@@ -564,7 +584,7 @@ const SearchResult = () => {
                             buttonHeight={responsiveWidth(26.5)}
                             buttonStyle={{
                                 marginVertical: responsiveWidth(12),
-                                zIndex: -8
+                                zIndex: -6
                             }}
                         />
 

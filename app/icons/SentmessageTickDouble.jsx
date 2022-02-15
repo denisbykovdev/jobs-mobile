@@ -5,8 +5,8 @@ import { responsiveWidth } from "../utils/layout";
 export default function SentmessageTickDouble(props) {
     return (
         <Svg
-            width={responsiveWidth(12)}
-            height={responsiveWidth(4)}
+            width={responsiveWidth(13)}
+            height={responsiveWidth(5)}
             viewBox="0 0 17.872 9.62"
             {...props}
         >

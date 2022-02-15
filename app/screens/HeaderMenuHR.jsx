@@ -3,16 +3,25 @@ import {Image, ScrollView, StyleSheet, Text, TouchableOpacity, TextInput, View} 
 
 import {icons, images} from "../configs/imagesAndIconsUrl";
 import {LinearGradient} from "expo-linear-gradient";
+import { useNavigation } from "@react-navigation/native";
+import { useSelector } from "react-redux";
 
-const HeaderMenu = ({navigation}) => {
+const HeaderMenuHR = () => {
+    const navigation = useNavigation()
+
+    const userSelector = useSelector(state => state.auth?.user)
+
     return (
         <View style={{flex: 1}}>
             <ScrollView style={{flex: 1}}>
                 <View style={styles.main}>
                     <LinearGradient colors={['#3CD0BD', '#219ba5']} style={styles.topBox}>
 
-                        <Text style={styles.X}>x</Text>
-                        <View style={styles.topBoxRight}>
+                        <TouchableOpacity onPress={() => navigation.goBack(null)}>
+                            <Image source={icons.Exit} style={styles.X} />
+                        </TouchableOpacity>
+
+                        {/* <View style={styles.topBoxRight}>
                             <Image source={images.candidatesImg} style={styles.noPhoto}/>
                             <View style={{flexDirection: "row", alignItems: "center", marginBottom: 22}}>
                                 <Text style={{color: "#fff", fontSize: 18, fontWeight: "600"}}>שם המשתמש</Text>
@@ -20,7 +29,41 @@ const HeaderMenu = ({navigation}) => {
 
                             </View>
 
-                        </View>
+                        </View> */}
+                        <TouchableOpacity 
+                            style={styles.topBoxRight} 
+                            onPress={() => navigation.navigate("ListOfOpenOpportunities")}
+                        >
+                            <Image 
+                                source={
+                                    userSelector && userSelector.avatar 
+                                        ? { uri: userSelector.avatar } 
+                                        : icons.ProfileMenu
+                                } 
+                                style={styles.noPhoto} 
+                            />
+                            <View 
+                                style={{ 
+                                    flexDirection: "row", 
+                                    alignItems: "center", 
+                                    marginBottom: 22 
+                                }}
+                            >
+                                <Text 
+                                    style={{ color: "#fff", fontSize: 18, fontWeight: "600" }}
+                                >
+                                    {userSelector && userSelector.first_name ? userSelector.first_name : "שם המשתמש"}
+                                </Text>
+                                <Image 
+                                    source={icons.profileWhite} 
+                                    style={{ 
+                                        width: 12, 
+                                        height: 16, 
+                                        marginLeft: 20 
+                                    }} 
+                                />
+                            </View>
+                        </TouchableOpacity>
 
                     </LinearGradient>
 
@@ -104,9 +147,8 @@ const styles = StyleSheet.create({
     },
 
     X: {
-        color: "#FFF",
-        width: "50%",
-        fontSize: 50,
+        width: 25,
+        height: 26,
         marginLeft: 20,
         marginBottom: 30
     },
@@ -145,4 +187,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export default HeaderMenu
+export default HeaderMenuHR

@@ -1,6 +1,5 @@
-import { Image, TouchableOpacity, StyleSheet, View, StatusBar } from "react-native";
-import { icons } from "../configs/imagesAndIconsUrl";
-import React, { useState } from "react";
+import { TouchableOpacity, View } from "react-native";
+import React from "react";
 import LogoHorizontal from "../icons/LogoHorizontal";
 import ArrowBack from "../icons/ArrowBack";
 import { LogoHorizontalWhite } from "../icons/LogoHorizontalWhite";
@@ -8,17 +7,18 @@ import MenuHeader from "../icons/MenuHeader";
 import MenuHeaderWhite from "../icons/MenuHeaderWhite";
 import useStatusBar from "../hooks/useStatusBar";
 import colors from "../utils/colors";
-import Constants from 'expo-constants'
 import { useNavigation } from "@react-navigation/native";
 import { responsiveWidth } from "../utils/layout";
-// import Constants from 'expo-constants'
+import { useSelector } from "react-redux";
 
 const Header = ({
     whiteHeader,
     visibleBackArrow,
     visibleMenuButton = true,
-    headerStyle
+    headerStyle,
+    // hr = false
 }) => {
+    const hr = useSelector(state => state.auth?.user.is_hr)
 
     useStatusBar(
         !whiteHeader
@@ -37,7 +37,6 @@ const Header = ({
                 flexDirection: "row",
                 justifyContent: "center",
                 height: responsiveWidth(40),
-                // paddingTop: Constants.statusBarHeight,
                 backgroundColor: !whiteHeader
                     ? colors.whiteTwo
                     : 'transparent'
@@ -49,7 +48,7 @@ const Header = ({
                 visibleMenuButton
                 &&
                 <TouchableOpacity
-                    onPress={() => navigation.navigate("HeaderMenu")}
+                    onPress={() => navigation.navigate( hr ? 'HeaderMenuHR' : "HeaderMenu")}
                     style={{
                         position: 'absolute',
                         left: 0
@@ -66,8 +65,6 @@ const Header = ({
                 </TouchableOpacity>
 
             }
-
-
             {
                 !whiteHeader
                     ?
@@ -90,26 +87,7 @@ const Header = ({
                 </View>
             </TouchableOpacity>
         </View>
-        // </View>
     )
 }
-
-// const styles = StyleSheet.create({
-//     container: {
-//         // marginTop: 48,
-//         alignItems: "center",
-//         flexDirection: "row",
-//         justifyContent: "center"
-//     },
-//     burger: {
-//         position: 'absolute',
-//         left: 0
-//     },
-//     arrow: {
-//         position: 'absolute',
-//         right: 0
-//     }
-// });
-
 
 export default Header

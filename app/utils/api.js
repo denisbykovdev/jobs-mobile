@@ -109,7 +109,7 @@ export const quizResult = (userId) => `${api}/quiz/get/result?user=${userId}`
 
 // module3jobs 
 export const getJobs = (jobsPage, jobsByDateOrStars) => `${api}/jobs/${jobsPage}/${jobsByDateOrStars}`
-// POST 
+// GET
 
 export const getFavoriteJob = (jobId) => `${api}/job/${jobId}/favorite`
 // GET 
@@ -269,8 +269,8 @@ export const storeHrAccount = `${api}/account/store`
 
 // module 8 (opportunities)
 
-export const getListOpportunities = (jobsPage) => `${api}/jobs/${jobsPage}/stars`
-// POST 
+export const getListOpportunities = (jobsPage) => `${api}/jobs/${jobsPage}/date`
+// GET
 // type getListRequest = {
 //      token: string,
 //      jobsPage: string 
@@ -435,7 +435,7 @@ export const getOpportunityTypeData = `${api}/opportunity/type/data`
 //     ]
 // }
 
-// export const getDataForOpportunity = `${api}/opportunity/2/open/getData`
+export const getDataForOpportunity = `${api}/opportunity/2/open/getData`
 // // GET 
 // // type Request = {
 // //     token: string
@@ -1175,6 +1175,7 @@ export const getReviews = (job_id) => `${api}/jobs/${job_id}/reviews`
 // }
 export const getReviewsData = (job_id) => `${api}/jobs/${job_id}/reviews/getData`
 // GET 
+
 // const Request = {
 //     job_id: Number,
 //     token: String 
@@ -1250,34 +1251,7 @@ export const getConversations = `${api}/chat/conversations`
 //         }
 //     ]
 // }
-// const correctedResponse = {
-//     "data": [
-//         {
-//             "first_name": "Mush",
-//             "last_name": "Harutyunyan",
-//             "organization_name": "אופק",
-//             "avatar": "",
-//             "new_messages": 2,
-//              chat_id: 3,
-//              messsages: [
-//                          {
-//                              id: 1,
-//                              message: String,
-//                              date: String,
-//                              is_me: true,
-//                              chat_id: 3
-//                           },
-//                           {
-//                              "id": 2,
-//                              "message": "New message",
-//                              "date": "2020-11-12",
-//                              "is_me": false,
-//                              chat_id: 3
-//                            }
-//                          ]
-//         }
-//     ]
-// }
+
 export const getMessages = (chat_id) => `${api}/chat/conversation/${chat_id}`
 // GET 
 // const Request = {
@@ -1374,7 +1348,11 @@ export const createMessage = (chat_id) => `${api}/chat/conversation/${chat_id}/s
 // POST 
 // const Request = {
 //     token: String,
-//     chat_id: Number
+//     chat_id: Number,
+// message: String,
+// date: String,
+// is_me: Boolean,
+// chat_id: String || Number
 // }
 // const Response = {
 //     "data": {

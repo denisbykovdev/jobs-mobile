@@ -5,8 +5,8 @@ import { responsiveWidth } from "../utils/layout";
 export default function StarEmpty(props) {
     return (
         <Svg
-            width={responsiveWidth(6.5)}
-            height={responsiveWidth(6)}
+            width={responsiveWidth(15)}
+            height={responsiveWidth(13.5)}
             viewBox="-0.146 0.688 12.375 11.375"
             {...props}
         >

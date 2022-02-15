@@ -5,9 +5,11 @@ import { responsiveWidth } from "../utils/layout";
 export default function StarFull(props) {
     return (
         <Svg
-            width={responsiveWidth(6.5)}
-            height={responsiveWidth(6)}
-            viewBox="0 0 12.375 11.375" {...props}
+            width={responsiveWidth(15)}
+            height={responsiveWidth(13.5)}
+            // viewBox="0 0 12.375 11.375" 
+            viewBox="-0.146 0.688 12.375 11.375"
+            {...props}
         >
             <LinearGradient
                 id="prefix__a"

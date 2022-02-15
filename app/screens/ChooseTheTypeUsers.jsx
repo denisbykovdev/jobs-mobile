@@ -56,25 +56,31 @@ const ChooseTheTypeUsers = () => {
                     secureUser
                 )
 
-                dispatch(
-                    verificationSuccess(
-                        secureToken,
-                        secureUser
-                    )
-                )
+                // dispatch(
+                //     verificationSuccess(
+                //         secureToken,
+                //         secureUser
+                //     )
+                // )
 
-                setChosenUser(secureUser.role_id.id)
+                // setChosenUser(secureUser.role_id.id)
             }
     }, [secureToken, secureUser])
 
     const userHandler = () => {
+        console.log(
+            `--- ChooseTheTypeUsers/userHandler/props:`,
+            userSelector?.is_midrashot,
+            userSelector?.is_before_school
+        )
         // secureToken && !secureUser.is_hr 
         tokenSelector
             && !userSelector?.is_hr
             ? navigation.navigate(
                 `User`,
                 {
-                    isBlog: !userSelector?.is_midrashot && !userSelector?.is_before_school
+                    isBlog: !userSelector?.is_midrashot 
+                        && !userSelector?.is_before_school
                 }
             )
             : navigation.navigate(`SignUpAndSignIn`, { chosenUser })

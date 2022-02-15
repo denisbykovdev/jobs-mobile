@@ -10,6 +10,7 @@ export default function FormContainer({
 }) {
     return (
         <Formik
+            enableReinitialize={true}
             initialValues={initialValues}
             validationSchema={validationSchema}
             onSubmit={onSubmit}

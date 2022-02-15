@@ -103,6 +103,7 @@ const JobCard = ({
                                                 ? () => addToFavorite(item.id)
                                                 : () => { }
                                         }
+                                        liked={item.is_favorite}
                                     />
                                 }
 

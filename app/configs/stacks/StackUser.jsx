@@ -1,39 +1,25 @@
 import * as React from 'react';
-import { Image } from "react-native";
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-import { icons } from "../imagesAndIconsUrl";
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { responsiveWidth } from '../../utils/layout';
 import colors from '../../utils/colors';
 
-// Main Pages
 import MainScreenOfUsers from "../../screens/MainScreenOfUsers";
 import Blog from "../../screens/Blog";
 import JobsOpportunity from "../../screens/JobsOpportunity";
 import SearchResult from "../../screens/SearchResult";
-//TopTab Pages
 import MyProfileNoReq from "../../screens/MyProfileNoReq";
 import ResultOfQuiz from "../../screens/ResultOfQuiz";
-//My Profile Tabs
-import AdditionInfo from "../../components/MyProfileMyDetails/AdditionInfo"
-import BirthdayDate from "../../components/MyProfileMyDetails/BirthdayDate"
-import PersonalData from "../../components/MyProfileMyDetails/PersonalData"
-// Bottom Tab Pages
-import UserTabController from "../../screens/UserTabController";
 import Notifications from "../../screens/Notifications";
-import Favorites from "../../screens/Favorites";
 import SearchWithFilter from "../../screens/SearchWithFilter";
-import SearchWithFilterMidrashot from "../../screens/SearchWithFilterMidrashot";
 import MyProfileMyDetails from "../../screens/MyProfileMyDetails";
 import AllMessages from "../../screens/AllMessages";
-
-//Drawer Pages
 import HeaderMenu from "../../screens/HeaderMenu";
 import ContactUs from "../../screens/ContactUs";
 import Category from "../../screens/Category";
 import Organization from "../../screens/Organization";
-//Pages from Jobs
 import FaqForJobs from "../../screens/FaqForJobs";
 import Reviews from "../../screens/Reviews";
 import NewReview from "../../screens/NewReview";
@@ -45,18 +31,26 @@ import Search from '../../icons/Search';
 import NotificationsTab from '../../icons/Notifications';
 import Profile from '../../icons/Profile';
 import JobOpportunityPopUp from '../../screens/JobsOpportunityPopUp';
+import { useSelector } from 'react-redux';
+import fonts from '../../utils/fonts';
+import ConversationPage from '../../screens/ConversationPage';
 
 const StackUser = createStackNavigator ();
 
-const BottomTab = createMaterialBottomTabNavigator();
+// const BottomTab = createMaterialBottomTabNavigator();
+const BottomTab = createBottomTabNavigator()
 
 export function BottomStack ({navigation, route}) {
+    const notificationsSelector = useSelector(state => state.notifications?.notifications)
+
+    const unreadNotifications = notificationsSelector.filter(notification => notification.read === false)
+
     return (
         <BottomTab.Navigator 
-            labeled = {false} 
+            // labeled = {false} 
             barStyle={{ 
                 backgroundColor: colors.white,
-                height: responsiveWidth(45.5),
+                // height: responsiveWidth(45.5),
                 justifyContent: 'flex-end'
             }} 
             initialRouteName={
@@ -69,24 +63,25 @@ export function BottomStack ({navigation, route}) {
                 component={MainScreenOfUsers}
                 options={{
                      tabBarIcon: ({focused, color }) => (
-                        //  <Image source = {icons.home} style = {{width: 31,height: 25, tintColor: focused ? "#435677" : "#babec7"}} />
                         <Home 
                             iconColor={focused ? colors.dusk : colors.silver} 
                         />
                      ),
+                     tabBarShowLabel: false,
+                     headerShown: false
                 }}
             />
             <BottomTab.Screen 
                 name = "Favorites"
-                // component = {Favorites}
                 component={MainScreenOfUsers}
                 options={{
                      tabBarIcon: ({focused, color }) => (
-                        //  <Image source = {icons.hart} style = {{width: 26,height: 26, tintColor: focused ? "#435677" : "#babec7"}} />
                         <Favourites 
                             iconColor={focused ? colors.dusk : colors.silver} 
                         />
                      ),
+                     tabBarShowLabel: false,
+                     headerShown: false
                 }}
             />
             <BottomTab.Screen 
@@ -94,11 +89,12 @@ export function BottomStack ({navigation, route}) {
                 component = {SearchWithFilter}
                 options={{
                      tabBarIcon: ({focused, color }) => (
-                        //  <Image source = {icons.search} style = {{width: 26,height: 26, tintColor: focused ? "#435677" : "#babec7"}} />
                         <Search 
                             iconColor={focused ? colors.dusk : colors.silver} 
                         />
                      ),
+                     tabBarShowLabel: false,
+                     headerShown: false
                 }}
             />
             <BottomTab.Screen 
@@ -106,11 +102,17 @@ export function BottomStack ({navigation, route}) {
                 component = {Notifications}
                 options={{
                      tabBarIcon: ({focused, color }) => (
-                        //  <Image source = {icons.notifications} style = {{width: 25,height: 26, tintColor: focused ? "#435677" : "#babec7"}} />
                         <NotificationsTab
                             iconColor={focused ? colors.dusk : colors.silver} 
                         />
                      ),
+                     tabBarBadge: unreadNotifications.length,
+                     tabBarBadgeStyle: {
+                         color: colors.whiteTwo,
+                         fontSize: fonts.xxsmall
+                     },
+                     tabBarShowLabel: false,
+                     headerShown: false
                 }}
             />
             <BottomTab.Screen
@@ -118,11 +120,12 @@ export function BottomStack ({navigation, route}) {
                 component = {MyProfileNoReq}
                 options={{
                      tabBarIcon: ({focused, color }) => (
-                        //  <Image source = {icons.profile} style = {{width: 21,height: 26, tintColor: focused ? "#172c60" : "#c5cad7"}} />
                         <Profile
                             iconColor={focused ? colors.dusk : colors.silver}
                         />
                      ),
+                     tabBarShowLabel: false,
+                     headerShown: false
                 }}
             />
 
@@ -255,6 +258,18 @@ function UserStack ({ route }) {
             <StackUser.Screen 
                 name = "NewReview" 
                 component = {NewReview} 
+                options={{ headerShown: false }}
+            />
+
+            <StackUser.Screen
+                name="PageForApproveReview"
+                component={PageForApproveReview}
+                options={{ headerShown: false }}
+            />
+
+            <StackUser.Screen 
+                name = "ConversationPage" 
+                component = {ConversationPage} 
                 options={{ headerShown: false }}
             />
         </StackUser.Navigator>

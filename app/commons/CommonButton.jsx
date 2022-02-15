@@ -45,7 +45,8 @@ export default function CommonButton({
                     styles.buttonTitle,
                     {
                         color: titleColor,
-                        fontSize: titleFontSize
+                        fontSize: titleFontSize,
+                        marginRight: children ? responsiveWidth(4) : 0
                     },
                     titleStyle
                 ]}

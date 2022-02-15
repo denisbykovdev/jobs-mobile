@@ -10,9 +10,10 @@ export default function LikeButton({
     onPress,
     likes,
     without,
-    oneTime
+    oneTime,
+    liked = false
 }) {
-    const [isLiked, setLiked] = useState(false)
+    const [isLiked, setLiked] = useState(liked)
     
     const [isClicked, setClicked] = useState(false)
 

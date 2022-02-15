@@ -7,7 +7,7 @@ export default function Like241(props) {
         <Svg
             width={responsiveWidth(22)}
             height={responsiveWidth(20.5)}
-            viewBox="0 0 43.333 41.667"
+            viewBox="0 0 44 52"
             {...props}
         >
             <LinearGradient

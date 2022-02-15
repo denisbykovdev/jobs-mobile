@@ -7,10 +7,9 @@ export default function AddOpportunityIcon({
 }) {
     return (
         <Svg
-            width={responsiveWidth(10.5)}
+            width={responsiveWidth(13)}
             height={responsiveWidth(13.5)}
             viewBox="-0.917 -0.271 21.833 26.729"
-            {...props}
         >
             <Path
                 fill={iconColor}

@@ -135,6 +135,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center"
+        // alignItems: 'stretch'
     },
     tabCircles: {
         width: responsiveWidth(15),
@@ -150,10 +151,11 @@ const styles = StyleSheet.create({
     },
     tabBlock: {
         alignItems: "center",
-        justifyContent: "center"
+        // justifyContent: "center"
     },
     textArea: {
-        width: responsiveWidth(24)
+        // width: responsiveWidth(24)
+        width: responsiveWidth(30)
     },
     tabTitle: {
         fontSize: fonts.xxsmall,
@@ -161,7 +163,8 @@ const styles = StyleSheet.create({
         textAlign: "center",
         color: colors.darkSlateBlue,
         paddingBottom: responsiveWidth(12),
-        paddingTop: responsiveWidth(6)
+        paddingTop: responsiveWidth(6),
+        width: '100%'
     },
     border: {
         width: responsiveWidth(3),

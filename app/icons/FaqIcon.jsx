@@ -9,7 +9,7 @@ export default function FaqIcon({
         <Svg
             width={responsiveWidth(14)}
             height={responsiveWidth(14)}
-            viewBox="0 0 28.375 28.25" {...props}
+            viewBox="0 0 28.375 28.25"
         >
             <Path
                 fill={iconColor}

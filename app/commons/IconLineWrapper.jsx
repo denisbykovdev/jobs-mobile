@@ -5,7 +5,9 @@ import { responsiveWidth } from "../utils/layout";
 
 export default function IconLineWrapper({
     children,
-    iconLineStyle
+    iconLineStyle,
+    lineStyle,
+    lineColor = colors.tealishTwo
 }) {
     return (
         <View
@@ -18,27 +20,29 @@ export default function IconLineWrapper({
                 }]}
         >
             <View
-                style={
+                style={[
                     {
                         marginRight: responsiveWidth(15),
-                        borderLeftColor: colors.tealishTwo,
+                        borderLeftColor: lineColor,
                         height: responsiveWidth(18.5),
                         borderLeftWidth: responsiveWidth(1),
                         transform: [{ rotate: '90deg' }],
-                    }
-                }
+                    },
+                    lineStyle
+                ]}
             />
             {children}
             <View
-                style={
+                style={[
                     {
                         marginLeft: responsiveWidth(15),
-                        borderLeftColor: colors.tealishTwo,
+                        borderLeftColor: lineColor,
                         height: responsiveWidth(18.5),
                         borderLeftWidth: responsiveWidth(1),
                         transform: [{ rotate: '90deg' }],
-                    }
-                }
+                    },
+                    lineStyle
+                ]}
             />
         </View>
     )

@@ -87,7 +87,9 @@ const HeaderMenu = () => {
                             <Text style={styles.bottomBoxItemsText}>התקנים שלי</Text>
                         </TouchableOpacity>
 
-                        <TouchableOpacity style={styles.bottomBoxItems} onPress={() => navigation.navigate("Category")}>
+                        <TouchableOpacity style={styles.bottomBoxItems} 
+                            // onPress={() => navigation.navigate("Category")}
+                        >
                             <Image source={icons.CategoriesG} style={{ width: 15, height: 15, marginLeft: 18 }} />
                             <Text style={styles.bottomBoxItemsText}>קטלוג תחומים</Text>
                         </TouchableOpacity>

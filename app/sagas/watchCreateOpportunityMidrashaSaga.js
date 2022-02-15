@@ -16,25 +16,35 @@ function* createOpportunityMidrashaSaga(action) {
             `${createOpportunityMidrasha}`,
             {
                 title: action.payload.title,
-                category_id: action.payload.category_id,
-                subcategory_id: action.payload.subcategory_id,
-                organization_id: action.payload.organization_id,
-                route_id: action.payload.route_id,
-                job_for: action.payload.job_for,
-                description: action.payload.description,
                 area_id: action.payload.area_id,
                 city_id: action.payload.city_id,
                 address: action.payload.address,
+                program: action.payload.program,
                 place: action.payload.place,
-                nucleus: action.payload.nucleus,
+                route: action.payload.routes,
+                target_audience: action.payload.target_audience,
                 count: action.payload.count,
-                how_to_sort: action.payload.how_to_sort,
+                description: action.payload.description,
                 images: action.payload.images,
                 video_url: action.payload.video_url,
-                last_date_for_registration: action.payload.last_date_for_registration,
                 other_hr_name: action.payload.other_hr_name,
                 other_hr_phone: action.payload.other_hr_phone
             },
+            // title 
+            //area
+            //city
+            //adres
+            //program
+            //places
+            //routes
+            //audience
+            //jobforlist
+            //whattostudy
+            //description
+            //images
+            //videourl
+            //other_hr_name: action.payload.other_hr_name,
+            //other_hr_phone: action.payload.other_hr_phone
             authHeader(
                 action.payload.token
             )

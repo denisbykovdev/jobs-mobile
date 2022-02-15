@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react"
 import { StyleSheet, TextInput, View } from "react-native"
+import FormContainer from "../commons/FormContainer"
 import Search from "../icons/Search"
 import SearchIconInField from "../icons/SearchIconInField"
 import colors from "../utils/colors"
@@ -37,34 +38,27 @@ export default function useSearch({
         setSearchText(text)
     }
 
-    const RenderSearch = useCallback(({ searchInputWidth }) => {
+    const RenderSearch = useCallback(({ 
+        searchInputContainerStyles,  
+        serachInputStyles
+    }) => {
         return (
             <View
-                style={{
-                    justifyContent: "flex-end",
-                    flexDirection: "row",
-                    alignItems: 'center',
-                    borderColor: colors.border,
-                    borderWidth: responsiveWidth(1),
-                    borderRadius: 10,
-                    height: responsiveWidth(20),
-                    paddingHorizontal: responsiveWidth(5),
-                    marginBottom: responsiveWidth(8),
-                    marginTop: responsiveWidth(22)
-                }}
+                style={[
+                    styles.searchInputContainer,
+                    searchInputContainerStyles
+                ]}
             >
+                <SearchIconInField />
                 <TextInput
                     onChangeText={onChangeSearchInput}
-                    style={[styles.searchInput,
-                    {
-                        width: searchInputWidth || responsiveWidth(239),
-                        writingDirection: 'rtl',
-                    }]}
-                    placeholder="?איזו כתבה לחפש לך"
+                    style={[
+                        styles.searchInput,
+                        serachInputStyles
+                    ]}
+                    placeholder="חיפוש..."
                 />
-                <SearchIconInField />
             </View>
-
         )
     }, [])
 
@@ -75,14 +69,25 @@ export default function useSearch({
 }
 
 const styles = StyleSheet.create({
+    searchInputContainer: {
+        alignItems: "center",
+        backgroundColor: colors.whiteTwo,
+        justifyContent: "flex-end",
+        flexDirection: "row",
+        borderStyle: "solid",
+        borderWidth: responsiveWidth(1),
+        paddingRight: responsiveWidth(5),
+        borderRadius: responsiveWidth(2.5),
+        borderColor: colors.border,
+        height: responsiveWidth(20),
+        width: '100%'
+    },
     searchInput: {
-        alignSelf: 'flex-end',
-        fontSize: fonts.xsmall,
-        fontWeight: weights.thin,
-        color: colors.darkGreyBlueTwo,
-        textAlign: 'right',
         height: "100%",
-        width: "100%",
-        marginRight: responsiveWidth(8)
+        width: "90%",
+        textAlign: "right",
+        fontSize: fonts.xsmall,
+        fontWeight: weights.regular,
+        color: colors.darkSlateBlue
     }
 })

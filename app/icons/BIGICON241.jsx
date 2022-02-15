@@ -7,7 +7,7 @@ export default function BIGICON241(props) {
         <Svg
             width={responsiveWidth(116)}
             height={responsiveWidth(116)}
-            viewBox="0 0 234 234"
+            viewBox="-4 -16 244 244"
             {...props}
         >
             <Circle fill="#2B3F6D" cx={118.673} cy={106.419} r={117} />

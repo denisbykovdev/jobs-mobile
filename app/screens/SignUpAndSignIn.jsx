@@ -5,7 +5,7 @@ import {
     View,
     Image
 } from 'react-native';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { icons } from "../configs/imagesAndIconsUrl";
 import { SocialClientId } from "../configs/ApiCallHelper"
 import * as Facebook from 'expo-facebook';
@@ -32,6 +32,7 @@ import useStatusBar from '../hooks/useStatusBar';
 import { Platform } from "react-native";
 import IconLineWrapper from '../commons/IconLineWrapper';
 import { useNavigation, useRoute } from '@react-navigation/native';
+import * as AuthSession from 'expo-auth-session';
 
 const SignUpAndSignIn = () => {
     useStatusBar('dark-content', colors.white)
@@ -45,6 +46,8 @@ const SignUpAndSignIn = () => {
     const userType = route.params.chosenUser
 
     const tokenSelector = useSelector(state => state.auth.token)
+    const isMidrashotSelector = useSelector(state => state.auth?.user?.is_midrashot)
+    const isBeforeSchoolSelector = useSelector(state => state.auth?.user?.is_before_school)
 
     const phoneNumberPickerArray = [
         "+972",
@@ -70,6 +73,10 @@ const SignUpAndSignIn = () => {
 
                 const res = await response.json()
 
+                console.log(
+                    `--- loginFb/res:`, res
+                )
+
                 let user = {
                     email: res.email,
                     name: res.name,
@@ -88,8 +95,6 @@ const SignUpAndSignIn = () => {
                         0
                     )
                 )
-
-                tokenSelector && navigation.navigate("User", { isBlog: true })
             }
         } catch (e) {
             console.log('errorFacebook', e);
@@ -127,8 +132,6 @@ const SignUpAndSignIn = () => {
                     0
                 )
             )
-
-            tokenSelector && navigation.navigate("User", { isBlog: true })
         } catch (e) {
             console.log('errorApple', e);
         }
@@ -164,12 +167,26 @@ const SignUpAndSignIn = () => {
                     0
                 )
             )
-
-            tokenSelector && navigation.navigate("User", { isBlog: true })
         } catch (e) {
             console.log('errorGoogle', e)
         }
     }
+
+    useEffect(() => {
+        if(
+            tokenSelector 
+            && tokenSelector !== null
+        ){
+            navigation.navigate(
+                "FirstScreen", 
+                {
+                    isBlog: isMidrashotSelector === false &&     isBeforeSchoolSelector === false
+                        ? false
+                        : true
+                }
+            )
+        }
+    }, [tokenSelector])
 
     const submitPhone = async (values) => {
         const phone = `${values.phoneCode}${values.phone}`
@@ -271,7 +288,9 @@ const SignUpAndSignIn = () => {
                                     <Text style={styles.socialBtnText}>Facebook כניסה באמצעות </Text>
                                 </View>
                             </TouchableOpacity>
-                            <TouchableOpacity onPress={() => loginGoogle()}>
+                            <TouchableOpacity 
+                                onPress={() => loginGoogle()}
+                            >
                                 <View style={[styles.socialBtn]}>
                                     <View style={styles.socialIconStyles}>
                                         <GooglePlus />

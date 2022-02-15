@@ -64,7 +64,7 @@ export const getReviewsDataFailure = (error) => ({
 
 export const watchStoreReview = (
     job_id,
-    toekn,
+    token,
     first_name,
     last_name,
     phone,
@@ -78,7 +78,7 @@ export const watchStoreReview = (
     type: WATCH_STORE_REVIEW,
     payload: {
         job_id,
-        toekn,
+        token,
         first_name,
         last_name,
         phone,
