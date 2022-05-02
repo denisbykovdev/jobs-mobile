@@ -5,7 +5,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { JobUrl } from "../configs/ApiCallHelper";
 import { useDispatch, useSelector } from 'react-redux';
 import { verificationSuccess, watchSimpleTypes } from '../actions/authActions';
-import { responsiveWidth } from '../utils/layout';
+import { responsiveWidth, responsiveHeight } from '../utils/layout';
 import fonts from '../utils/fonts';
 import useStatusBar from '../hooks/useStatusBar';
 import colors from '../utils/colors';
@@ -115,7 +115,9 @@ const ChooseTheTypeUsers = () => {
                 <View>
                     <IconLineWrapper
                         iconLineStyle={{
-                            marginTop: responsiveWidth(47.5)
+                            // TODO: Changing options for responsive page.
+                            // marginTop: responsiveWidth(47.5) 
+                            marginTop: responsiveHeight(40.5)
                         }}
                     >
                         <IconHeart />
@@ -248,7 +250,9 @@ const styles = StyleSheet.create({
     image: {
         flex: 1,
         resizeMode: "center",
-        height: responsiveWidth(198)
+        // TODO: Changing options for responsive page.
+        // height: responsiveWidth(198),
+        height: responsiveHeight(180)
     },
     imageContainer: {
         flexDirection: "row",
@@ -263,7 +267,9 @@ const styles = StyleSheet.create({
     },
     textBlock: {
         alignItems: "center",
-        marginTop: responsiveWidth(13.5),
+        // TODO: Changing options for responsive page.
+        // marginTop: responsiveWidth(13.5),
+        marginTop: responsiveHeight(12),
         marginBottom: responsiveWidth(51)
     },
     bigTitle: {
@@ -277,8 +283,11 @@ const styles = StyleSheet.create({
     },
     chooseUserBlock: {
         width: responsiveWidth(78.5),
-        height: responsiveWidth(85),
-        marginTop: responsiveWidth(12),
+        // TODO: Changing options for responsive page.
+        // height: responsiveWidth(85),
+        // marginTop: responsiveWidth(12),
+        height: responsiveHeight(89),
+        marginTop: responsiveHeight(11),
         borderRadius: 4,
         elevation: 7,
         borderColor: "grey",
@@ -294,7 +303,9 @@ const styles = StyleSheet.create({
         paddingLeft: responsiveWidth(9.8),
         paddingTop: responsiveWidth(8.5),
         width: responsiveWidth(48.3),
-        height: responsiveWidth(55),
+        // TODO: Changing options for responsive page.
+        // height: responsiveWidth(55),
+        height:  responsiveHeight(56),
         borderTopEndRadius: responsiveWidth(40),
         borderBottomEndRadius: responsiveWidth(100),
         borderBottomLeftRadius: responsiveWidth(25),
@@ -328,7 +339,9 @@ const styles = StyleSheet.create({
         color: colors.tealishTwo,
         fontSize: fonts.xxsmall,
         textAlign: "center",
-        paddingVertical: responsiveWidth(15)
+        // TODO: Changing options for responsive page.
+        // paddingVertical: responsiveWidth(15)
+        paddingVertical: responsiveHeight(10)
     },
     footerBtn: {
         width: "100%",
@@ -336,7 +349,9 @@ const styles = StyleSheet.create({
         backgroundColor: colors.tealishTwo,
         paddingVertical: responsiveWidth(10),
         borderRadius: 4,
-        marginBottom: responsiveWidth(25)
+        // TODO: Changing options for responsive page.
+        // marginBottom: responsiveWidth(25)
+        marginBottom: responsiveHeight(6),
     },
     btnText: {
         color: colors.whiteTwo,

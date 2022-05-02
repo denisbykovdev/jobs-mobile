@@ -72,7 +72,9 @@ const styles = StyleSheet.create({
     },
 
     loaderPart: {
-        marginTop: responsiveHeight(150),
+        // TODO: Changing options for responsive page.
+        // marginTop: responsiveHeight(150),
+        marginTop: responsiveHeight(120),
         alignItems: "center",
     },
 
