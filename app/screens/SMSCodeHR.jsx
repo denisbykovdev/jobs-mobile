@@ -14,7 +14,7 @@ import AvoidingView from '../commons/AvoidingView';
 import CommonFrame from '../commons/CommonFrame';
 import LogoHorizontal from '../icons/LogoHorizontal';
 import Login from '../icons/Login';
-import layout, { responsiveWidth } from '../utils/layout';
+import layout, { responsiveWidth, responsiveHeight } from '../utils/layout';
 import colors from '../utils/colors';
 import fonts from '../utils/fonts';
 import weights from '../utils/weights';
@@ -175,7 +175,8 @@ const SMSCodeHR = () => {
                     title="ממשיכים"
                     buttonStyle={{
                         // position: 'absolute',
-                        bottom: -120
+                        // bottom: -120       // TODO: Changing options for responsive page.
+                        top: responsiveHeight(60)    // TODO: Changing options for responsive page.
                         // botton: 0
                     }}
                 />
@@ -200,7 +201,8 @@ const styles = StyleSheet.create({
     container: {
         alignItems: "center",
         height: layout.height,
-        marginBottom: responsiveWidth(40),
+        // TODO: Changing options for responsive page.
+        // marginBottom: responsiveWidth(40),    
     },
     title: {
         color: colors.darkSlateBlue,

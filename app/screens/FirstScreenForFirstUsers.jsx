@@ -9,7 +9,7 @@ import BIGICON from '../icons/BIGICON';
 import colors from '../utils/colors'
 import fonts from '../utils/fonts';
 import weights from '../utils/weights';
-import { responsiveWidth } from '../utils/layout';
+import layout, { responsiveWidth, responsiveHeight} from '../utils/layout';
 import CommonButton from '../commons/CommonButton';
 import useStatusBar from '../hooks/useStatusBar';
 
@@ -69,7 +69,9 @@ const FirstScreenForFirstUsers = () => {
                             onPress={() => navigation.navigate('Quiz')}
                             buttonHeight={responsiveWidth(26.5)}
                             buttonStyle={{
-                                marginTop: responsiveWidth(6.5 + 12)
+                                // TODO: Changing options for responsive page.
+                                //  marginTop: responsiveHeight(6.5 + 12) 
+                                marginTop:  layout.height > 650 ? responsiveHeight(6.5 + 12) : responsiveHeight(10)
                             }}
                         />
                         <CommonButton
@@ -80,7 +82,10 @@ const FirstScreenForFirstUsers = () => {
                             titleColor={colors.darkSlateBlue}
                             borderColor={colors.tealGreen}
                             buttonStyle={{
-                                marginTop: responsiveWidth(6.5)
+                                // TODO: Changing options for responsive page.
+                                // marginTop: responsiveWidth(6.5)
+                                marginTop:  layout.height > 650 ? responsiveHeight(6.5) : responsiveHeight(3)
+                            
                             }}
                         />
                     </View>
@@ -94,20 +99,27 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         flexDirection: "column",
-        marginBottom: responsiveWidth(40)
+        // marginBottom: responsiveWidth(40)  // TODO: Changing options for responsive page.
     },
     image: {
         flex: 1,
         height: responsiveWidth(273),
+       // TODO: Changing options for responsive page.
+        marginTop: layout.height > 650 ? responsiveHeight(-10) : responsiveHeight(-38),
     },
     horizontalLogo: {
         alignItems: "center",
-        marginTop: responsiveWidth(20),
-        marginBottom: responsiveWidth(42.5)
+       // TODO: Changing options for responsive page.
+        // marginTop: responsiveWidth(20),
+        // marginBottom: responsiveWidth(42.5),
+        marginTop:  layout.height > 650 ? responsiveHeight(30) : responsiveHeight(60),
+        marginBottom: responsiveHeight(20),
     },
     textBlock: {
         alignItems: "center",
-        marginTop: responsiveWidth(8)
+        // TODO: Changing options for responsive page.
+        // marginTop: responsiveWidth(8),
+        marginTop: responsiveHeight(6),
     },
     smallTitle: {
         color: colors.whiteTwo,
@@ -133,29 +145,38 @@ const styles = StyleSheet.create({
     numberStyles: {
         color: colors.whiteTwo,
         fontWeight: weights.bold,
-        fontSize: fonts.semilarge
+        fontSize: fonts.semilarge,
+        // TODO: Changing options for responsive page.
+        marginTop: responsiveHeight(-5),
     },
     imageBgUp: {
         width: 106,
         height: 86,
         position: "absolute",
         left: 0,
-        top: 0
+        // TODO: Changing options for responsive page.
+        // top: 0,
+        top: layout.height > 650 ?0 : responsiveHeight(-4) ,
     },
     questionText: {
         color: colors.darkSlateBlue,
-        marginTop: responsiveWidth(33.5),
+        // TODO: Changing options for responsive page.
+        // marginTop: responsiveWidth(33.5),
+        marginTop: layout.height > 650 ? responsiveHeight(13) : responsiveHeight(5),
         fontSize: fonts.small,
         fontWeight: weights.bold,
         textAlign: "center",
-        paddingHorizontal: responsiveWidth(16)
+        paddingHorizontal: responsiveWidth(16),
+      
     },
     imageBgDown: {
         width: 106,
         height: 86,
         position: "absolute",
         right: 0,
-        top: "60%"
+        // TODO: Changing options for responsive page.
+        // top: "60%"
+        top: layout.height > 650 ?  responsiveHeight(40) : responsiveHeight(8),
     }
 });
 
