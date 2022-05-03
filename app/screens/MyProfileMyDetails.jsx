@@ -22,7 +22,8 @@ const MyProfileMyDetails = () => {
         >
             <View
                 style={{
-                    marginHorizontal: responsiveWidth(17.5)
+                    marginHorizontal: responsiveWidth(17.5),
+                    marginBottom: 5, 
                 }}
             >
                 <Header />

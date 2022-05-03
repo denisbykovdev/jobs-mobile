@@ -14,7 +14,7 @@ import { watchQuizResult } from '../actions/quizActions';
 import CommonFrame from "../commons/CommonFrame";
 import CommonButton from "../commons/CommonButton";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { responsiveWidth } from "../utils/layout";
+import  layout, { responsiveWidth } from "../utils/layout";
 import Header from "../components/Header";
 import IconLineWrapper from "../commons/IconLineWrapper";
 import IconResults from "../icons/IconResults";
@@ -80,7 +80,9 @@ const ResultOfQuiz = () => {
                     style={{
                         alignItems: 'center',
                         justifyContent: 'center',
-                        marginBottom: responsiveWidth(21)
+                        // TODO: Changing options for responsive page.
+                        // marginBottom: responsiveWidth(21)
+                        marginBottom:layout.responsiveHeight(15)
                     }}
                 >
                     <BIGICON />
@@ -181,7 +183,9 @@ const ResultOfQuiz = () => {
 
             <CommonButton
                 buttonStyle={{
-                    marginTop: responsiveWidth(12)
+                    // TODO: Changing options for responsive page.
+                    // marginTop: responsiveWidth(10) 
+                    marginTop:layout.responsiveHeight(8)
                 }}
                 title="קדימה, לרשימת התקנים"
                 onPress={() => navigation.navigate('MainScreenOfUsers')}

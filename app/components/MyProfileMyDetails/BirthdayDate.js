@@ -7,7 +7,7 @@ import React, { useState } from "react";
 import { icons, images } from "../../configs/imagesAndIconsUrl";
 import FormContainer from "../../commons/FormContainer";
 import colors from "../../utils/colors";
-import { responsiveWidth } from "../../utils/layout";
+import layout, { responsiveWidth } from "../../utils/layout";
 import { useDispatch, useSelector } from "react-redux";
 import fonts from "../../utils/fonts";
 import weights from "../../utils/weights";
@@ -71,7 +71,10 @@ const BirthdayDate = () => {
                             borderTopColor: colors.whiteTwo,
                             borderRightColor: colors.whiteTwo,
                             borderLeftColor: colors.whiteTwo,
-                            backgroundColor: colors.whiteTwo
+                            backgroundColor: colors.whiteTwo,
+                            //TODO: Changing options for responsive page.
+                            marginTop: layout.height > 650 ? 0 : responsiveWidth(-14),
+                            marginBottom: layout.height > 650 ? 0 : responsiveWidth(-5)
                         }}
                         selectButtonTitleStyle={{
                             color: colors.darkGreyBlue
@@ -288,7 +291,9 @@ const BirthdayDate = () => {
                         title="שמירת תאריך הלידה שלי"
                         buttonHeight={responsiveWidth(26.5)}
                         buttonStyle={{
-                            marginTop: responsiveWidth(8),
+                            // TODO: Changing options for responsive page.
+                            // marginTop: responsiveWidth(8),
+                            marginTop:layout.height > 650 ? responsiveWidth(8) : responsiveWidth(2),
                             zIndex: -2
                         }}
                     />
@@ -299,7 +304,9 @@ const BirthdayDate = () => {
                 style={{
                     width: "100%",
                     height: responsiveWidth(50),
-                    marginBottom: responsiveWidth(25),
+                    // TODO: Changing options for responsive page.
+                    // marginBottom: responsiveWidth(25),
+                    marginTop: responsiveWidth(-7),
                     zIndex: -2
                 }}
             />

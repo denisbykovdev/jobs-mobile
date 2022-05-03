@@ -62,7 +62,8 @@ const MyProfileNoReq = () => {
         >
             <View
                 style={{
-                    marginHorizontal: responsiveWidth(17.5)
+                    marginHorizontal: responsiveWidth(17.5),
+                    marginTop:  layout.height < 650 ? layout.responsiveHeight(-12) : 0  //TODO: Changing options for responsive page.
                 }}
             >
                 <Header />
@@ -153,7 +154,9 @@ const MyProfileNoReq = () => {
                         }
                     </View>
                     :
-                    <View style={{ marginBottom: responsiveWidth(40) }}>
+                    <View 
+                    // style={{ marginBottom: responsiveWidth(40) }}   //TODO: Changing options for responsive page.
+                    >
                         <View
                             style={{
                                 alignItems: "center"
@@ -164,7 +167,8 @@ const MyProfileNoReq = () => {
                                 style={{
                                     width: "100%",
                                     height: responsiveWidth(170),
-                                    position: 'relative'
+                                    position: 'relative',
+                                    marginTop: -7,   // TODO: Changing options for responsive page.
                                 }}
                             />
                             <View
@@ -174,7 +178,9 @@ const MyProfileNoReq = () => {
                                     width: responsiveWidth(116),
                                     height: responsiveWidth(116),
                                     borderRadius: responsiveWidth(100),
-                                    marginTop: 120,
+                                    // TODO: Changing options for responsive page. 
+                                    // marginTop: 120,
+                                    marginTop: layout.height> 650 ? layout.responsiveHeight(52) : layout.responsiveHeight(47),
                                     backgroundColor: colors.darkSlateBlueTwo,
                                     zIndex: 3,
                                     position: 'absolute'
@@ -202,7 +208,8 @@ const MyProfileNoReq = () => {
                                 <View style={{
                                     width: '100%',
                                     flexDirection: "row",
-                                    paddingVertical: responsiveWidth(12),
+                                    // TODO: Changing options for responsive page.
+                                    // paddingVertical: responsiveWidth(12),
                                     paddingHorizontal: responsiveWidth(17.5),
                                     alignItems: 'center',
                                     justifyContent: "center",
@@ -215,7 +222,9 @@ const MyProfileNoReq = () => {
                                             height: responsiveWidth(42.5),
                                             position: 'absolute',
                                             left: responsiveWidth(17.5),
-                                            top: responsiveWidth(12)
+                                            // TODO: Changing options for responsive page.
+                                            // top: responsiveWidth(12)
+                                            top: layout.height> 650 ? layout.responsiveHeight(-7) : layout.responsiveHeight(-15)
                                         }}
                                     />
 
@@ -223,13 +232,19 @@ const MyProfileNoReq = () => {
                                         style={{
                                             width: '90%',
                                             color: colors.darkGreyBlue,
-                                            fontSize: fonts.xlarge,
+                                            // TODO: Changing options for responsive page.
+                                            // fontSize: fonts.xlarge,
+                                            fontSize: layout.height> 650 ? fonts.xlarge : fonts.large,
                                             fontWeight: weights.bold,
                                             textAlign: 'center',
-                                            marginVertical: responsiveWidth(30)
+                                            marginVertical: responsiveWidth(30),
+                                            // TODO: Changing options for responsive page.
+                                            marginTop: layout.height> 650 ? layout.responsiveHeight(6) : layout.responsiveHeight(-5)
                                         }}
-                                    >נראה שריק פה. עדיין לא
-                                        .שלחת הודעות לרכזות</Text>
+                                    >
+                                        נראה שריק פה. עדיין לא
+                                    .שלחת הודעות לרכזות
+                                    </Text>
 
                                     <Image
                                         source={icons.testDown}
@@ -237,14 +252,19 @@ const MyProfileNoReq = () => {
                                             width: responsiveWidth(53),
                                             height: responsiveWidth(42.5),
                                             position: 'absolute',
-                                            bottom: responsiveWidth(12),
+                                            // TODO: 
+                                            // bottom: responsiveWidth(12),
+                                            bottom:  layout.height> 650 ?  layout.responsiveHeight(25) : layout.responsiveHeight(29),
                                             right: responsiveWidth(17.5)
                                         }}
                                     />
                                 </View>
                                 <Text
                                     style={{
-                                        marginBottom: responsiveWidth(12),
+                                        // TODO: Changing options for responsive page.
+                                        // marginBottom: responsiveWidth(12),
+                                        marginBottom: responsiveWidth(2),
+                                        marginTop:layout.height> 650 ?  layout.responsiveHeight(-22): layout.responsiveHeight(-29),
                                         color: colors.darkGreyBlue,
                                         fontSize: fonts.xxsmall,
                                         fontWeight: weights.thin
@@ -254,10 +274,13 @@ const MyProfileNoReq = () => {
                         </View>
                         <CommonButton
                             title="קחו אותי לעמוד החיפוש"
-                            buttonHeight={responsiveWidth(26.5)}
+                            // TODO: Changing options for responsive page.
+                            // buttonHeight={responsiveWidth(26.5)}
+                            buttonHeight={layout.height> 650 ? responsiveWidth(26.5) : responsiveWidth(19.5)}
                             onPress={() => navigation.navigate('SearchWithFilter')}
                             buttonStyle={{
-                                alignSelf: 'center'
+                                alignSelf: 'center',
+                                marginVertical: 0,  //TODO: Changing options for responsive page.
                             }}
                             buttonWidth={
                                 layout.width - responsiveWidth(33)
