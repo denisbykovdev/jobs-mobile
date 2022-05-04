@@ -15,7 +15,7 @@ import FormSelect from '../commons/FormSelect';
 import FormContainer from '../commons/FormContainer';
 import FormField from '../commons/FormField';
 import FormButton from '../commons/FormButton';
-import { responsiveWidth } from '../utils/layout';
+import layout, { responsiveWidth, responsiveHeight } from '../utils/layout';
 import { useDispatch, useSelector } from 'react-redux';
 import { watchProvider, watchRegister } from '../actions/authActions';
 import { registerSchema } from '../utils/schemas';
@@ -214,7 +214,9 @@ const SignUpAndSignIn = () => {
                     <LogoHorizontal />
                     <View
                         style={{
-                            marginTop: responsiveWidth(42.5)
+                            // TODO: Changing options for responsive page.
+                            // marginTop: responsiveWidth(42.5)
+                            marginTop: layout.height > 650 ? responsiveHeight(30) : responsiveHeight(20)
                         }}
                     >
                         <IconLineWrapper>
@@ -341,7 +343,8 @@ const SignUpAndSignIn = () => {
 
 const styles = StyleSheet.create({
     container: {
-        marginBottom: responsiveWidth(40),
+        // marginBottom: responsiveWidth(40),
+        marginBottom: responsiveWidth(3),
         alignItems: "center"
     },
     title: {
@@ -355,7 +358,9 @@ const styles = StyleSheet.create({
     mainTitle: {
         color: colors.darkSlateBlue,
         fontSize: fonts.xlarge,
-        paddingVertical: responsiveWidth(17.5),
+        // TODO: Changing options for responsive page.
+        // paddingVertical: responsiveWidth(17.5),
+        paddingVertical:  layout.height > 650 ? responsiveWidth(17.5) : responsiveHeight(10),
         fontWeight: weights.bold,
         textAlign: "center",
         alignSelf: 'center'
@@ -363,7 +368,7 @@ const styles = StyleSheet.create({
     toHrText: {
         color: "#30b8b2",
         fontSize: responsiveWidth(7),
-        paddingTop: responsiveWidth(10.5),
+        // paddingTop: responsiveWidth(10.5),   //TODO: Changing options for responsive page.
         fontWeight: "bold",
         textAlign: "center"
     },
@@ -375,7 +380,9 @@ const styles = StyleSheet.create({
         zIndex: -1
     },
     socialBtns: {
-        marginTop: responsiveWidth(50)
+        // TODO: Changing options for responsive page.
+        // marginTop: responsiveWidth(50)
+        marginTop: layout.height > 650 ? responsiveWidth(40) : responsiveWidth(30)
     },
     socialBtn: {
         flexDirection: "row",
@@ -385,7 +392,10 @@ const styles = StyleSheet.create({
         borderColor: colors.tealGreen,
         borderWidth: responsiveWidth(1),
         borderRadius: 4,
-        marginBottom: responsiveWidth(11.5)
+        // TODO: Changing options for responsive page.
+        // marginBottom: responsiveWidth(11.5)
+        marginBottom: layout.height > 650 ? responsiveWidth(11.5) : responsiveWidth(7)
+
     },
     socialIconStyles: {
         position: 'absolute',
@@ -408,7 +418,9 @@ const styles = StyleSheet.create({
         height: responsiveWidth(42.5),
         position: "absolute",
         right: 0,
-        top: responsiveWidth(85)
+        // TODO: Changing options for responsive page.
+        // top: responsiveWidth(85),
+        top: layout.height > 650 ? responsiveWidth(85) : responsiveWidth(79),
     }
 });
 

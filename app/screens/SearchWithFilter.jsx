@@ -13,7 +13,7 @@ import axios from "axios";
 import { useDispatch, useSelector } from 'react-redux';
 import { getSearchJobsSuccess, watchGetFilteredJobs } from '../actions/jobsActions';
 import CommonFrame from "../commons/CommonFrame";
-import layout, { responsiveWidth } from "../utils/layout";
+import layout, { responsiveHeight, responsiveWidth } from "../utils/layout";
 import FormContainer from "../commons/FormContainer";
 import FormSelect from "../commons/FormSelect";
 import FormField from "../commons/FormField";
@@ -164,7 +164,10 @@ const SearchResult = () => {
                         searchJobsSelector === null 
                         || searchJobsSelector.length < 1
                         ?
-                        <View style={{marginBottom: responsiveWidth(32)}}>
+                        <View
+                        // TODO: Changing options for responsive page.
+                        //  style={ {  marginBottom: responsiveWidth(32)}}
+                            >
                             <View style={{
                                 alignSelf: 'center',
                                 flex: 1,
@@ -195,7 +198,9 @@ const SearchResult = () => {
                                         width: responsiveWidth(116),
                                         height: responsiveWidth(116),
                                         borderRadius: responsiveWidth(100),
-                                        marginTop: 120,
+                                        // TODO: Changing options for responsive page.
+                                        // marginTop: 120,
+                                        marginTop: layout.height > 650 ? 120 : responsiveWidth(50),
                                         backgroundColor: colors.darkSlateBlueTwo,
                                         zIndex: 3,
                                         position: 'absolute'
@@ -221,7 +226,9 @@ const SearchResult = () => {
                                 <View style={{
                                     width: '100%',
                                     flexDirection: "row",
-                                    paddingVertical: responsiveWidth(12),
+                                    // TODO: Changing options for responsive page.
+                                    // paddingVertical: responsiveWidth(12) 
+                                    paddingVertical: layout.height > 650 ?  responsiveWidth(12) : responsiveWidth(5),
                                     paddingHorizontal: responsiveWidth(17.5),
                                     alignItems: 'center',
                                     justifyContent: "center"
@@ -233,7 +240,9 @@ const SearchResult = () => {
                                             height: responsiveWidth(42.5),
                                             position: 'absolute',
                                             left: responsiveWidth(17.5),
-                                            top: responsiveWidth(12)
+                                            // TODO: Changing options for responsive page.
+                                            // top:  responsiveWidth(12)
+                                            top: layout.height > 650 ?  responsiveWidth(12) :  responsiveWidth(6)
                                         }}
                                     />
                                   
@@ -247,15 +256,20 @@ const SearchResult = () => {
                                             width: responsiveWidth(53),
                                             height: responsiveWidth(42.5),
                                             position: 'absolute',
-                                            top: responsiveWidth(12),
-                                            right: responsiveWidth(17.5)
+                                            // TODO: Changing options for responsive page.
+                                            // top: responsiveWidth(12),
+                                            top: layout.height > 650 ?  responsiveWidth(12) :  responsiveWidth(6),
+                                            right: responsiveWidth(17.5),
                                         }}
                                     />
                                 </View>
 
                                 <Text 
                                     style={{
-                                        marginBottom: responsiveWidth(12),
+                                        // TODO: Changing options for responsive page.
+                                        // marginBottom: responsiveWidth(12),
+                                        marginBottom: layout.height > 650 ?  responsiveWidth(12) : 0,
+                                        marginTop: layout.height > 650 ?  0 : responsiveHeight(-9),
                                         color: colors.darkGreyBlue,
                                         fontSize: fonts.xlarge,
                                         fontWeight: weights.bold,
@@ -266,7 +280,9 @@ const SearchResult = () => {
 לחיפוש שלך</Text>
                                 <Text 
                                     style={{
-                                        marginBottom: responsiveWidth(12),
+                                        // TODO: Changing options for responsive page.
+                                        // marginBottom: responsiveWidth(12),
+                                        marginBottom: layout.height > 650 ?  responsiveWidth(12) : responsiveHeight(3),
                                         color: colors.darkGreyBlue,
                                         fontSize: fonts.xxsmall,
                                         fontWeight: weights.thin
@@ -281,7 +297,9 @@ const SearchResult = () => {
                                     colors.tealishThree
                                 ]} 
                                 style={{
-                                    height: responsiveWidth(49),
+                                    // TODO: Changing options for responsive page.
+                                    // height: responsiveWidth(49),
+                                    height: layout.height > 650 ? responsiveWidth(49) : responsiveWidth(45),
                                     paddingHorizontal: responsiveWidth(17.5),
                                     flexDirection: 'row',
                                     alignItems: 'center'
@@ -355,8 +373,10 @@ const SearchResult = () => {
                             </View>
                         </ImageBackground>
                     }
-                    
-
+                    {/* Code was always displayed, which is wrong by design.  */}
+                    {( searchJobsSelector !== null 
+                        && searchJobsSelector.length > 0)
+                         && 
                     <View 
                         style={[
                             styles.filters,
@@ -589,6 +609,7 @@ const SearchResult = () => {
                         />
 
                     </View>
+                    }
                 </FormContainer>
             </View>
         </CommonFrame>

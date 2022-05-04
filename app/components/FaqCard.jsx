@@ -31,12 +31,12 @@ export default function FaqCard({
                 ]}
                 style={[
                     {
-                        height: isQuestionOpen ? responsiveWidth(56) : responsiveWidth(36),
+                        // height: isQuestionOpen ? responsiveWidth(56) : responsiveWidth(36),  TODO: Changing options for responsive page.
                         paddingVertical: responsiveWidth(8),
                         paddingLeft: responsiveWidth(8),
                         paddingRight: responsiveWidth(12),
                         borderRadius: responsiveWidth(2.5),
-                        paddingBottom: isQuestionOpen ? responsiveWidth(20) : 0
+                        paddingBottom: isQuestionOpen ? responsiveWidth(20) : responsiveWidth(8) // TODO: Changing options for responsive page.
                     },
                     shadowStyle
                 ]}

@@ -33,7 +33,9 @@ export default function ScrollToTopButton({
                 transform: [{ rotate: '270deg'}],
                 position: 'absolute',
                 right: responsiveWidth(2),
-                bottom: responsiveWidth(33)
+                // TODO: Changing options for responsive page.
+                // bottom: responsiveWidth(33),
+                bottom: responsiveWidth(48)
             }}
         >
             {/* <ArrowUp /> */}
