@@ -170,10 +170,12 @@ const SearchResult = () => {
                             >
                             <View style={{
                                 alignSelf: 'center',
-                                flex: 1,
+                                // flex: 1,  // TODO: Changing options for responsive page.
                                 width: layout.width,
                                 paddingHorizontal: responsiveWidth(17.5),
-                                paddingTop: responsiveWidth(20)
+                                // TODO: Changing options for responsive page.
+                                // paddingTop: responsiveWidth(20)
+                                paddingTop: responsiveWidth(7)
                             }}>
                                 <Header/>
                             </View>
@@ -188,7 +190,8 @@ const SearchResult = () => {
                                     style={{
                                         width: "100%",
                                         height: responsiveWidth(170),
-                                        position: 'relative'
+                                        position: 'relative',
+                                        marginTop: layout.height > 650 ? responsiveHeight(-8) : responsiveHeight(-11),
                                     }}
                                 />
                                 <View 
@@ -200,7 +203,7 @@ const SearchResult = () => {
                                         borderRadius: responsiveWidth(100),
                                         // TODO: Changing options for responsive page.
                                         // marginTop: 120,
-                                        marginTop: layout.height > 650 ? 120 : responsiveWidth(50),
+                                        marginTop: layout.height > 650 ? 120 : responsiveWidth(45),
                                         backgroundColor: colors.darkSlateBlueTwo,
                                         zIndex: 3,
                                         position: 'absolute'
@@ -228,7 +231,7 @@ const SearchResult = () => {
                                     flexDirection: "row",
                                     // TODO: Changing options for responsive page.
                                     // paddingVertical: responsiveWidth(12) 
-                                    paddingVertical: layout.height > 650 ?  responsiveWidth(12) : responsiveWidth(5),
+                                    paddingVertical: layout.height > 650 ?  responsiveWidth(12) : responsiveWidth(3),
                                     paddingHorizontal: responsiveWidth(17.5),
                                     alignItems: 'center',
                                     justifyContent: "center"
@@ -269,7 +272,7 @@ const SearchResult = () => {
                                         // TODO: Changing options for responsive page.
                                         // marginBottom: responsiveWidth(12),
                                         marginBottom: layout.height > 650 ?  responsiveWidth(12) : 0,
-                                        marginTop: layout.height > 650 ?  0 : responsiveHeight(-9),
+                                        marginTop: layout.height > 650 ? responsiveHeight(-7) : responsiveHeight(-13),
                                         color: colors.darkGreyBlue,
                                         fontSize: fonts.xlarge,
                                         fontWeight: weights.bold,
@@ -282,7 +285,7 @@ const SearchResult = () => {
                                     style={{
                                         // TODO: Changing options for responsive page.
                                         // marginBottom: responsiveWidth(12),
-                                        marginBottom: layout.height > 650 ?  responsiveWidth(12) : responsiveHeight(3),
+                                        marginBottom: layout.height > 650 ?  responsiveWidth(8) : responsiveHeight(2),
                                         color: colors.darkGreyBlue,
                                         fontSize: fonts.xxsmall,
                                         fontWeight: weights.thin
@@ -299,7 +302,7 @@ const SearchResult = () => {
                                 style={{
                                     // TODO: Changing options for responsive page.
                                     // height: responsiveWidth(49),
-                                    height: layout.height > 650 ? responsiveWidth(49) : responsiveWidth(45),
+                                    height: layout.height > 650 ? responsiveWidth(49) : responsiveWidth(34),
                                     paddingHorizontal: responsiveWidth(17.5),
                                     flexDirection: 'row',
                                     alignItems: 'center'

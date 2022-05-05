@@ -13,7 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import { watchGetReviews } from "../actions/reviewsActions";
 import { url } from "../utils/api";
-import layout, { responsiveWidth } from "../utils/layout";
+import layout, { responsiveWidth, responsiveHeight } from "../utils/layout";
 import colors from "../utils/colors";
 import weights from "../utils/weights";
 import fonts from "../utils/fonts";
@@ -187,12 +187,20 @@ const Reviews = () => {
                         >
                             <View 
                                 style={{ 
-                                    paddingHorizontal: responsiveWidth(17.5) 
+                                    paddingHorizontal: responsiveWidth(17.5),
+                                    // TODO: Changing options for responsive page.
+                                    backgroundColor: colors.white, 
+                                    zIndex: 5
                                 }}
                             >
                                 <Header />
                             </View>
-                            <View style={{ marginBottom: responsiveWidth(40) }}>
+                            <View style={{ 
+                                // TODO: Changing options for responsive page.
+                                // marginBottom: responsiveWidth(40),
+                                marginBottom:  responsiveWidth(35),
+                                marginTop: layout.height > 650 ? responsiveWidth(-5) : responsiveWidth(-20),
+                                }}>
                                 <View
                                     style={{
                                         alignItems: "center"
@@ -214,7 +222,9 @@ const Reviews = () => {
                                             width: responsiveWidth(116),
                                             height: responsiveWidth(116),
                                             borderRadius: responsiveWidth(100),
-                                            marginTop: 120,
+                                            // TODO: Changing options for responsive page.
+                                            // marginTop: 120,
+                                            marginTop: layout.height > 650 ? 120 : 90,
                                             backgroundColor: colors.darkSlateBlueTwo,
                                             zIndex: 3,
                                             position: 'absolute'
@@ -239,7 +249,7 @@ const Reviews = () => {
                                     <View style={{
                                         alignItems: "center",
                                         width: '100%',
-
+                                        marginTop: layout.height > 650 ? 0 : responsiveWidth(-17),
                                     }}>
                                         <View style={{
                                             width: '100%',
@@ -248,7 +258,10 @@ const Reviews = () => {
                                             paddingHorizontal: responsiveWidth(17.5),
                                             alignItems: 'center',
                                             justifyContent: "center",
-                                            height: responsiveWidth(140)
+                                            // TODO: Changing options for responsive page.
+                                            // height: responsiveWidth(140),
+                                             height: layout.height > 650 ? responsiveWidth(140) : responsiveWidth(130)
+
                                         }}>
                                             <Image
                                                 source={icons.testUp}
@@ -328,7 +341,9 @@ const Reviews = () => {
                                     onPress={() => navigation.navigate('NewReview')}
                                     buttonStyle={{
                                         alignSelf: 'center',
-                                        marginTop: responsiveWidth(12)
+                                        // TODO: Changing options for responsive page.
+                                        // marginTop: responsiveWidth(12)
+                                        marginTop: layout.height > 650 ? responsiveWidth(12) : responsiveWidth(-9)
                                     }}
                                     buttonWidth={
                                         layout.width - responsiveWidth(33)
