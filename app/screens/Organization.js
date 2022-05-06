@@ -8,6 +8,7 @@ import {WebView} from 'react-native-webview';
 import Footer from "../components/Footer";
 import {getUserToken, JobUrl} from "../configs/ApiCallHelper";
 import axios from "axios";
+import { responsiveWidth } from "../utils/layout";
 
 
 const Organization = ({navigation}) => {
@@ -19,13 +20,15 @@ const Organization = ({navigation}) => {
 
     useEffect(() => {
         const fetchData = async () => {
-            // const token = await getUserToken();
-            const token = await AsyncStorage.getItem('token');
+            const token = await getUserToken();
+            // const token = await AsyncStorage.getItem('token');  // return value = null
+            console.log ("token", token)
             const url = `${JobUrl}/api/libraries/categories/${id}`;
             axios.get(url,
                 {
                     headers: {
-                        Authorization: `Bearer ${JSON.parse(token)}`
+                        // Authorization: `Bearer ${JSON.parse(token)}`  //  SyntaxError: JSON Parse error
+                        Authorization: `Bearer ${token}`
                     },
                 }).then(response => {
 
@@ -40,13 +43,15 @@ const Organization = ({navigation}) => {
 
 
     const subcategoriesButtonChoose = async (chooseId) => {
-        // const token = await getUserToken();
-        const token = await AsyncStorage.getItem('token');
+        const token = await getUserToken();
+        // const token = await AsyncStorage.getItem('token');   // return value = null
+        console.log ("chooseId", chooseId)
         const url = `${JobUrl}/api/libraries/subcategories/${chooseId}`;
         axios.get(url,
             {
                 headers: {
-                    Authorization: `Bearer ${JSON.parse(token)}`
+                    // Authorization: `Bearer ${JSON.parse(token)}`  //  SyntaxError: JSON Parse error
+                    Authorization: `Bearer ${token}`
                 },
             }).then(response => {
 
@@ -62,10 +67,13 @@ const Organization = ({navigation}) => {
 return (
     <View style={{flex: 1, backgroundColor: "#fff"}}>
         <ScrollView style={{flex: 1}}>
-            <Header
-                navigation={navigation}
-                visibleBackArrow={subCategory && true}
-            />
+            {/* TODO: There was a pattern mismatch. */}
+            <View style={{paddingHorizontal: responsiveWidth(17.5), paddingTop: 15}}>
+                <Header
+                    navigation={navigation}
+                    visibleBackArrow={subCategory && true}
+                />
+            </View>
             <View style={styles.mainContainer}>
                 <View style={styles.organizationBlock}>
                     {!subCategory &&

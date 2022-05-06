@@ -15,6 +15,7 @@ import React, {useEffect, useState} from "react";
 import {LinearGradient} from "expo-linear-gradient";
 import {getUserToken, JobUrl} from "../configs/ApiCallHelper";
 import axios from "axios";
+import { responsiveWidth } from "../utils/layout";
 
 const Category = ({navigation}) => {
 
@@ -23,13 +24,14 @@ const Category = ({navigation}) => {
 
     useEffect(() => {
         const fetchData = async () => {
-            // const token = await getUserToken();
-            const token = await AsyncStorage.getItem('token');
+            const token = await getUserToken();
+            // const token = await AsyncStorage.getItem('token');  // return value = null
             const url = `${JobUrl}/api/libraries/categories`;
             axios.get(url,
                 {
                     headers: {
-                        Authorization: `Bearer ${JSON.parse(token)}`
+                        // Authorization: `Bearer ${JSON.parse(token)}`  //  SyntaxError: JSON Parse error
+                        Authorization: `Bearer ${token}`
                     },
                 }).then(response => {
 
@@ -42,10 +44,12 @@ const Category = ({navigation}) => {
         fetchData().then()
     }, [])
 
-
     return (
-        <View style={{flex: 1, backgroundColor: "#fff"}}>
-            <Header navigation={navigation}/>
+        <View style={{flex: 1, backgroundColor: "#fff"}}>  
+        {/* TODO: There was a pattern mismatch. */}
+            <View style={{paddingHorizontal: responsiveWidth(17.5), paddingTop: 15}}>
+                <Header navigation={navigation}/>
+            </View>
             <ScrollView style={{flex: 1, algorithm: "center",}}>
                 <View style={{paddingHorizontal: 32}}>
                     <View style={styles.textBoxUp}>
@@ -98,7 +102,9 @@ const styles = StyleSheet.create({
     },
 
     CatalogueBox: {
-        width: 155,
+        //  TODO: Changing options for responsive page.
+        // width: 150,
+        width: responsiveWidth(77),
         height: 123,
         alignItems: 'center',
         justifyContent: "space-around",
