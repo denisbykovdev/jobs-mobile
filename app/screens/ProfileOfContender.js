@@ -5,12 +5,20 @@ import Header from "../components/Header";
 import {LinearGradient} from "expo-linear-gradient";
 import {candidatesFields} from "../configs/FakeData"
 import HrFooter from "../components/HrFooter";
+import { responsiveHeight} from "../utils/layout";
 
 const ProfileOfContender = ({navigation}) => {
 
     return (
         <View style={{flex: 1,backgroundColor:"#ffffff"}}>
-            <Header navigation={navigation}/>
+            {/* TODO: Changing options for responsive page. */}
+            <View 
+                 style={{
+                    marginHorizontal: responsiveHeight(17.5),
+                    marginTop: responsiveHeight(5)
+                }}>
+                <Header navigation={navigation}/>
+            </View>
             <ScrollView style={{flex: 1}}>
                 <View style={styles.mainContainer}>
                     <LinearGradient colors={['#3CD0BD', '#219BA5']} style={styles.gradientBg}/>

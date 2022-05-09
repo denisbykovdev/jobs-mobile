@@ -23,7 +23,9 @@ const MyProfileMyDetails = () => {
             <View
                 style={{
                     marginHorizontal: responsiveWidth(17.5),
-                    marginBottom: 5, 
+                    // TODO: Changing options for responsive page.
+                    // marginBottom: 5, 
+                     marginBottom: -2, 
                 }}
             >
                 <Header />

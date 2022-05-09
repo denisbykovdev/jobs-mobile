@@ -15,7 +15,7 @@ import FormField from "../../commons/FormField";
 import colors from "../../utils/colors";
 import EditButton from "../../icons/EditButton";
 import FormSelect from "../../commons/FormSelect";
-import { responsiveWidth } from "../../utils/layout";
+import layout, { responsiveWidth } from "../../utils/layout";
 import fonts from "../../utils/fonts";
 import weights from "../../utils/weights";
 import FormButton from "../../commons/FormButton";
@@ -273,7 +273,9 @@ const AdditionInfo = () => {
                             buttonHeight={responsiveWidth(26.5)}
                             disabled={areFieldsOpen}
                             buttonStyle={{
-                                marginTop: responsiveWidth(8),
+                                // TODO: Changing options for responsive page.
+                                // marginTop: responsiveWidth(8),
+                                marginTop: layout.height > 650 ? responsiveWidth(8) : responsiveWidth(2),
                                 zIndex: -2
                             }}
                         />
@@ -285,7 +287,9 @@ const AdditionInfo = () => {
                 style={{
                     width: "100%", 
                     height: responsiveWidth(50),
-                    marginBottom: responsiveWidth(25),
+                    // TODO: Changing options for responsive page.
+                    // marginBottom: responsiveWidth(25),
+                    marginTop: layout.height > 650 ? 0 : layout.responsiveHeight(-10),
                     zIndex: -1
                 }}
             />
@@ -297,7 +301,9 @@ const styles = StyleSheet.create({
     personalDataContainer: {
         backgroundColor: colors.veyLightPink,
         paddingHorizontal: responsiveWidth(18),
-        paddingTop: responsiveWidth(18),
+        // TODO: Changing options for responsive page.
+        // paddingTop: responsiveWidth(18),
+        paddingTop: responsiveWidth(2),
         alignItems: 'center'
     },
     formImagePickerContainer: {
@@ -320,7 +326,9 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        marginVertical: responsiveWidth(4)
+        // TODO: Changing options for responsive page.
+        // marginVertical: responsiveWidth(4) 
+        marginVertical: layout.height > 660 ? responsiveWidth(4) : responsiveWidth(1),
     },
     formShield: {
         width: '90%',

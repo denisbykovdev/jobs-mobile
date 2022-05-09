@@ -179,7 +179,7 @@ function UserStack ({ route }) {
             />
             <StackUser.Screen 
                 name = "FaqForJobs" 
-                component = {JobOpportunityPopUp} 
+                component = {FaqForJobs}
                 options={{ headerShown: false }}
             />
 

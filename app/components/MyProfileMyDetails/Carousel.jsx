@@ -45,7 +45,9 @@ export default function CustomCarousel({
                     height: responsiveWidth(78.5),
                     width: responsiveWidth(79.5),
                     padding: responsiveWidth(2),
-                    marginTop: responsiveWidth(12)
+                    // TODO: Changing options for responsive page. 
+                    // marginTop: responsiveWidth(12)
+                    marginTop: responsiveWidth(5)
                 }}
             >
                 <View
@@ -117,6 +119,11 @@ export default function CustomCarousel({
                     }}
                     inactiveDotOpacity={1}
                     inactiveDotScale={1}
+                    // TODO: Changing options for responsive page. 
+                    containerStyle={{
+                        paddingTop: 10,
+                        marginBottom: -18,
+                    }}
                 />
         </LinearGradient>
     )

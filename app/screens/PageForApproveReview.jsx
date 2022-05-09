@@ -9,7 +9,7 @@ import Footer from "../components/Footer";
 import { LinearGradient } from "expo-linear-gradient";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import CommonFrame from "../commons/CommonFrame";
-import layout, { responsiveWidth } from "../utils/layout";
+import layout, { responsiveHeight, responsiveWidth } from "../utils/layout";
 import colors from "../utils/colors";
 import fonts from "../utils/fonts";
 import weights from "../utils/weights";
@@ -106,12 +106,16 @@ const PageForApproveReview = () => {
             <ImageBackground
                 source={images.PageForApproveReviewFon}
                 style={{
-                    top: - responsiveWidth(7),
+                    // TODO: Changing options for responsive page.
+                    // top: - responsiveWidth(7),
+                    top: layout.height > 660 ? layout.responsiveHeight(-15) : layout.responsiveHeight(-48),
                     height: responsiveWidth(280),
                     width: layout.width,
                     paddingHorizontal: responsiveWidth(17.5),
-                    paddingVertical: responsiveWidth(20),
-                    position: 'relative'
+                    // TODO: Changing options for responsive page.
+                    // paddingVertical: responsiveWidth(20),
+                    paddingVertical: layout.height > 660 ? layout.responsiveHeight(25) : layout.responsiveHeight(58),
+                    position: 'relative',
                 }}
             >
                 <Header
@@ -120,7 +124,8 @@ const PageForApproveReview = () => {
 
                 <View
                     style={{
-                        marginTop: responsiveWidth(50),
+                        // marginTop: responsiveWidth(50),
+                        marginTop: layout.responsiveHeight(42),
                         alignItems: "center"
                     }}
                 >
@@ -131,13 +136,20 @@ const PageForApproveReview = () => {
 
             <View style={styles.successBlock}>
                 <Image source={icons.testDownLeft} style={styles.imageBgUp} />
-                <View style={{ alignItems: "center", marginTop: "5%" }}>
+                <View style={{ 
+                    alignItems: "center",
+                    // TODO: Changing options for responsive page.
+                    //  marginTop: "5%" 
+                    marginTop: layout.responsiveHeight(-2)
+                     }}>
                     <Text
                         style={{
                             color: colors.lightNavy,
                             fontSize: fonts.regular,
                             fontWeight: weights.bold,
-                            textAlign: "center"
+                            textAlign: "center",
+                            // TODO: Changing options for responsive page.
+                            marginTop: layout.height > 660 ? 0 : layout.responsiveHeight(-22)
                         }}
                     >
                         .חוות הדעת שלך תפורסם באפליקציה
@@ -150,7 +162,9 @@ const PageForApproveReview = () => {
 
             <View
                 style={{
-                    marginTop: responsiveWidth(50),
+                    // TODO: Changing options for responsive page.
+                    // marginTop: responsiveWidth(50),
+                    marginTop: layout.responsiveHeight(20),
                     alignItems: "center",
                     paddingHorizontal: 32
                 }}
@@ -235,7 +249,9 @@ const styles = StyleSheet.create({
         // backgroundColor: "red",
         position: "absolute",
         left: 0,
-        marginTop: 70
+        // TODO: Changing options for responsive page.
+        // marginTop: 70
+        marginTop: layout.height > 660 ? layout.responsiveHeight(40) : layout.responsiveHeight(-2)
     },
 
     imageBgDown: {
@@ -244,12 +260,16 @@ const styles = StyleSheet.create({
         // backgroundColor: "red",
         position: "absolute",
         right: 0,
-        marginTop: 70
+        // TODO: Changing options for responsive page.
+        // marginTop: 70
+        marginTop: layout.height > 660 ? layout.responsiveHeight(40) : layout.responsiveHeight(-2)
     },
 
     successBlock: {
         marginHorizontal: 37,
-        marginTop: 25
+        // TODO: Changing options for responsive page.
+        // marginTop: 25
+        marginTop: layout.height > 660 ? layout.responsiveHeight(2) : layout.responsiveHeight(-27)
     },
 
     // successBlockText: {
@@ -265,9 +285,12 @@ const styles = StyleSheet.create({
         backgroundColor: "#30b8b2",
         paddingVertical: 15,
         alignItems: "center",
-        marginTop: 20,
+        // TODO: Changing options for responsive page.
+        // marginTop: 20,
+        marginTop: layout.responsiveHeight(5),
         borderRadius: 5,
-        marginBottom: responsiveWidth(20)
+        // TODO: Changing options for responsive page.
+        // marginBottom: responsiveWidth(20)
     },
 
     btnText: {

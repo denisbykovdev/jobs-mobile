@@ -7,7 +7,7 @@ import BlogItems from "../components/BlogItems";
 import HrFooter from "../components/HrFooter";
 import React from "react";
 import CommonFrame from "../commons/CommonFrame";
-import layout, { responsiveWidth } from "../utils/layout";
+import layout, { responsiveWidth, responsiveHeight } from "../utils/layout";
 import colors from "../utils/colors";
 import fonts from "../utils/fonts";
 import IconHr from "../icons/IconHr";
@@ -28,8 +28,10 @@ const SuccessfulCreatedOportunity = ({ navigation }) => {
                 source={images.girls}
                 style={{
                     alignSelf: 'center',
-                    flex: 1,
-                    height: responsiveWidth(270),
+                    // TODO: Changing options for responsive page.
+                    // flex: 1,
+                    // height: responsiveWidth(270),
+                    height: responsiveHeight(285),
                     width: layout.width,
                     paddingHorizontal: responsiveWidth(17.5),
                     paddingVertical: responsiveWidth(20),
@@ -42,7 +44,9 @@ const SuccessfulCreatedOportunity = ({ navigation }) => {
                 />
                 <View style={{
                     width: responsiveWidth(120),
-                    marginTop: responsiveWidth(110),
+                    // TODO: Changing options for responsive page.
+                    // marginTop: responsiveWidth(110),
+                    marginTop:  responsiveHeight(102),
                     alignSelf: 'center'
                 }}>
                     <Text style={{
@@ -86,7 +90,9 @@ const SuccessfulCreatedOportunity = ({ navigation }) => {
                     alignItems: "center",
                     justifyContent: 'center',
                     marginHorizontal: responsiveWidth(17.5),
-                    height: '25%',
+                    // TODO: Changing options for responsive page.
+                    // height: '20%',
+                    height: responsiveHeight(88),
                     position: 'relative',
                     marginTop: responsiveWidth(12)
                 }}
@@ -127,7 +133,9 @@ const SuccessfulCreatedOportunity = ({ navigation }) => {
                 title="חזרה לתקנים שלי"
                 buttonHeight={responsiveWidth(26.5)}
                 buttonStyle={{
-                    marginVertical: responsiveWidth(12),
+                    // TODO: Changing options for responsive page.
+                    // marginVertical: responsiveWidth(12),
+                    marginTop: responsiveHeight(8),
                     alignSelf: 'center'
                 }}
                 buttonWidth={responsiveWidth(167)}

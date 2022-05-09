@@ -19,6 +19,8 @@ import Search from "../components/ListOfOpenOpportunities/search";
 import ProfileBox from "../components/ContendersOfOpportunities/ProfileBox";
 import {getUserToken, JobUrl, Token} from "../configs/ApiCallHelper";
 import axios from "axios";
+import colors from "../utils/colors";
+import { responsiveHeight} from "../utils/layout";
 
 
 const ContendersOfOpportunities = ({navigation}) => {
@@ -49,8 +51,16 @@ const ContendersOfOpportunities = ({navigation}) => {
     }, []);
 
     return (
-        <View style={{flex: 1}}>
-            <Header navigation={navigation}/>
+        <View style={{ flex: 1, backgroundColor: colors.whiteTwo }}>   {/* TODO: Changing options for responsive page. */}
+        {/* TODO: Changing options for responsive page. */}
+            <View
+                style={{
+                    marginHorizontal: responsiveHeight(17.5),
+                    marginTop: responsiveHeight(5)
+                }}>
+                <Header navigation={navigation}
+                />
+            </View>
             <ScrollView>
 
                 <View style={{paddingHorizontal: 32}}>

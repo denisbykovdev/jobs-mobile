@@ -162,7 +162,9 @@ const styles = StyleSheet.create({
         fontWeight: weights.regular,
         textAlign: "center",
         color: colors.darkSlateBlue,
-        paddingBottom: responsiveWidth(12),
+        // TODO: Changing options for responsive page.
+        // paddingBottom: responsiveWidth(12),
+        paddingBottom: responsiveWidth(5),
         paddingTop: responsiveWidth(6),
         width: '100%'
     },

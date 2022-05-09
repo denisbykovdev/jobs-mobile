@@ -8,7 +8,7 @@ import {
 import React, {useState, useEffect} from "react";
 import { icons } from "../../configs/imagesAndIconsUrl";
 import colors from '../../utils/colors'
-import { responsiveWidth } from "../../utils/layout";
+import layout, { responsiveWidth } from "../../utils/layout";
 import FormContainer from "../../commons/FormContainer";
 import FormImagePicker from "../../commons/FormImagePicker";
 import FormField from "../../commons/FormField";
@@ -94,7 +94,8 @@ const PersonalData = () => {
                             && userSelector?.avatar !== null
                             ?
                             <Image 
-                                source={{uri: `${url}/${userSelector.avatar}`}}
+                                // source={{uri: `${url}/${userSelector.avatar}`}}    // ReferenceError: Can't find variable: url
+                                source={{uri: `${userSelector.avatar.slice(15)}`}}    //for testing
                                 style={styles.formImagePickerContainer}
                             />
                             :
@@ -106,7 +107,12 @@ const PersonalData = () => {
                         }
                     </View>
 
-                    <View style={styles.formShieldContainer}>
+                    <View style={[styles.formShieldContainer,
+                    // TODO: Changing options for responsive page.
+                        { marginTop:  userSelector?.avatar 
+                            && userSelector?.avatar !== null 
+                            && layout.height < 660 ? 14 : 0}
+                        ]}>
                         {
                             areFieldsOpen
                             ?
@@ -202,7 +208,9 @@ const PersonalData = () => {
                                         borderTopColor: colors.whiteTwo,
                                         borderRightColor: colors.veryLightPinkLighter,
                                         borderLeftColor: colors.veryLightPinkLighter,
-                                        maxHeight: responsiveWidth(60),
+                                        // TODO: Changing options for responsive page.
+                                        // maxHeight: responsiveWidth(60),
+                                        maxHeight: responsiveWidth(30),
                                         overflow: 'scroll'
                                     }}
                                     selectItemStyle={{
@@ -246,7 +254,9 @@ const PersonalData = () => {
                                     placeholder="שם היישוב שלך"
                                     fieldStyle={{
                                         borderColor: colors.whiteTwo,
-                                        marginTop: responsiveWidth(4)
+                                        // TODO: Changing options for responsive page.
+                                        // marginTop: responsiveWidth(4)
+                                        marginTop: responsiveWidth(2)
                                     }}
                                 />
                                 {/* <FormButton 
@@ -264,9 +274,12 @@ const PersonalData = () => {
                         ?
                         <FormButton 
                             title="שמירת הפרטים האישיים שלי"
-                            buttonHeight={responsiveWidth(26.5)}
+                            // TODO: Changing options for responsive page.
+                            // buttonHeight={responsiveWidth(26.5)}
+                            buttonHeight={layout.height > 650 ? responsiveWidth(26.5) : responsiveWidth(20)}
                             buttonStyle={{
-                                marginTop: responsiveWidth(8),
+                                // marginTop: responsiveWidth(8),
+                                marginTop: responsiveWidth(2),
                                 zIndex: -1
                             }}
                         />
@@ -274,25 +287,34 @@ const PersonalData = () => {
                         <FormButton 
                             buttonColor={colors.lightPeriwinckle}
                             title="שמירת הפרטים האישיים שלי"
-                            buttonHeight={responsiveWidth(26.5)}
+                            // TODO: Changing options for responsive page.
+                            // buttonHeight={responsiveWidth(26.5)}
+                            buttonHeight={layout.height > 650 ? responsiveWidth(26.5) : responsiveWidth(20)}
                             disabled={areFieldsOpen}
                             buttonStyle={{
-                                marginTop: responsiveWidth(8),
+                                // TODO: Changing options for responsive page.
+                                // marginTop: responsiveWidth(8)
+                                marginTop: layout.height > 650 ? responsiveWidth(8) : responsiveWidth(1),
                                 zIndex: -1
                             }}
                         />
                     }
                 </FormContainer>
             </View>
-            <Image 
+            {/* TODO: Changing options for responsive page. */}
+           { layout.height > 650 && 
+           <Image 
                 source={icons.MyProfileComponent}
                 style={{
                     width: "100%", 
                     height: responsiveWidth(50),
-                    marginBottom: responsiveWidth(25),
+                    // TODO: Changing options for responsive page.
+                    // marginBottom: responsiveWidth(25),
+                    marginTop: layout.responsiveHeight(-7), 
                     zIndex: -1
                 }}
             />
+            }
         </View>
     )
 }
@@ -301,21 +323,32 @@ const styles = StyleSheet.create({
     personalDataContainer: {
         backgroundColor: colors.veyLightPink,
         paddingHorizontal: responsiveWidth(18),
-        paddingTop: responsiveWidth(18),
+        // TODO: Changing options for responsive page.
+        // paddingTop: responsiveWidth(18),
+        paddingTop: responsiveWidth(3),
+        paddingBottom: layout.height > 650 ? 0 : layout.responsiveHeight(20),
         alignItems: 'center'
     },
     formImagePickerContainer: {
         alignItems: 'center',
         justifyContent: 'center',
-        width: responsiveWidth(63),
-        height: responsiveWidth(63),
+        // TODO: Changing options for responsive page.
+        // width: responsiveWidth(63),
+        // height: responsiveWidth(63), 
+        width: layout.height > 660 ? layout.responsiveHeight(58) : layout.responsiveHeight(45),
+        height:layout.height > 660 ? layout.responsiveHeight(58) : layout.responsiveHeight(45),
         borderRadius: responsiveWidth(7)
     },
     formImagePickerWrapper: {
         alignItems: 'center',
         justifyContent: 'center',
-        width: responsiveWidth(62),
-        height: responsiveWidth(62),
+        // TODO: Changing options for responsive page.
+        // width: responsiveWidth(62),
+        // height: responsiveWidth(62),
+        width: layout.responsiveHeight(58),
+        height: layout.responsiveHeight(58),
+        overflow: "hidden",
+        marginTop: 9,
         borderRadius: responsiveWidth(7),
         backgroundColor: colors.whiteTwo,
     },
@@ -324,7 +357,9 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        marginVertical: responsiveWidth(4)
+        // TODO: Changing options for responsive page.
+        // marginVertical: responsiveWidth(4)
+         marginTop: responsiveWidth(2)
     },
     formShield: {
         width: '90%',

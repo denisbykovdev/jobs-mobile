@@ -20,7 +20,7 @@ import { getUserToken, JobUrl } from "../configs/ApiCallHelper";
 import axios from "axios";
 
 import CommonFrame from "../commons/CommonFrame";
-import layout, { responsiveWidth } from "../utils/layout";
+import layout, { responsiveWidth, responsiveHeight } from "../utils/layout";
 import { useFocusEffect, useIsFocused, useNavigation } from "@react-navigation/native";
 import useSecure from "../hooks/useSecure";
 import { useDispatch, useSelector } from "react-redux";
@@ -94,7 +94,8 @@ const OpenOpportunities = () => {
             onScrollEndDrag={scrollEnd}
             withArrow
             commonFrameStyle={{
-                paddingHorizontal: 0
+                paddingHorizontal: 0,
+                marginTop: "-5%"   // TODO: Changing options for responsive page.
             }}
         >
             <View style={{ paddingHorizontal: responsiveWidth(17.5) }}>
@@ -115,9 +116,12 @@ const OpenOpportunities = () => {
                             source={icons.fon}
                             style={{
                                 width: "100%",
-                                height: responsiveWidth(170),
+                                // TODO: Changing options for responsive page.
+                                // height: responsiveWidth(170),
+                                height: responsiveWidth(165),
                                 position: 'relative',
-                                top: -responsiveWidth(6)
+                                // top: -responsiveWidth(6)
+                                top: -responsiveWidth(3.7)
                             }}
                         />
                         <View
@@ -127,7 +131,9 @@ const OpenOpportunities = () => {
                                 width: responsiveWidth(116),
                                 height: responsiveWidth(116),
                                 borderRadius: responsiveWidth(100),
-                                marginTop: 120,
+                                // TODO: Changing options for responsive page.
+                                // marginTop: 120,
+                                marginTop:  layout.height > 650 ?  responsiveHeight(56) : responsiveHeight(48),
                                 backgroundColor: colors.darkSlateBlueTwo,
                                 zIndex: 3,
                                 position: 'absolute'
@@ -152,7 +158,7 @@ const OpenOpportunities = () => {
                         <View style={{
                             alignItems: "center",
                             width: '100%',
-
+                            marginTop:  layout.height > 650 ? responsiveHeight(-15): responsiveHeight(-28) // TODO: Changing options for responsive page.
                         }}>
                             <View style={{
                                 width: '100%',
@@ -176,7 +182,9 @@ const OpenOpportunities = () => {
 
                                 <View style={{
                                     width: '90%',
-                                    marginVertical: responsiveWidth(30)
+                                    // TODO: Changing options for responsive page.
+                                    // marginVertical: responsiveWidth(30),
+                                    marginVertical: responsiveHeight(20)
                                 }}>
                                     <Text
                                         style={{
@@ -185,7 +193,9 @@ const OpenOpportunities = () => {
                                             fontSize: fonts.xlarge,
                                             fontWeight: weights.bold,
                                             textAlign: 'center',
+                                            // TODO: Changing options for responsive page.
                                             // marginVertical: responsiveWidth(30)
+                                            marginTop: layout.height > 650 ? responsiveHeight(-10) : responsiveHeight(-19)
                                         }}
                                     >
                                         אופס!
@@ -212,7 +222,9 @@ const OpenOpportunities = () => {
                                         width: responsiveWidth(53),
                                         height: responsiveWidth(42.5),
                                         position: 'absolute',
-                                        bottom: responsiveWidth(12),
+                                        // TODO: Changing options for responsive page.
+                                        // bottom: responsiveWidth(12),
+                                        bottom: responsiveHeight(22),
                                         right: responsiveWidth(17.5)
                                     }}
                                 />
@@ -225,7 +237,9 @@ const OpenOpportunities = () => {
                         onPress={() => navigation.navigate('AddOpportunity')}
                         buttonStyle={{
                             alignSelf: 'center',
-                            marginTop: responsiveWidth(12)
+                            // TODO: Changing options for responsive page.
+                            // marginTop: responsiveWidth(12)
+                            marginTop: layout.height > 650 ? responsiveHeight(-5) : responsiveHeight(-20)
                         }}
                         buttonWidth={
                             layout.width - responsiveWidth(33)
