@@ -14,7 +14,7 @@ import { watchQuizResult } from '../actions/quizActions';
 import CommonFrame from "../commons/CommonFrame";
 import CommonButton from "../commons/CommonButton";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import  layout, { responsiveWidth } from "../utils/layout";
+import  layout, { responsiveHeight, responsiveWidth } from "../utils/layout";
 import Header from "../components/Header";
 import IconLineWrapper from "../commons/IconLineWrapper";
 import IconResults from "../icons/IconResults";
@@ -207,7 +207,9 @@ const styles = StyleSheet.create({
         marginBottom: responsiveWidth(16)
     },
     headerTitle: {
-        marginTop: responsiveWidth(24),
+        // TODO: Changing options for responsive page.
+        // marginTop: responsiveWidth(24),
+        marginTop: responsiveHeight(20),
         marginBottom: responsiveWidth(6),
         color: colors.darkGreyBlue,
         fontSize: fonts.xlarge,
@@ -217,7 +219,9 @@ const styles = StyleSheet.create({
         color: colors.darkGreyBlue,
         fontSize: fonts.small,
         fontWeight: weights.semiBold,
-        marginTop: responsiveWidth(6)
+        // TODO: Changing options for responsive page.
+        // marginTop: responsiveWidth(6)
+        marginTop: responsiveWidth(4)
     },
     main: {
         alignItems: 'center'
@@ -226,7 +230,9 @@ const styles = StyleSheet.create({
         color: colors.darkGreyBlue,
         fontSize: fonts.small,
         fontWeight: weights.semiBold,
-        marginBottom: responsiveWidth(6)
+        // TODO: Changing options for responsive page.
+        // marginBottom: responsiveWidth(6)
+        marginBottom: responsiveWidth(4)
     }
 });
 
