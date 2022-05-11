@@ -443,7 +443,7 @@ const JobsOpportunity = () => {
                             </View>
 
                             <View style={styles.positionsLineContainer}>
-                                <Text style={styles.reviewsSectorTitle}>תקנים פתוחים:</Text>
+                                <Text style={styles.reviewsSectorTitle}>תקנים פתוחים: </Text>
                                 <View style={styles.positionsLineWrapper}>
                                     <View
                                         style={[
@@ -476,7 +476,7 @@ const JobsOpportunity = () => {
                                 >
                                     { jobSelector?.last_date_for_registration }
                                 </Text>
-                                <Text style={styles.additionalInfoDateDescription}>תאריך אחרון להרשמה:</Text>
+                                <Text style={styles.additionalInfoDateDescription}>תאריך אחרון להרשמה: </Text>
                             </View>
 
                             <View style={styles.additionalInfoButtons}>

@@ -243,7 +243,7 @@ const MyProfileNoReq = () => {
                                         }}
                                     >
                                         נראה שריק פה. עדיין לא
-                                    .שלחת הודעות לרכזות
+                                    שלחת הודעות לרכזות.
                                     </Text>
 
                                     <Image
@@ -269,7 +269,7 @@ const MyProfileNoReq = () => {
                                         fontSize: fonts.xxsmall,
                                         fontWeight: weights.thin
                                     }}
-                                >?רוצה למצוא תקנים מעניינים</Text>
+                                >רוצה למצוא תקנים מעניינים?</Text>
                             </View>
                         </View>
                         <CommonButton

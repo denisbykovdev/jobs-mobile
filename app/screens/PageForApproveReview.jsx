@@ -152,9 +152,9 @@ const PageForApproveReview = () => {
                             marginTop: layout.height > 660 ? 0 : layout.responsiveHeight(-22)
                         }}
                     >
-                        .חוות הדעת שלך תפורסם באפליקציה
+                        חוות הדעת שלך תפורסם באפליקציה
                         אנו רוצים לוודא שהיא מדוייקת
-                        .לפני שנוציא אותה לקהל הרחב
+                       לפני שנוציא אותה לקהל הרחב.
                     </Text>
                 </View>
                 <Image source={icons.testDown} style={styles.imageBgDown} />

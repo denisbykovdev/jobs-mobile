@@ -12,7 +12,8 @@ import { responsiveHeight } from "../utils/layout";
 export default function AvoidingView({ children, avoidingStyle }) {
     return (
         <KeyboardAvoidingView
-            behavior="padding"
+            // behavior="padding"  // The keyboard closes the input field.
+            behavior="height"
             style={[
                 avoidingStyle,
                 {
@@ -23,7 +24,7 @@ export default function AvoidingView({ children, avoidingStyle }) {
             enabled
             keyboardVerticalOffset={Platform.select({
                 ios: 0,
-                android: responsiveHeight(-300)
+                // android: responsiveHeight(-300)   // The keyboard closes the input field.
             })}
         >
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>

@@ -59,7 +59,7 @@ const FirstScreenForFirstUsers = () => {
                     <View>
                         <Image source={icons.testUp} style={styles.imageBgUp} />
                         <Text style={styles.questionText}>
-                            אנו רוצים להציג לך את התקנים המתאימים לך ביותר. התחילי עם .השאלון שלנו, הוא ייתן לך כיוון טוב
+                            נו רוצים להציג לך את התקנים המתאימים לך ביותר. התחילי עם השאלון שלנו, הוא ייתן לך כיוון טוב.
                         </Text>
                         <Image source={icons.testDown} style={styles.imageBgDown} />
                     </View>
