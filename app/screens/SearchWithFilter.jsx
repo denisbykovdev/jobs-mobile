@@ -603,7 +603,7 @@ const SearchResult = () => {
                                 </>
                         }
                         <FormButton
-                            title="!קדימה, למצוא מדרשה בקלות"
+                            title="קדימה, למצוא מדרשה בקלות!" 
                             buttonHeight={responsiveWidth(26.5)}
                             buttonStyle={{
                                 marginVertical: responsiveWidth(12),
