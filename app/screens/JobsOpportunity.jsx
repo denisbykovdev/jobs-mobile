@@ -61,6 +61,9 @@ const JobsOpportunity = () => {
 
     const openConversationSelector = useSelector(state => state.chats?.openConversationMessages)
 
+    // Date format does not match template.
+    const lastDateForVegistration = jobSelector && jobSelector?.last_date_for_registration.slice(8, 10) + "." + jobSelector?.last_date_for_registration.slice(5, 7) + "." + jobSelector?.last_date_for_registration.slice(0, 4);
+
     const pagination = () => (
         <Pagination
             dotsLength={'80%'}
@@ -474,7 +477,9 @@ const JobsOpportunity = () => {
                                 <Text 
                                     style={styles.additionalInfoDateTitle}
                                 >
-                                    { jobSelector?.last_date_for_registration }
+                                    {/* TODO: Date format does not match template. */}
+                                    {/* { jobSelector?.last_date_for_registration } */} 
+                                {lastDateForVegistration}
                                 </Text>
                                 <Text style={styles.additionalInfoDateDescription}>תאריך אחרון להרשמה: </Text>
                             </View>
@@ -593,13 +598,14 @@ const styles = StyleSheet.create({
         paddingBottom: responsiveWidth(10)
     },
     headerContainerTitle: {
+        marginTop: responsiveWidth(30),
         color: colors.whiteTwo,
         textAlign: "center",
         fontWeight: weights.bold,
         fontSize: fonts.large
     },
     mainContainer: {
-        marginTop: - responsiveWidth(15),
+        marginTop: responsiveWidth(30),
         backgroundColor: colors.whiteTwo,
         borderTopLeftRadius: 15,
         borderTopRightRadius: 15,
