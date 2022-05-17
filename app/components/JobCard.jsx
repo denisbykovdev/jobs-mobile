@@ -121,13 +121,20 @@ const JobCard = ({
                             >
                                 <Stars
                                     half={false}
-                                    default={item.stars}
-                                    display={item.stars}
+                                    // The order of the colors of the stars does not match the design.
+                                    // default={item.stars}
+                                    // display={item.stars}
+                                    default={5- +item.stars}
+                                    display={5- +item.stars}
                                     spacing={5}
                                     starSize={responsiveWidth(6)}
                                     count={5}
-                                    fullStar={icons.starFilled}
-                                    emptyStar={icons.starEmpty}
+                                    // The order of the colors of the stars does not match the design.
+                                    // fullStar={icons.starFilled}
+                                    // emptyStar={icons.starEmpty}
+                                    fullStar = {icons.starEmpty}
+                                    emptyStar = {icons.starFilled}
+                                   
                                 />
                             </View>
 
