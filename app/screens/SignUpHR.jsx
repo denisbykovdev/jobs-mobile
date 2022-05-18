@@ -149,7 +149,8 @@ const styles = StyleSheet.create({
         alignSelf: 'center'
     },
     inputTitle: {
-        color: "#30b8b2",
+        // color: "#30b8b2",  //The color didn't match the design.
+        color: colors.darkSlateBlue, 
         fontSize: responsiveWidth(7),
         paddingTop: responsiveWidth(10.5),
         fontWeight: "bold",

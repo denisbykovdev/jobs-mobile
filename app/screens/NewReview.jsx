@@ -171,6 +171,7 @@ const NewReview = () => {
                                         reviewsDataSelector.show_info[1]
                                     ]
                                 }
+                                leftArrow
                                 selectContainerStyle={{
                                     marginBottom: responsiveWidth(8)
                                 }}
@@ -194,7 +195,8 @@ const NewReview = () => {
                             <Text
                                 style={{
                                     fontSize: fonts.xxxsmall,
-                                    color: colors.darkSlateBlue50
+                                    color: colors.darkSlateBlue50,
+                                    textAlign: "left",
                                 }}
                             >שנותרו 70 תווים</Text>
 
@@ -273,6 +275,7 @@ const NewReview = () => {
                                 selectContainerStyle={{
                                     marginBottom: responsiveWidth(8)
                                 }}
+                                leftArrow
                             />
                             <FormSelect
                                 name="duration"
@@ -287,6 +290,7 @@ const NewReview = () => {
                                     marginBottom: responsiveWidth(8),
                                     zIndex: -1
                                 }}
+                                leftArrow
                             />
 
                             <Text

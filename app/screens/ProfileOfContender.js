@@ -6,6 +6,7 @@ import {LinearGradient} from "expo-linear-gradient";
 import {candidatesFields} from "../configs/FakeData"
 import HrFooter from "../components/HrFooter";
 import { responsiveHeight} from "../utils/layout";
+import colors from "../utils/colors";
 
 const ProfileOfContender = ({navigation}) => {
 
@@ -54,7 +55,7 @@ const ProfileOfContender = ({navigation}) => {
                         </TouchableOpacity>
                         <View style={styles.selectionBtn}>
                             <TouchableOpacity onPress={ ()=>navigation.navigate("SortBy")}>
-                                <Text style={styles.selectionBtnText}>בחירת המתמודדת</Text>
+                                <Text style={styles.selectionBtnText}>שמירה</Text>
                             </TouchableOpacity>
                         </View>
 
@@ -191,7 +192,7 @@ const styles = StyleSheet.create({
     },
 
     rowFirstItem: {
-        color: "#39496D"
+        color: colors.tealishTwo
     },
 
     rowSecondItem: {

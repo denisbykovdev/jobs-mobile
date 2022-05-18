@@ -203,12 +203,12 @@ const reviews = [
 ]
 
 const candidatesFields = [
-    {field: "טלפון", fieldValue: "052-5203112"},
+    {field: "052-5203112", fieldValue: "טלפון"},
     {field: "חיפה", fieldValue: "עיר"},
     {field: "25.08.1994", fieldValue: "תאריך לידה"},
-    {field: "סירוב", fieldValue: "סטטוס", pink: true},
+    // {field: "סירוב", fieldValue: "סטטוס", pink: true},  //Missing by design.
     {field: "anna111@gmail.com", fieldValue: "מייל"},
-    {field: "מכונים כאלה ואחרים", fieldValue: "איפה למדת"},
+    {field: "מכונים כאלה ואחרים", fieldValue: "לימודי תיכון"},
     {field: "ראשונה", fieldValue: "שנת שירות"},
     {field: "בית ", fieldValue: "העדפה לתקן"},
 ]
