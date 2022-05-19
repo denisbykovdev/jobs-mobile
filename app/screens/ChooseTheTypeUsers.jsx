@@ -47,6 +47,10 @@ const ChooseTheTypeUsers = () => {
         dispatch(watchSimpleTypes())
     }, [])
 
+    useEffect(()=>{
+        simpleTypesSelector && chosenUser === 0 &&  setChosenUser(simpleTypesSelector[1].id)
+    }, [simpleTypesSelector])
+
     useEffect(() => {
         if(secureToken
             && secureUser) {
@@ -64,7 +68,7 @@ const ChooseTheTypeUsers = () => {
                 // )
 
                 // setChosenUser(secureUser.role_id.id)
-            }
+        }
     }, [secureToken, secureUser])
 
     const userHandler = () => {
