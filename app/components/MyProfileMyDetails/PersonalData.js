@@ -30,8 +30,12 @@ const PersonalData = () => {
 
     const profileInfoSelector = useSelector(state => state.profile.profileInfo)
 
-    const [areFieldsOpen, setFieldsOpen] = useState(false)
-
+    const [isFieldOpenFirstName, setFieldOpenFirstName] = useState(false)
+   
+    const [isFieldOpenLastName, setFieldOpenLastName] = useState(false)
+    
+    const [isFieldsOpenCity, setFieldsOpenCity] = useState(false)
+    
     const [isFieldOpen, setFieldOpen] = useState(false)
 
     const dispatch = useDispatch()
@@ -67,8 +71,10 @@ const PersonalData = () => {
             )
         }
 
-        setFieldsOpen(false)
-        setFieldOpen(false)
+        setFieldOpen(false);
+        setFieldOpenFirstName(false);
+        setFieldOpenLastName(false);
+        setFieldsOpenCity(false);
     }
 
     const newCityHandler = () => {
@@ -114,7 +120,7 @@ const PersonalData = () => {
                             && layout.height < 660 ? 14 : 0}
                         ]}>
                         {
-                            areFieldsOpen
+                            isFieldOpenFirstName
                             ?
                             <View style={styles.formShield}>
                                 <FormField
@@ -130,7 +136,7 @@ const PersonalData = () => {
                                 <TouchableOpacity 
                                     style={styles.formShieldButton}
                                     onPress={
-                                        () => setFieldsOpen(!areFieldsOpen)
+                                        () => setFieldOpenFirstName(!isFieldOpenFirstName)
                                     }
                                 >
                                     <EditButton />
@@ -146,7 +152,7 @@ const PersonalData = () => {
                     
                     <View style={styles.formShieldContainer}>
                         {
-                            areFieldsOpen
+                            isFieldOpenLastName
                             ?
                             <View style={styles.formShield}>
                                 <FormField 
@@ -162,7 +168,7 @@ const PersonalData = () => {
                                 <TouchableOpacity 
                                     style={styles.formShieldButton}
                                     onPress={
-                                        () => setFieldsOpen(!areFieldsOpen)
+                                        () => setFieldOpenLastName(!isFieldOpenLastName)
                                     }
                                 >
                                     <EditButton />
@@ -178,7 +184,7 @@ const PersonalData = () => {
 
                     <View style={styles.formShieldContainer}>
                         {
-                            areFieldsOpen
+                            isFieldsOpenCity
                             ?
                             <View style={styles.formShield}>
                                 <FormSelect 
@@ -224,7 +230,7 @@ const PersonalData = () => {
                                 <TouchableOpacity 
                                     style={styles.formShieldButton}
                                     onPress={
-                                        () => setFieldsOpen(!areFieldsOpen)
+                                        () => setFieldsOpenCity(!isFieldsOpenCity)
                                     }
                                 >
                                     <EditButton />
@@ -270,7 +276,7 @@ const PersonalData = () => {
                         </View>
                     }
                     {
-                        areFieldsOpen
+                        isFieldOpenFirstName || isFieldOpenLastName || isFieldsOpenCity
                         ?
                         <FormButton 
                             title="שמירת הפרטים האישיים שלי"
@@ -290,7 +296,7 @@ const PersonalData = () => {
                             // TODO: Changing options for responsive page.
                             // buttonHeight={responsiveWidth(26.5)}
                             buttonHeight={layout.height > 650 ? responsiveWidth(26.5) : responsiveWidth(20)}
-                            disabled={areFieldsOpen}
+                            disabled={isFieldOpenFirstName || isFieldOpenLastName || isFieldsOpenCity}
                             buttonStyle={{
                                 // TODO: Changing options for responsive page.
                                 // marginTop: responsiveWidth(8)

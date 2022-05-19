@@ -30,22 +30,28 @@ const AdditionInfo = () => {
 
     const profileInfoSelector = useSelector(state => state.profile.profileInfo)
 
-    const [areFieldsOpen, setFieldsOpen] = useState(false)
+    const usersTypeSelector = useSelector(state => state.auth.simpleTypes)
 
+    const [isOpenEmailField, setOpenEmailField] = useState(false)
+    
+    const [isOpenSchoolField, setOpenSchoolField] = useState(false)
+
+    const [isOpenTypeField, setOpenTypeField] = useState(false)
+    
     const [isFieldOpen, setFieldOpen] = useState(false)
 
     const dispatch = useDispatch()
 
     const submitAdditionalInfo = (values) => {
-        const type = profileInfoSelector.types.find(type => type.name === values.type)
+        const type = usersTypeSelector.find(type => type.name === values.type)
 
         const school = profileInfoSelector.schools.find(school => city.name === values.city_id && city.id)
 
-        if(values.newSchool.length > 0) {
+        if(values.newSchoolName.length > 0) {
             dispatch(
                 watchCreateNewSchool(
                     tokenSelector,
-                    values.newSchool,
+                    values.newSchoolName,
                     values.email,
                     type.id
                 )
@@ -61,8 +67,10 @@ const AdditionInfo = () => {
             )
         }
         
-        setFieldsOpen(false)
-        setFieldOpen(false)
+        setFieldOpen(false);
+        setOpenEmailField(false);
+        setOpenSchoolField(false);
+        setOpenTypeField(false);
     }
 
     return (
@@ -80,7 +88,7 @@ const AdditionInfo = () => {
 
                     <View style={styles.formShieldContainer}>
                         {
-                            areFieldsOpen
+                            isOpenEmailField
                             ?
                             <View style={styles.formShield}>
                                 <FormField
@@ -96,7 +104,7 @@ const AdditionInfo = () => {
                                 <TouchableOpacity 
                                     style={styles.formShieldButton}
                                     onPress={
-                                        () => setFieldsOpen(!areFieldsOpen)
+                                        () => setOpenEmailField(!isOpenEmailField)
                                     }
                                 >
                                     <EditButton />
@@ -112,7 +120,7 @@ const AdditionInfo = () => {
 
                     <View style={styles.formShieldContainer}>
                         {
-                            areFieldsOpen
+                            isOpenSchoolField
                             ?
                             <View style={styles.formShield}>
                                 <FormSelect 
@@ -157,7 +165,7 @@ const AdditionInfo = () => {
                                 <TouchableOpacity 
                                     style={styles.formShieldButton}
                                     onPress={
-                                        () => setFieldsOpen(!areFieldsOpen)
+                                        () => setOpenSchoolField(!isOpenSchoolField)
                                     }
                                 >
                                     <EditButton />
@@ -191,14 +199,14 @@ const AdditionInfo = () => {
                     
                     <View style={[styles.formShieldContainer, {  zIndex: -1 }]}>
                         {
-                            areFieldsOpen
+                            isOpenTypeField
                             ?
                             <View style={styles.formShield}>
                                 <FormSelect 
                                     name="type"
                                     array={
-                                        profileInfoSelector && 
-                                        profileInfoSelector?.types && profileInfoSelector.types.map(type => type.name)
+                                        usersTypeSelector && 
+                                        usersTypeSelector && usersTypeSelector.map(type => type.name)
                                     }
                                     // withDownListButton
                                     // downListButtonTitle="הוספת יישוב +"
@@ -225,14 +233,14 @@ const AdditionInfo = () => {
                                         borderRightColor: colors.veryLightPinkLighter,
                                         borderLeftColor: colors.veryLightPinkLighter,
                                         maxHeight: responsiveWidth(60),
-                                        overflow: 'scroll',
+                                        overflow: 'visible',
                                         // width: '100%'
                                     }}
                                     selectItemStyle={{
                                         backgroundColor: colors.veryLightPinkLighter,
                                         // width: '100%'
                                     }}
-                                    withOutCircle
+                                    withOutCircle 
                                 />
                             </View>
                             : 
@@ -240,7 +248,7 @@ const AdditionInfo = () => {
                                 <TouchableOpacity 
                                     style={styles.formShieldButton}
                                     onPress={
-                                        () => setFieldsOpen(!areFieldsOpen)
+                                        () => setOpenTypeField(!isOpenTypeField)
                                     }
                                 >
                                     <EditButton />
@@ -256,7 +264,7 @@ const AdditionInfo = () => {
 
                     
                     {
-                        areFieldsOpen
+                        isOpenEmailField || isOpenSchoolField || isOpenTypeField
                         ?
                         <FormButton 
                             title="שמירת הפרטים האישיים שלי"
@@ -271,7 +279,7 @@ const AdditionInfo = () => {
                             buttonColor={colors.lightPeriwinckle}
                             title="שמירת הפרטים האישיים שלי"
                             buttonHeight={responsiveWidth(26.5)}
-                            disabled={areFieldsOpen}
+                            disabled={isOpenEmailField || isOpenSchoolField || isOpenTypeField}
                             buttonStyle={{
                                 // TODO: Changing options for responsive page.
                                 // marginTop: responsiveWidth(8),

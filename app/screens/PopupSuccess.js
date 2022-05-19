@@ -16,8 +16,8 @@ const PopupSuccess = () => {
                             style={styles.PopupSuccessBg}
                         >
                             <Text style={styles.text}>
-                                .חוות הדעת פורסמה בהצלחה
-                                .תודה רבה לך
+                                חוות הדעת פורסמה בהצלחה
+                                .תודה רבה לך.
                             </Text>
 
                             <TouchableOpacity style={styles.btn} onPress={()=>navigation.navigate("JobsOpportunity",{idJob:id})}>
