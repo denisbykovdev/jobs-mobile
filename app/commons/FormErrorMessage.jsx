@@ -18,11 +18,12 @@ export default function FormErrorMessage({ error, visible }) {
 
 const styles = StyleSheet.create({
     errorContainer: {
-        alignItems: "center",
-        justifyContent: "center"
+        alignItems: "flex-end",
+        justifyContent: "center",
+        width: "100%"
     },
     errorText: {
-        fontSize: fonts.small,
+        fontSize: fonts.extrasmall,
         color: colors.pinkRed,
         marginBottom: responsiveWidth(10)
     },
