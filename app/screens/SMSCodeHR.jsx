@@ -46,10 +46,17 @@ const SMSCodeHR = () => {
 
     const CELL_COUNT = 4;
 
+    const [isErrorCode, setErrorCode ] = useState(false);
+
     const submitCode = () => {
-        dispatch(watchVerification(
-            codeSelector
-        ))
+        if (value === codeSelector){
+            setErrorCode(false);
+            dispatch(watchVerification(
+                value
+            ))
+        } else {
+            setErrorCode(true);
+        }
     }
 
     const submitPhoneAgain = () => {
@@ -132,7 +139,8 @@ const SMSCodeHR = () => {
                                 key={index}
                                 style={[
                                     styles.cellRoot,
-                                    isFocused && styles.focusCell
+                                    isFocused && styles.focusCell,
+                                    {borderBottomColor: isErrorCode ? colors.pinkRed : colors.cloudyBlue}
                                 ]}
                             >
                                 <Text style={styles.cellText}>
@@ -149,9 +157,15 @@ const SMSCodeHR = () => {
                                         )
                                     }
                                 </Text>
+                                
                             </View>
                         )}
                     />
+                    {isErrorCode &&
+                        <Text style={styles.errorText} >
+                            הקוד לא נכון. כדאי לבדוק שוב את ההודעה.
+                        </Text>
+                    }
 
                     <View
                         style={{
@@ -255,6 +269,9 @@ const styles = StyleSheet.create({
         height: responsiveWidth(42),
         position: "absolute",
         right: 0
+    },
+    errorText: {
+        color: colors.pinkRed
     }
 })
 

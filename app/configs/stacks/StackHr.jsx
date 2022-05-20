@@ -24,6 +24,7 @@ import { useSelector } from 'react-redux';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import ConversationPage from '../../screens/ConversationPage';
 import HeaderMenu from '../../screens/HeaderMenu';
+import fonts from '../../utils/fonts';
 
 const StackHr = createStackNavigator();
 
